@@ -1,7 +1,7 @@
 package cl.duoc.mpazest3.ui.theme
 
 import androidx.compose.ui.graphics.Color
-
+// Desarrollado por: Jonathan Ulloa (UI / Tema)
 // Paleta Lúdica y Llamativa para Niños de 9 años (3.º Básico)
 
 // Azul Cielo Vibrante (Color Principal)

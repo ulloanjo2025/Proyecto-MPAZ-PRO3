@@ -11,7 +11,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
-
+// Desarrollado por: Jonathan Ulloa (UI / Tema)
 private val LightColorScheme = lightColorScheme(
     primary = AzulCieloPrimary,
     onPrimary = AzulCieloOnPrimary,
