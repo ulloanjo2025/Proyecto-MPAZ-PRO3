@@ -38,7 +38,7 @@ val FormasLudicas = Shapes(
 )
 
 @Composable
-fun ProyectoMPAZEST3Theme( //-----> Línea modificada por Camilo Alarcón
+fun MpazEst3Theme(
     content: @Composable () -> Unit
 ) {
     val colorScheme = LightColorScheme
