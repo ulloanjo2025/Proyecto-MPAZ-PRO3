@@ -18,6 +18,7 @@ La solución digital reemplaza la gestión manual basada en guías impresas, per
 
 ## Estructura del proyecto
 
+```text
 app/src/main/java/cl/duoc/mpazest3/
 ├── data/
 │   ├── local/
@@ -58,7 +59,7 @@ app/src/main/java/cl/duoc/mpazest3/
 │   ├── ProgressViewModel.kt
 │   └── SubjectViewModel.kt
 └── MainActivity.kt
-
+```
 ## Tecnologías
 - **Lenguaje:** Kotlin
 - **Interfaz de Usuario:** Android Jetpack Compose & Material Design 3
