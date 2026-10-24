@@ -1,4 +1,4 @@
-# Grupo 7 - MPAZ PRO 3.º: Apoyo didáctico y seguimiento del aprendizaje
+# Grupo 7 - MPAZ PRO 3º: Apoyo didáctico y seguimiento del aprendizaje
 
 ## Integrantes
 - Camilo Alarcón (CamiloAlarcon23) (ca.alarconv@duocuc.cl)
