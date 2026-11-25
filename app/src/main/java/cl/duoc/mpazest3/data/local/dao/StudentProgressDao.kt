@@ -7,7 +7,7 @@ import androidx.room.Query
 import cl.duoc.mpazest3.data.local.entity.StudentAttemptEntity
 import kotlinx.coroutines.flow.Flow
 import kotlin.jvm.JvmSuppressWildcards
-
+// Desarrollado por: Jonathan Ulloa
 @Dao
 interface StudentProgressDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)

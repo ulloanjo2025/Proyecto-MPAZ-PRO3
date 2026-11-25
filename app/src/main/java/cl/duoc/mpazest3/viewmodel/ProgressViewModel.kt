@@ -5,6 +5,8 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import cl.duoc.mpazest3.data.local.AppDatabase
+import cl.duoc.mpazest3.data.local.entity.QuizDraftEntity
+import cl.duoc.mpazest3.data.local.entity.ReportValidationEntity
 import cl.duoc.mpazest3.data.local.entity.StudentAttemptEntity
 import cl.duoc.mpazest3.data.local.entity.StudentEntity
 import kotlinx.coroutines.flow.SharingStarted
@@ -12,19 +14,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-data class QuizDraft(
-    val questionIndex: Int = 0,
-    val correctAnswersCount: Int = 0,
-    val detailsLog: String = ""
-)
-
 class ProgressViewModel(application: Application) : AndroidViewModel(application) {
 
     private val db = AppDatabase.getDatabase(application)
     private val progressDao = db.studentProgressDao()
     private val studentDao = db.studentDao()
 
-    private val quizDrafts = mutableMapOf<String, QuizDraft>()
+    private val draftDao = db.quizDraftDao()
+    private val validationDao = db.reportValidationDao()
 
     val allAttempts: StateFlow<List<StudentAttemptEntity>> = progressDao.getAllAttempts()
         .stateIn(
@@ -40,16 +37,64 @@ class ProgressViewModel(application: Application) : AndroidViewModel(application
             initialValue = emptyList()
         )
 
-    fun saveQuizDraft(subjectId: String, questionIndex: Int, correctAnswersCount: Int, detailsLog: String = "") {
-        quizDrafts[subjectId] = QuizDraft(questionIndex, correctAnswersCount, detailsLog)
+    // Validaciones de informes hechas por el docente (se guardan en Room)
+    val allValidations: StateFlow<List<ReportValidationEntity>> = validationDao.observeAll()
+        .stateIn(
+            scope = viewModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = emptyList()
+        )
+
+    // Borradores de quiz guardados en Room (null = todavía cargando desde la base de datos)
+    val allDrafts: StateFlow<List<QuizDraftEntity>?> = draftDao.observeAll()
+        .stateIn<List<QuizDraftEntity>?>(
+            scope = viewModelScope,
+            started = SharingStarted.Eagerly,
+            initialValue = null
+        )
+
+    // El nombre se guarda en minúsculas para que "Ana" y "ana" sean el mismo estudiante
+    private fun draftKey(studentName: String): String = studentName.trim().lowercase()
+
+    // Guarda el avance del quiz en Room (se llama al pasar a la siguiente pregunta o al salir)
+    fun saveQuizProgress(
+        studentName: String,
+        subjectId: String,
+        questionIndex: Int,
+        correctAnswers: Int,
+        detailsLog: String
+    ) {
+        viewModelScope.launch {
+            draftDao.upsertDraft(
+                QuizDraftEntity(
+                    studentName = draftKey(studentName),
+                    subjectId = subjectId,
+                    questionIndex = questionIndex,
+                    correctAnswers = correctAnswers,
+                    detailsLog = detailsLog
+                )
+            )
+        }
     }
 
-    fun getQuizDraft(subjectId: String): QuizDraft {
-        return quizDrafts[subjectId] ?: QuizDraft(0, 0, "")
+    // El docente valida el informe de un estudiante (queda su nombre, la fecha y cuántas evaluaciones tenía)
+    fun validateReport(studentName: String, teacherName: String, attemptsCount: Int) {
+        viewModelScope.launch {
+            validationDao.upsertValidation(
+                ReportValidationEntity(
+                    studentName = draftKey(studentName),
+                    validatedBy = teacherName,
+                    validatedAt = System.currentTimeMillis(),
+                    attemptsAtValidation = attemptsCount
+                )
+            )
+        }
     }
 
-    fun clearQuizDraft(subjectId: String) {
-        quizDrafts.remove(subjectId)
+    fun revokeReportValidation(studentName: String) {
+        viewModelScope.launch {
+            validationDao.deleteValidation(draftKey(studentName))
+        }
     }
 
     // Guardar intento con desglose completo de preguntas
@@ -67,6 +112,7 @@ class ProgressViewModel(application: Application) : AndroidViewModel(application
             val previousAttempts = progressDao.getAttemptCountForSubject(studentName, subjectId)
 
             if (previousAttempts >= 2) {
+                draftDao.deleteDraft(draftKey(studentName), subjectId)
                 onLimitReached()
                 return@launch
             }
@@ -82,7 +128,7 @@ class ProgressViewModel(application: Application) : AndroidViewModel(application
                 detailsSummary = detailsSummary
             )
             progressDao.insertAttempt(attempt)
-            clearQuizDraft(subjectId)
+            draftDao.deleteDraft(draftKey(studentName), subjectId)
             onSuccess()
         }
     }
@@ -91,6 +137,7 @@ class ProgressViewModel(application: Application) : AndroidViewModel(application
     fun unlockSubject(studentName: String, subjectId: String) {
         viewModelScope.launch {
             progressDao.unlockSubjectForStudent(studentName, subjectId)
+            draftDao.deleteDraft(draftKey(studentName), subjectId)
         }
     }
 

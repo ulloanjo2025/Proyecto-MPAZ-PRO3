@@ -1,3 +1,4 @@
+// Desarrollado por: Sebastián Maquera (model)
 package cl.duoc.mpazest3.model
 
 data class Subject(

@@ -1,10 +1,14 @@
+// Desarrollado por: Sebastián Maquera (ui/screen)
 package cl.duoc.mpazest3.ui.screen
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -44,73 +48,46 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import cl.duoc.mpazest3.data.local.entity.LearningObjectiveEntity
+import cl.duoc.mpazest3.data.local.entity.QuestionEntity
+import cl.duoc.mpazest3.model.QuizRules
 import cl.duoc.mpazest3.ui.components.AudioPlayerButton
 import cl.duoc.mpazest3.util.SoundManager
 import kotlinx.coroutines.delay
 import kotlin.random.Random
 
-data class Question(
-    val text: String,
-    val option1: String,
-    val option2: String,
-    val isOption1Correct: Boolean,
-    val explanation: String
-)
-
 @Composable
 fun ActivityScreen(
     subjectId: String,
+    questions: List<QuestionEntity>,
+    objectives: List<LearningObjectiveEntity>,
     initialQuestionIndex: Int = 0,
     initialCorrectAnswersCount: Int = 0,
+    initialDetails: String = "",
+    onProgress: (Int, Int, String) -> Unit,
     onAnswerSubmitted: (isApproved: Boolean, score: Int, total: Int, details: String) -> Unit,
-    onSaveAndExit: (Int, Int) -> Unit,
+    onSaveAndExit: (Int, Int, String) -> Unit,
     onPlayAudioInstruction: (String) -> Unit
 ) {
-    val questions = remember(subjectId) {
-        when (subjectId) {
-            "Matemática" -> listOf(
-                Question("¿Cuánto es 15 + 12?", "27", "25", true, "15 + 12 es igual a 27."),
-                Question("¿Cuánto es 8 x 4?", "32", "28", true, "8 veces 4 da como resultado 32."),
-                Question("¿Cuál es la mitad de 50?", "30", "25", false, "La mitad de 50 es 25."),
-                Question("¿Cuánto es 100 - 45?", "55", "65", true, "Si a 100 le quitas 45 te quedan 55."),
-                Question("¿Cuántos lados tiene un triángulo?", "3", "4", true, "Un triángulo siempre tiene 3 lados."),
-                Question("¿Cuánto es 9 + 9 + 9?", "27", "18", true, "Sumar tres veces 9 da 27.")
-            )
-            "Lenguaje y Comunicación" -> listOf(
-                Question("¿Cuál es el sinónimo de 'Feliz'?", "Enojado", "Contento", false, "'Contento' significa lo mismo que 'Feliz'."),
-                Question("¿Cuál palabra es un sustantivo?", "Perro", "Correr", true, "'Perro' es un animal o persona (sustantivo)."),
-                Question("¿Cuál es el antónimo de 'Alto'?", "Bajo", "Grande", true, "Lo opuesto a alto es bajo."),
-                Question("¿Qué tipo de texto es una receta?", "Instructivo", "Poema", true, "Una receta nos indica pasos a seguir."),
-                Question("¿Cuál oración tiene un verbo?", "El niño corre", "La mesa roja", true, "'Corre' es una acción (verbo)."),
-                Question("¿Cómo se escribe correctamente?", "Había", "Avía", true, "Había se escribe con 'H' y 'B'.")
-            )
-            "Ciencias Naturales" -> listOf(
-                Question("¿Qué órgano bombea la sangre?", "El Corazón", "El Pulmón", true, "El corazón bombea sangre a todo el cuerpo."),
-                Question("¿Qué necesitan las plantas para la fotosíntesis?", "Luz Solar", "Jugo", true, "Las plantas necesitan luz solar y agua."),
-                Question("¿El agua en estado sólido es?", "Hielo", "Vapor", true, "El hielo es agua en estado sólido."),
-                Question("¿Cuál es un animal vertebrado?", "Perro", "Mariposa", true, "Los perros tienen esqueleto interno."),
-                Question("¿El Sol es una?", "Estrella", "Planeta", true, "El Sol es una estrella gigante."),
-                Question("¿Qué sentido usas para escuchar?", "Audición", "Tacto", true, "Los oídos te permiten escuchar sonidos.")
-            )
-            else -> listOf(
-                Question("¿En qué continente está Chile?", "Europa", "América", false, "Chile está ubicado en América del Sur."),
-                Question("¿Cuál es la capital de Chile?", "Santiago", "Valparaíso", true, "Santiago es la capital de Chile."),
-                Question("¿Qué Océano baña las costas de Chile?", "Pacífico", "Atlántico", true, "El Océano Pacífico bordea nuestras costas."),
-                Question("¿Cuál es un símbolo patrio?", "Bandera", "Semáforo", true, "La Bandera Chilena es nuestro símbolo patrio."),
-                Question("¿Quién es el héroe naval chileno?", "Arturo Prat", "O'Higgins", true, "Arturo Prat comandó el combate de Iquique."),
-                Question("¿En qué mapa se ve todo el planeta?", "Planisferio", "Plano urbano", true, "El planisferio representa toda la Tierra.")
-            )
-        }
-    }
-
-    var currentQuestionIndex by remember { mutableIntStateOf(initialQuestionIndex) }
+    var currentQuestionIndex by remember { mutableIntStateOf(initialQuestionIndex.coerceIn(0, maxOf(questions.lastIndex, 0))) }
     var correctAnswersCount by remember { mutableIntStateOf(initialCorrectAnswersCount) }
     var answerStatus by remember { mutableStateOf<Boolean?>(null) }
     var showConfetti by remember { mutableStateOf(false) }
 
-    val questionDetailsLog = remember { mutableStateListOf<String>() }
+    // El detalle de las preguntas ya respondidas se recupera si el estudiante retoma el quiz
+    val questionDetailsLog = remember {
+        mutableStateListOf<String>().apply { addAll(QuizRules.splitDetails(initialDetails)) }
+    }
 
     val currentQuestion = questions[currentQuestionIndex]
+
+    // OA de la pregunta actual (para mostrar el texto de lectura en Lenguaje)
+    val currentObjective = objectives.firstOrNull { it.code == currentQuestion.objectiveCode }
+    val readingText = currentObjective?.readingText
+
+    // Las alternativas A, B y C se muestran en orden distinto cada vez que aparece la pregunta
+    val optionOrder = remember(currentQuestion.id) { QuizRules.shuffledOptionOrder() }
+    val optionTexts = listOf(currentQuestion.optionA, currentQuestion.optionB, currentQuestion.optionC)
     val progress = (currentQuestionIndex + 1) / questions.size.toFloat()
 
     val subjectColor = when (subjectId) {
@@ -128,6 +105,7 @@ fun ActivityScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
                     .padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
@@ -142,8 +120,10 @@ fun ActivityScreen(
                     OutlinedButton(
                         onClick = {
                             SoundManager.playClick()
-                            onSaveAndExit(currentQuestionIndex, correctAnswersCount)
+                            onSaveAndExit(currentQuestionIndex, correctAnswersCount, questionDetailsLog.joinToString("\n"))
                         },
+                        // Solo se puede guardar y salir antes de responder la pregunta (así no se cuenta dos veces)
+                        enabled = answerStatus == null,
                         shape = RoundedCornerShape(14.dp),
                         colors = ButtonDefaults.outlinedButtonColors(contentColor = Color(0xFF64748B))
                     ) {
@@ -199,6 +179,19 @@ fun ActivityScreen(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
+                // Texto de lectura (solo Lenguaje): se ve mientras se responde
+                if (currentObjective != null && !readingText.isNullOrBlank()) {
+                    ReadingCard(
+                        title = currentObjective.readingTitle.orEmpty(),
+                        text = readingText,
+                        onPlayAudio = {
+                            SoundManager.playClick()
+                            onPlayAudioInstruction(readingText)
+                        }
+                    )
+                    Spacer(modifier = Modifier.height(12.dp))
+                }
+
                 // Tarjeta de la Pregunta
                 Card(
                     modifier = Modifier.fillMaxWidth(),
@@ -216,7 +209,7 @@ fun ActivityScreen(
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Text(
-                                text = currentQuestion.text,
+                                text = currentQuestion.statement,
                                 fontSize = 18.sp,
                                 fontWeight = FontWeight.Bold,
                                 color = Color(0xFF1E293B),
@@ -224,68 +217,48 @@ fun ActivityScreen(
                             )
                             AudioPlayerButton(onPlayAudio = {
                                 SoundManager.playClick()
-                                onPlayAudioInstruction(currentQuestion.text)
+                                onPlayAudioInstruction(currentQuestion.statement)
                             })
                         }
 
                         Spacer(modifier = Modifier.height(24.dp))
 
-                        // Opción 1
-                        Button(
-                            onClick = {
-                                SoundManager.playClick()
-                                val isCorrect = currentQuestion.isOption1Correct
-                                answerStatus = isCorrect
-                                if (isCorrect) {
-                                    correctAnswersCount++
-                                    showConfetti = true
-                                    SoundManager.playWin()
-                                    questionDetailsLog.add("• P${currentQuestionIndex + 1}: Correcta")
-                                } else {
-                                    SoundManager.playFail()
-                                    questionDetailsLog.add("• P${currentQuestionIndex + 1}: Incorrecta (${currentQuestion.explanation})")
-                                }
-                            },
-                            shape = RoundedCornerShape(18.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = if (answerStatus != null && currentQuestion.isOption1Correct) Color(0xFF06D6A0) else subjectColor
-                            ),
-                            enabled = answerStatus == null,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(56.dp)
-                        ) {
-                            Text(text = currentQuestion.option1, fontSize = 16.sp, fontWeight = FontWeight.Bold)
-                        }
+                        // Alternativas A, B y C (en orden mezclado)
+                        optionOrder.forEachIndexed { position, optionIndex ->
+                            val isCorrectOption = optionIndex == currentQuestion.correctIndex
 
-                        Spacer(modifier = Modifier.height(12.dp))
+                            Button(
+                                onClick = {
+                                    SoundManager.playClick()
+                                    answerStatus = isCorrectOption
+                                    if (isCorrectOption) {
+                                        correctAnswersCount++
+                                        showConfetti = true
+                                        SoundManager.playWin()
+                                        questionDetailsLog.add("• P${currentQuestionIndex + 1} [${currentQuestion.objectiveCode}]: Correcta")
+                                    } else {
+                                        SoundManager.playFail()
+                                        questionDetailsLog.add("• P${currentQuestionIndex + 1} [${currentQuestion.objectiveCode}]: Incorrecta (${currentQuestion.explanation})")
+                                    }
+                                },
+                                shape = RoundedCornerShape(18.dp),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = subjectColor,
+                                    // Al responder, la correcta se ve verde y las demás se ven apagadas
+                                    disabledContainerColor = if (isCorrectOption) Color(0xFF06D6A0) else subjectColor.copy(alpha = 0.35f),
+                                    disabledContentColor = Color.White
+                                ),
+                                enabled = answerStatus == null,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .height(56.dp)
+                            ) {
+                                Text(text = optionTexts[optionIndex], fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                            }
 
-                        // Opción 2
-                        Button(
-                            onClick = {
-                                SoundManager.playClick()
-                                val isCorrect = !currentQuestion.isOption1Correct
-                                answerStatus = isCorrect
-                                if (isCorrect) {
-                                    correctAnswersCount++
-                                    showConfetti = true
-                                    SoundManager.playWin()
-                                    questionDetailsLog.add("• P${currentQuestionIndex + 1}: Correcta")
-                                } else {
-                                    SoundManager.playFail()
-                                    questionDetailsLog.add("• P${currentQuestionIndex + 1}: Incorrecta (${currentQuestion.explanation})")
-                                }
-                            },
-                            shape = RoundedCornerShape(18.dp),
-                            colors = ButtonDefaults.buttonColors(
-                                containerColor = if (answerStatus != null && !currentQuestion.isOption1Correct) Color(0xFF06D6A0) else subjectColor
-                            ),
-                            enabled = answerStatus == null,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .height(56.dp)
-                        ) {
-                            Text(text = currentQuestion.option2, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                            if (position < optionOrder.lastIndex) {
+                                Spacer(modifier = Modifier.height(12.dp))
+                            }
                         }
                     }
                 }
@@ -349,10 +322,12 @@ fun ActivityScreen(
 
                                     if (currentQuestionIndex + 1 < questions.size) {
                                         currentQuestionIndex++
+                                        // Guarda el avance en Room: si la app se cierra, sigue desde aquí
+                                        onProgress(currentQuestionIndex, correctAnswersCount, questionDetailsLog.joinToString("\n"))
                                     } else {
                                         val detailsLog = questionDetailsLog.joinToString("\n")
                                         onAnswerSubmitted(
-                                            correctAnswersCount >= 4,
+                                            QuizRules.isApproved(correctAnswersCount, questions.size),
                                             correctAnswersCount,
                                             questions.size,
                                             detailsLog
@@ -381,6 +356,41 @@ fun ActivityScreen(
             if (showConfetti) {
                 ConfettiEffect(onFinish = { showConfetti = false })
             }
+        }
+    }
+}
+
+// Tarjeta con el texto de lectura de Lenguaje (con audio), visible mientras se responde
+@Composable
+private fun ReadingCard(title: String, text: String, onPlayAudio: () -> Unit) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        shape = RoundedCornerShape(20.dp),
+        colors = CardDefaults.cardColors(containerColor = Color(0xFFFFF9E6)),
+        border = androidx.compose.foundation.BorderStroke(2.dp, Color(0xFFFFD166))
+    ) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(
+                    text = "📖 " + title,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                    color = Color(0xFF334155),
+                    modifier = Modifier.weight(1f)
+                )
+                AudioPlayerButton(onPlayAudio = onPlayAudio)
+            }
+            Spacer(modifier = Modifier.height(6.dp))
+            Text(
+                text = text,
+                fontSize = 16.sp,
+                lineHeight = 24.sp,
+                color = Color(0xFF334155)
+            )
         }
     }
 }

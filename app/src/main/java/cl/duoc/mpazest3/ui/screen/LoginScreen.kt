@@ -9,6 +9,7 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,6 +25,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Face
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -39,6 +41,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -58,6 +61,9 @@ val SunYellow = Color(0xFFFFD166)
 val GrassGreen = Color(0xFF06D6A0)
 val SoftBackground = Color(0xFFF4F9FC)
 
+// Perfiles de ingreso de la pantalla de login
+private enum class LoginMode { STUDENT, TEACHER, UTP }
+
 @Composable
 fun LoginScreen(
     authViewModel: AuthViewModel,
@@ -68,9 +74,17 @@ fun LoginScreen(
     val usernameError by authViewModel.usernameError.collectAsState()
     val passwordError by authViewModel.passwordError.collectAsState()
 
-    var isTeacherMode by remember { mutableStateOf(false) }
-    var teacherEmail by remember { mutableStateOf("") }
-    var teacherRut by remember { mutableStateOf("") }
+    // rememberSaveable: los datos sobreviven al giro de la pantalla (con remember se perderían)
+    var mode by rememberSaveable { mutableStateOf(LoginMode.STUDENT) }
+    var teacherEmail by rememberSaveable { mutableStateOf("") }
+    var teacherCode by rememberSaveable { mutableStateOf("") }
+
+    // Al cambiar de perfil se limpian los campos y los errores
+    val selectMode: (LoginMode) -> Unit = { newMode ->
+        mode = newMode
+        authViewModel.onUsernameChanged("")
+        authViewModel.onPasswordChanged("")
+    }
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -120,38 +134,32 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(20.dp))
 
-            // Selector de Modo (Estudiante / Docente)
+            // Selector de perfil (Estudiante / Docente / UTP)
             Row(
                 modifier = Modifier
-                    .fillMaxWidth(0.9f)
+                    .fillMaxWidth(0.95f)
                     .background(Color.White, RoundedCornerShape(20.dp))
                     .border(2.dp, SkyBlue.copy(alpha = 0.3f), RoundedCornerShape(20.dp))
                     .padding(4.dp),
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.spacedBy(4.dp)
             ) {
-                Button(
-                    onClick = { isTeacherMode = false },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = if (!isTeacherMode) SkyBlue else Color.Transparent,
-                        contentColor = if (!isTeacherMode) Color.White else Color.Gray
-                    ),
-                    shape = RoundedCornerShape(16.dp),
+                LoginModeButton(
+                    text = "🎒 Estudiante",
+                    selected = mode == LoginMode.STUDENT,
                     modifier = Modifier.weight(1f)
-                ) {
-                    Text("🎒 Estudiante", fontWeight = FontWeight.Bold)
-                }
+                ) { selectMode(LoginMode.STUDENT) }
 
-                Button(
-                    onClick = { isTeacherMode = true },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = if (isTeacherMode) SkyBlue else Color.Transparent,
-                        contentColor = if (isTeacherMode) Color.White else Color.Gray
-                    ),
-                    shape = RoundedCornerShape(16.dp),
+                LoginModeButton(
+                    text = "👩‍🏫 Docente",
+                    selected = mode == LoginMode.TEACHER,
                     modifier = Modifier.weight(1f)
-                ) {
-                    Text("👩‍🏫 Docente", fontWeight = FontWeight.Bold)
-                }
+                ) { selectMode(LoginMode.TEACHER) }
+
+                LoginModeButton(
+                    text = "📋 UTP",
+                    selected = mode == LoginMode.UTP,
+                    modifier = Modifier.weight(1f)
+                ) { selectMode(LoginMode.UTP) }
             }
 
             Spacer(modifier = Modifier.height(20.dp))
@@ -167,7 +175,7 @@ fun LoginScreen(
                     modifier = Modifier.padding(20.dp),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    if (!isTeacherMode) {
+                    if (mode == LoginMode.STUDENT) {
                         Text(
                             text = "¡Hola! Ingresa para jugar y aprender 🚀",
                             fontSize = 15.sp,
@@ -181,6 +189,8 @@ fun LoginScreen(
                             value = username,
                             onValueChange = { authViewModel.onUsernameChanged(it) },
                             label = { Text("Código de Estudiante (ej: JP01)") },
+                            isError = usernameError != null,
+                            trailingIcon = { if (usernameError != null) LoginErrorIcon() },
                             leadingIcon = { Icon(Icons.Default.Person, contentDescription = null, tint = SkyBlue) },
                             shape = RoundedCornerShape(16.dp),
                             singleLine = true,
@@ -197,6 +207,8 @@ fun LoginScreen(
                             value = password,
                             onValueChange = { authViewModel.onPasswordChanged(it) },
                             label = { Text("PIN Secreto (4 dígitos)") },
+                            isError = passwordError != null,
+                            trailingIcon = { if (passwordError != null) LoginErrorIcon() },
                             leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null, tint = SkyBlue) },
                             visualTransformation = PasswordVisualTransformation(),
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
@@ -221,7 +233,7 @@ fun LoginScreen(
                         ) {
                             Text("¡Ingresar a Aprender! ✨", fontSize = 16.sp, fontWeight = FontWeight.Bold)
                         }
-                    } else {
+                    } else if (mode == LoginMode.TEACHER) {
                         Text(
                             text = "Acceso Exclusivo para Profesores",
                             fontSize = 15.sp,
@@ -234,6 +246,8 @@ fun LoginScreen(
                             value = username,
                             onValueChange = { authViewModel.onUsernameChanged(it) },
                             label = { Text("Nombre Completo") },
+                            isError = usernameError != null && username.isBlank(),
+                            trailingIcon = { if (usernameError != null && username.isBlank()) LoginErrorIcon() },
                             shape = RoundedCornerShape(16.dp),
                             modifier = Modifier.fillMaxWidth()
                         )
@@ -244,6 +258,8 @@ fun LoginScreen(
                             value = teacherEmail,
                             onValueChange = { teacherEmail = it },
                             label = { Text("Correo (@mpaz.cl)") },
+                            isError = usernameError != null && !authViewModel.isValidTeacherEmail(teacherEmail),
+                            trailingIcon = { if (usernameError != null && !authViewModel.isValidTeacherEmail(teacherEmail)) LoginErrorIcon() },
                             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                             shape = RoundedCornerShape(16.dp),
                             modifier = Modifier.fillMaxWidth()
@@ -252,9 +268,11 @@ fun LoginScreen(
                         Spacer(modifier = Modifier.height(10.dp))
 
                         OutlinedTextField(
-                            value = teacherRut,
-                            onValueChange = { teacherRut = it },
-                            label = { Text("RUT (ej: 12345678-K)") },
+                            value = teacherCode,
+                            onValueChange = { teacherCode = it },
+                            label = { Text("Código docente (ej: DOC01)") },
+                            isError = passwordError != null,
+                            trailingIcon = { if (passwordError != null) LoginErrorIcon() },
                             shape = RoundedCornerShape(16.dp),
                             modifier = Modifier.fillMaxWidth()
                         )
@@ -266,7 +284,7 @@ fun LoginScreen(
                                 authViewModel.validateAndLoginTeacher(
                                     fullName = username,
                                     email = teacherEmail,
-                                    rut = teacherRut
+                                    teacherCode = teacherCode
                                 )
                             },
                             shape = RoundedCornerShape(20.dp),
@@ -276,6 +294,70 @@ fun LoginScreen(
                                 .height(54.dp)
                         ) {
                             Text("Validar e Ingresar", fontSize = 16.sp, fontWeight = FontWeight.Bold)
+                        }
+                    } else {
+                        Text(
+                            text = "Acceso Jefatura UTP",
+                            fontSize = 15.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color(0xFF334155),
+                            modifier = Modifier.padding(bottom = 4.dp)
+                        )
+                        Text(
+                            text = "Revisa y autoriza los contenidos de cada Objetivo de Aprendizaje",
+                            fontSize = 12.sp,
+                            color = Color.Gray,
+                            textAlign = TextAlign.Center,
+                            modifier = Modifier.padding(bottom = 16.dp)
+                        )
+
+                        OutlinedTextField(
+                            value = username,
+                            onValueChange = { authViewModel.onUsernameChanged(it) },
+                            label = { Text("Código UTP (ej: UTP01)") },
+                            leadingIcon = { Icon(Icons.Default.Person, contentDescription = null, tint = SkyBlue) },
+                            isError = usernameError != null,
+                            trailingIcon = { if (usernameError != null) LoginErrorIcon() },
+                            shape = RoundedCornerShape(16.dp),
+                            singleLine = true,
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = SkyBlue,
+                                unfocusedBorderColor = Color.LightGray
+                            ),
+                            modifier = Modifier.fillMaxWidth()
+                        )
+
+                        Spacer(modifier = Modifier.height(12.dp))
+
+                        OutlinedTextField(
+                            value = password,
+                            onValueChange = { authViewModel.onPasswordChanged(it) },
+                            label = { Text("PIN (4 dígitos)") },
+                            leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null, tint = SkyBlue) },
+                            isError = passwordError != null,
+                            trailingIcon = { if (passwordError != null) LoginErrorIcon() },
+                            visualTransformation = PasswordVisualTransformation(),
+                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
+                            shape = RoundedCornerShape(16.dp),
+                            singleLine = true,
+                            colors = OutlinedTextFieldDefaults.colors(
+                                focusedBorderColor = SkyBlue,
+                                unfocusedBorderColor = Color.LightGray
+                            ),
+                            modifier = Modifier.fillMaxWidth()
+                        )
+
+                        Spacer(modifier = Modifier.height(20.dp))
+
+                        Button(
+                            onClick = { authViewModel.validateAndLoginUtp(username, password) },
+                            shape = RoundedCornerShape(20.dp),
+                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF7F3F)),
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(54.dp)
+                        ) {
+                            Text("Ingresar como UTP", fontSize = 16.sp, fontWeight = FontWeight.Bold)
                         }
                     }
 
@@ -294,4 +376,36 @@ fun LoginScreen(
             }
         }
     }
+}
+
+// Botón de la barra de perfiles (texto corto para que quepan los tres en pantallas pequeñas)
+@Composable
+private fun LoginModeButton(
+    text: String,
+    selected: Boolean,
+    modifier: Modifier = Modifier,
+    onClick: () -> Unit
+) {
+    Button(
+        onClick = onClick,
+        colors = ButtonDefaults.buttonColors(
+            containerColor = if (selected) SkyBlue else Color.Transparent,
+            contentColor = if (selected) Color.White else Color.Gray
+        ),
+        shape = RoundedCornerShape(16.dp),
+        contentPadding = PaddingValues(horizontal = 4.dp, vertical = 8.dp),
+        modifier = modifier
+    ) {
+        Text(text, fontSize = 12.sp, fontWeight = FontWeight.Bold, maxLines = 1)
+    }
+}
+
+// Ícono de error que aparece dentro del campo cuando hay un problema
+@Composable
+private fun LoginErrorIcon() {
+    Icon(
+        imageVector = Icons.Default.Warning,
+        contentDescription = "Error",
+        tint = MaterialTheme.colorScheme.error
+    )
 }

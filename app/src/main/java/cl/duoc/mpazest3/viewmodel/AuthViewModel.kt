@@ -28,28 +28,10 @@ class AuthViewModel : ViewModel() {
         return emailPattern.matches(email.trim())
     }
 
-    // Validar formato y Algoritmo Módulo 11 de RUT Chileno (ej: 12345678-K)
-    fun isValidRut(rut: String): Boolean {
-        val cleanRut = rut.trim().uppercase().replace(".", "")
-        val rutPattern = Regex("^[0-9]{7,8}-[0-9K]$")
-        if (!rutPattern.matches(cleanRut)) return false
-
-        val parts = cleanRut.split("-")
-        val body = parts[0]
-        val dv = parts[1][0]
-
-        var sum = 0
-        var multiplier = 2
-        for (i in body.length - 1 downTo 0) {
-            sum += (body[i].code - '0'.code) * multiplier
-            multiplier = if (multiplier == 7) 2 else multiplier + 1
-        }
-        val expectedDv = when (val res = 11 - (sum % 11)) {
-            11 -> '0'
-            10 -> 'K'
-            else -> res.toString()[0]
-        }
-        return dv == expectedDv
+    // El código docente es ficticio: el caso exige datos ficticios y no se piden RUT reales.
+    // Formato: DOC + 2 números (ej: DOC01)
+    fun isValidTeacherCode(code: String): Boolean {
+        return Regex("^DOC[0-9]{2}$").matches(code.trim().uppercase())
     }
 
     fun onUsernameChanged(newUsername: String) {
@@ -94,26 +76,29 @@ class AuthViewModel : ViewModel() {
         }
     }
 
-    // Validación extendida de Docente (Nombre, Correo @mpaz.cl y RUT)
+    // Validación extendida de Docente (Nombre, Correo @mpaz.cl y Código docente ficticio)
     fun validateAndLoginTeacher(
         fullName: String,
         email: String,
-        rut: String
+        teacherCode: String
     ): Boolean {
         var isValid = true
 
+        // Los errores del nombre y del correo se muestran juntos (antes uno pisaba al otro)
+        val identityErrors = mutableListOf<String>()
         if (fullName.isBlank()) {
-            usernameError.value = "Ingresa tu nombre completo"
-            isValid = false
+            identityErrors.add("Ingresa tu nombre completo")
         }
-
         if (!isValidTeacherEmail(email)) {
-            usernameError.value = "El correo debe tener dominio @mpaz.cl"
+            identityErrors.add("El correo debe tener dominio @mpaz.cl")
+        }
+        if (identityErrors.isNotEmpty()) {
+            usernameError.value = identityErrors.joinToString(". ")
             isValid = false
         }
 
-        if (!isValidRut(rut)) {
-            passwordError.value = "RUT inválido. Usa el formato 12345678-K"
+        if (!isValidTeacherCode(teacherCode)) {
+            passwordError.value = "Código docente inválido. Usa el formato DOC01"
             isValid = false
         }
 
@@ -123,6 +108,42 @@ class AuthViewModel : ViewModel() {
         }
 
         return isValid
+    }
+
+    // Credenciales ficticias de prueba para el perfil UTP (el caso exige datos ficticios)
+    private val utpCode = "UTP01"
+    private val utpPin = "1234"
+
+    // Revisa si el código y el PIN corresponden al usuario UTP de prueba
+    fun isValidUtpCredentials(code: String, pin: String): Boolean {
+        return code.trim().uppercase() == utpCode && pin.trim() == utpPin
+    }
+
+    // Login del perfil UTP: valida el formato y luego las credenciales de prueba
+    fun validateAndLoginUtp(code: String, pin: String): Boolean {
+        var isValid = true
+
+        if (code.isBlank()) {
+            usernameError.value = "Ingresa tu código UTP (ej: UTP01)"
+            isValid = false
+        }
+
+        if (pin.trim().length != 4) {
+            passwordError.value = "El PIN debe ser de 4 dígitos"
+            isValid = false
+        }
+
+        if (!isValid) return false
+
+        if (isValidUtpCredentials(code, pin)) {
+            username.value = "Jefatura UTP"
+            _uiState.value = AuthUiState(selectedRole = Role.UTP)
+            return true
+        }
+
+        usernameError.value = "Código o PIN de UTP incorrecto"
+        passwordError.value = "Revisa los datos de prueba del grupo"
+        return false
     }
 
     fun clearRole() {
