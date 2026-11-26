@@ -84,60 +84,45 @@ app/src/main/java/cl/duoc/mpazest3/
 └── MainActivity.kt
 ```
 Tecnologías
-Lenguaje: Kotlin 2.x
+Lenguaje: Kotlin
 
 Interfaz de Usuario: Android Jetpack Compose & Material Design 3
 
-Arquitectura: MVVM (Model-View-ViewModel) con StateFlow y Corrutinas
+Arquitectura: MVVM (Model-View-ViewModel) con StateFlow
 
-Base de Datos Local: Room Database (Almacenamiento offline de OA, preguntas, borradores, intentos y validaciones)
+Base de Datos Local: Room Database (Almacenamiento offline de OA, preguntas, borradores y progreso)
 
-Consumo de APIs REST: Retrofit 2 + Gson + Coil (carga asíncrona de sprites)
+Consumo REST e Imágenes: Retrofit 2, Gson y Coil
 
-Backend Propio (Microservicios): Spring Boot (ms-contenido en puerto 8081 y ms-seguimiento en puerto 8082)
+Backend (Microservicios): Spring Boot (ms-contenido puerto 8081 y ms-seguimiento puerto 8082)
 
 Audio Nativo: MediaPlayer API / SoundPool para apoyos didácticos auditivos
 
-Testing y Calidad: JUnit 4/5, Kotest (FunSpec), MockK y kotlinx-coroutines-test
+Pruebas Unitarias: JUnit, Kotest, MockK y Coroutines Test
 
-Endpoints Utilizados
-1. Microservicios Propios (Spring Boot)
-Configurados en cl.duoc.mpazest3.data.remote.ApiConfig:
+Endpoints consumidos
+Microservicio de Contenido (ms-contenido - http://<IP_LOCAL>:8081):
 
-ms-contenido (Puerto 8081):
+GET /api/objetivos (Sincronización de Objetivos de Aprendizaje)
 
-GET /api/objetivos — Sincroniza los Objetivos de Aprendizaje (OA) disponibles.
+GET /api/preguntas (Sincronización de preguntas por OA)
 
-GET /api/preguntas — Sincroniza el banco de preguntas asociadas a los OA.
+Microservicio de Seguimiento (ms-seguimiento - http://<IP_LOCAL>:8082):
 
-ms-seguimiento (Puerto 8082):
+GET / POST / PUT / DELETE /api/estudiantes (Gestión CRUD de alumnos)
 
-GET /api/estudiantes — Obtiene la nómina de estudiantes registrados.
+POST /api/estudiantes/login (Validación remota de acceso)
 
-POST /api/estudiantes — Crea un nuevo estudiante en el sistema.
+POST / DELETE /api/intentos (Registro y desbloqueo de evaluaciones)
 
-PUT /api/estudiantes/{id} — Actualiza nombre o PIN de un estudiante.
+APIs Externas:
 
-DELETE /api/estudiantes/{id} — Elimina un estudiante y su historial.
+Open-Meteo (https://api.open-meteo.com/v1/forecast): Clima actual en San Bernardo.
 
-POST /api/estudiantes/login — Autenticación remota del estudiante.
-
-POST /api/intentos — Registra el intento y desglose de respuestas tras finalizar un quiz.
-
-DELETE /api/intentos/{studentName}/{subjectId} — Restablece intentos al desbloquear una asignatura.
-
-2. APIs Externas Públicas
-Open-Meteo Weather API (https://api.open-meteo.com/):
-
-GET /v1/forecast — Consulta el clima en tiempo real de San Bernardo (-33.59, -70.70) para mostrar contexto ambiental en la vista del estudiante.
-
-PokéAPI (https://pokeapi.co/):
-
-GET /api/v2/pokemon/{id} — Obtiene un Pokémon aleatorio con su sprite oficial como recompensa motivacional al completar una actividad.
+PokéAPI (https://pokeapi.co/api/v2/pokemon/{id}): Recompensa visual al finalizar cuestionarios.
 
 Cómo ejecutar el proyecto
-Ejecución desde Android Studio
-Iniciar los microservicios Spring Boot (ms-contenido en 8081 y ms-seguimiento en 8082) si se desea sincronización remota en tiempo real (la app también opera en modo offline con datos semilla).
+Levantar los microservicios Spring Boot (ms-contenido en 8081 y ms-seguimiento en 8082) si se requiere conexión remota (opcional, soporta modo offline).
 
 Abrir Android Studio (versión recomendada: Ladybug / Iguana o superior).
 
@@ -145,31 +130,18 @@ Seleccionar Open y buscar la carpeta raíz de este repositorio.
 
 Esperar a que Gradle finalice la sincronización automática de dependencias (Gradle Sync).
 
-En ApiConfig.kt, verificar la IPv4 local del servidor si se ejecuta en un dispositivo físico conectado a la misma red Wi-Fi.
+Configurar la IPv4 local del servidor en ApiConfig.kt si se ejecuta en dispositivo físico por Wi-Fi.
 
 Seleccionar un emulador Android (API 26 / Android 8.0 o superior) o conectar un dispositivo físico mediante Depuración USB.
 
 Presionar el botón Run 'app' (Shift + F10) para compilar y ejecutar la aplicación.
 
-APK Firmado y Keystore
-Keystore de firma: mpaz_release_key.jks (ubicado en la raíz del repositorio).
+APK firmado y pruebas unitarias
+Keystore (.jks): mpaz_release_key.jks (ubicado en la raíz del repositorio).
 
-Ejecutable firmado: app/release/app-release.apk (generado bajo variante release con firmas V1 y V2).
+APK Release Firmado: app/release/app-release.apk.
 
-Pruebas Unitarias y Cobertura
-Para ejecutar la suite completa de pruebas unitarias:
-
-Bash
-./gradlew testDebugUnitTest
-Resultado: 16 suites aprobadas sin fallos (BUILD SUCCESSFUL).
-
-Cobertura de líneas alcanzada en lógica de negocio:
-
-cl.duoc.mpazest3.data: 92%
-
-cl.duoc.mpazest3.viewmodel: 92%
-
-cl.duoc.mpazest3.model: 90%
+Ejecución de pruebas: ./gradlew testDebugUnitTest (16 suites aprobadas, >90% de cobertura en data, viewmodel y model).
 
 ## Material complementario
 Documento oficial en Google Drive con la **Especificación de Requisitos de Software (ERS bajo norma IEEE 830)**, arquitectura técnica, conclusión y referencias de la asignatura DSY1105 (Duoc UC) y la guía *Android Kotlin Desde Cero*:  
