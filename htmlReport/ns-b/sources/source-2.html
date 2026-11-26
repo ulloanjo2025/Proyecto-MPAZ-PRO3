@@ -1,0 +1,541 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ConfettiParticle</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">cl.duoc.mpazest3.ui.screen</a>
+</div>
+
+<h1>Coverage Summary for Class: ConfettiParticle (cl.duoc.mpazest3.ui.screen)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ConfettiParticle</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;// Desarrollado por: Sebastián Maquera (ui/screen)
+&nbsp;package cl.duoc.mpazest3.ui.screen
+&nbsp;
+&nbsp;import androidx.compose.animation.AnimatedVisibility
+&nbsp;import androidx.compose.animation.fadeIn
+&nbsp;import androidx.compose.animation.fadeOut
+&nbsp;import androidx.compose.animation.scaleIn
+&nbsp;import androidx.compose.animation.scaleOut
+&nbsp;import androidx.compose.foundation.Canvas
+&nbsp;import androidx.compose.foundation.rememberScrollState
+&nbsp;import androidx.compose.foundation.verticalScroll
+&nbsp;import androidx.compose.foundation.layout.Arrangement
+&nbsp;import androidx.compose.foundation.layout.Box
+&nbsp;import androidx.compose.foundation.layout.Column
+&nbsp;import androidx.compose.foundation.layout.Row
+&nbsp;import androidx.compose.foundation.layout.Spacer
+&nbsp;import androidx.compose.foundation.layout.fillMaxSize
+&nbsp;import androidx.compose.foundation.layout.fillMaxWidth
+&nbsp;import androidx.compose.foundation.layout.height
+&nbsp;import androidx.compose.foundation.layout.padding
+&nbsp;import androidx.compose.foundation.layout.size
+&nbsp;import androidx.compose.foundation.layout.width
+&nbsp;import androidx.compose.foundation.shape.RoundedCornerShape
+&nbsp;import androidx.compose.material.icons.Icons
+&nbsp;import androidx.compose.material.icons.filled.ArrowBack
+&nbsp;import androidx.compose.material3.Button
+&nbsp;import androidx.compose.material3.ButtonDefaults
+&nbsp;import androidx.compose.material3.Card
+&nbsp;import androidx.compose.material3.CardDefaults
+&nbsp;import androidx.compose.material3.Icon
+&nbsp;import androidx.compose.material3.LinearProgressIndicator
+&nbsp;import androidx.compose.material3.OutlinedButton
+&nbsp;import androidx.compose.material3.Surface
+&nbsp;import androidx.compose.material3.Text
+&nbsp;import androidx.compose.runtime.Composable
+&nbsp;import androidx.compose.runtime.LaunchedEffect
+&nbsp;import androidx.compose.runtime.getValue
+&nbsp;import androidx.compose.runtime.mutableIntStateOf
+&nbsp;import androidx.compose.runtime.mutableStateListOf
+&nbsp;import androidx.compose.runtime.mutableStateOf
+&nbsp;import androidx.compose.runtime.remember
+&nbsp;import androidx.compose.runtime.setValue
+&nbsp;import androidx.compose.ui.Alignment
+&nbsp;import androidx.compose.ui.Modifier
+&nbsp;import androidx.compose.ui.draw.clip
+&nbsp;import androidx.compose.ui.geometry.Offset
+&nbsp;import androidx.compose.ui.graphics.Color
+&nbsp;import androidx.compose.ui.text.font.FontWeight
+&nbsp;import androidx.compose.ui.unit.dp
+&nbsp;import androidx.compose.ui.unit.sp
+&nbsp;import cl.duoc.mpazest3.data.local.entity.LearningObjectiveEntity
+&nbsp;import cl.duoc.mpazest3.data.local.entity.QuestionEntity
+&nbsp;import cl.duoc.mpazest3.model.QuizRules
+&nbsp;import cl.duoc.mpazest3.ui.components.AudioPlayerButton
+&nbsp;import cl.duoc.mpazest3.util.SoundManager
+&nbsp;import kotlinx.coroutines.delay
+&nbsp;import kotlin.random.Random
+&nbsp;
+&nbsp;@Composable
+&nbsp;fun ActivityScreen(
+&nbsp;    subjectId: String,
+&nbsp;    questions: List&lt;QuestionEntity&gt;,
+&nbsp;    objectives: List&lt;LearningObjectiveEntity&gt;,
+&nbsp;    initialQuestionIndex: Int = 0,
+&nbsp;    initialCorrectAnswersCount: Int = 0,
+&nbsp;    initialDetails: String = &quot;&quot;,
+&nbsp;    onProgress: (Int, Int, String) -&gt; Unit,
+&nbsp;    onAnswerSubmitted: (isApproved: Boolean, score: Int, total: Int, details: String) -&gt; Unit,
+&nbsp;    onSaveAndExit: (Int, Int, String) -&gt; Unit,
+&nbsp;    onPlayAudioInstruction: (String) -&gt; Unit
+&nbsp;) {
+&nbsp;    var currentQuestionIndex by remember { mutableIntStateOf(initialQuestionIndex.coerceIn(0, maxOf(questions.lastIndex, 0))) }
+&nbsp;    var correctAnswersCount by remember { mutableIntStateOf(initialCorrectAnswersCount) }
+&nbsp;    var answerStatus by remember { mutableStateOf&lt;Boolean?&gt;(null) }
+&nbsp;    var showConfetti by remember { mutableStateOf(false) }
+&nbsp;
+&nbsp;    // El detalle de las preguntas ya respondidas se recupera si el estudiante retoma el quiz
+&nbsp;    val questionDetailsLog = remember {
+&nbsp;        mutableStateListOf&lt;String&gt;().apply { addAll(QuizRules.splitDetails(initialDetails)) }
+&nbsp;    }
+&nbsp;
+&nbsp;    val currentQuestion = questions[currentQuestionIndex]
+&nbsp;
+&nbsp;    // OA de la pregunta actual (para mostrar el texto de lectura en Lenguaje)
+&nbsp;    val currentObjective = objectives.firstOrNull { it.code == currentQuestion.objectiveCode }
+&nbsp;    val readingText = currentObjective?.readingText
+&nbsp;
+&nbsp;    // Las alternativas A, B y C se muestran en orden distinto cada vez que aparece la pregunta
+&nbsp;    val optionOrder = remember(currentQuestion.id) { QuizRules.shuffledOptionOrder() }
+&nbsp;    val optionTexts = listOf(currentQuestion.optionA, currentQuestion.optionB, currentQuestion.optionC)
+&nbsp;    val progress = (currentQuestionIndex + 1) / questions.size.toFloat()
+&nbsp;
+&nbsp;    val subjectColor = when (subjectId) {
+&nbsp;        &quot;Matemática&quot; -&gt; Color(0xFF00A8E8)
+&nbsp;        &quot;Lenguaje y Comunicación&quot; -&gt; Color(0xFFFF7F3F)
+&nbsp;        &quot;Ciencias Naturales&quot; -&gt; Color(0xFF06D6A0)
+&nbsp;        else -&gt; Color(0xFFEF476F)
+&nbsp;    }
+&nbsp;
+&nbsp;    Surface(
+&nbsp;        modifier = Modifier.fillMaxSize(),
+&nbsp;        color = Color(0xFFF4F9FC)
+&nbsp;    ) {
+&nbsp;        Box(modifier = Modifier.fillMaxSize()) {
+&nbsp;            Column(
+&nbsp;                modifier = Modifier
+&nbsp;                    .fillMaxSize()
+&nbsp;                    .verticalScroll(rememberScrollState())
+&nbsp;                    .padding(16.dp),
+&nbsp;                horizontalAlignment = Alignment.CenterHorizontally
+&nbsp;            ) {
+&nbsp;                // Barra Superior
+&nbsp;                Row(
+&nbsp;                    modifier = Modifier
+&nbsp;                        .fillMaxWidth()
+&nbsp;                        .padding(bottom = 12.dp),
+&nbsp;                    horizontalArrangement = Arrangement.SpaceBetween,
+&nbsp;                    verticalAlignment = Alignment.CenterVertically
+&nbsp;                ) {
+&nbsp;                    OutlinedButton(
+&nbsp;                        onClick = {
+&nbsp;                            SoundManager.playClick()
+&nbsp;                            onSaveAndExit(currentQuestionIndex, correctAnswersCount, questionDetailsLog.joinToString(&quot;\n&quot;))
+&nbsp;                        },
+&nbsp;                        // Solo se puede guardar y salir antes de responder la pregunta (así no se cuenta dos veces)
+&nbsp;                        enabled = answerStatus == null,
+&nbsp;                        shape = RoundedCornerShape(14.dp),
+&nbsp;                        colors = ButtonDefaults.outlinedButtonColors(contentColor = Color(0xFF64748B))
+&nbsp;                    ) {
+&nbsp;                        Icon(Icons.Default.ArrowBack, contentDescription = null, modifier = Modifier.size(18.dp))
+&nbsp;                        Spacer(modifier = Modifier.width(6.dp))
+&nbsp;                        Text(&quot;Guardar y Salir&quot;, fontWeight = FontWeight.Bold, fontSize = 13.sp)
+&nbsp;                    }
+&nbsp;
+&nbsp;                    Surface(
+&nbsp;                        color = subjectColor.copy(alpha = 0.15f),
+&nbsp;                        shape = RoundedCornerShape(12.dp)
+&nbsp;                    ) {
+&nbsp;                        Text(
+&nbsp;                            text = subjectId,
+&nbsp;                            color = subjectColor,
+&nbsp;                            fontWeight = FontWeight.Bold,
+&nbsp;                            fontSize = 13.sp,
+&nbsp;                            modifier = Modifier.padding(horizontal = 10.dp, vertical = 6.dp)
+&nbsp;                        )
+&nbsp;                    }
+&nbsp;                }
+&nbsp;
+&nbsp;                // Indicador de Progreso
+&nbsp;                Column(modifier = Modifier.fillMaxWidth().padding(vertical = 8.dp)) {
+&nbsp;                    Row(
+&nbsp;                        modifier = Modifier.fillMaxWidth(),
+&nbsp;                        horizontalArrangement = Arrangement.SpaceBetween
+&nbsp;                    ) {
+&nbsp;                        Text(
+&nbsp;                            text = &quot;Pregunta ${currentQuestionIndex + 1} de ${questions.size}&quot;,
+&nbsp;                            fontWeight = FontWeight.Bold,
+&nbsp;                            fontSize = 14.sp,
+&nbsp;                            color = Color(0xFF334155)
+&nbsp;                        )
+&nbsp;                        Text(
+&nbsp;                            text = &quot;⭐ Aciertos: $correctAnswersCount&quot;,
+&nbsp;                            fontWeight = FontWeight.Bold,
+&nbsp;                            fontSize = 14.sp,
+&nbsp;                            color = Color(0xFFFFB703)
+&nbsp;                        )
+&nbsp;                    }
+&nbsp;                    Spacer(modifier = Modifier.height(6.dp))
+&nbsp;                    LinearProgressIndicator(
+&nbsp;                        progress = { progress },
+&nbsp;                        modifier = Modifier
+&nbsp;                            .fillMaxWidth()
+&nbsp;                            .height(10.dp)
+&nbsp;                            .clip(RoundedCornerShape(5.dp)),
+&nbsp;                        color = subjectColor,
+&nbsp;                        trackColor = Color(0xFFE2E8F0)
+&nbsp;                    )
+&nbsp;                }
+&nbsp;
+&nbsp;                Spacer(modifier = Modifier.height(16.dp))
+&nbsp;
+&nbsp;                // Texto de lectura (solo Lenguaje): se ve mientras se responde
+&nbsp;                if (currentObjective != null &amp;&amp; !readingText.isNullOrBlank()) {
+&nbsp;                    ReadingCard(
+&nbsp;                        title = currentObjective.readingTitle.orEmpty(),
+&nbsp;                        text = readingText,
+&nbsp;                        onPlayAudio = {
+&nbsp;                            SoundManager.playClick()
+&nbsp;                            onPlayAudioInstruction(readingText)
+&nbsp;                        }
+&nbsp;                    )
+&nbsp;                    Spacer(modifier = Modifier.height(12.dp))
+&nbsp;                }
+&nbsp;
+&nbsp;                // Tarjeta de la Pregunta
+&nbsp;                Card(
+&nbsp;                    modifier = Modifier.fillMaxWidth(),
+&nbsp;                    shape = RoundedCornerShape(24.dp),
+&nbsp;                    colors = CardDefaults.cardColors(containerColor = Color.White),
+&nbsp;                    elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
+&nbsp;                ) {
+&nbsp;                    Column(
+&nbsp;                        modifier = Modifier.padding(20.dp),
+&nbsp;                        horizontalAlignment = Alignment.CenterHorizontally
+&nbsp;                    ) {
+&nbsp;                        Row(
+&nbsp;                            modifier = Modifier.fillMaxWidth(),
+&nbsp;                            horizontalArrangement = Arrangement.SpaceBetween,
+&nbsp;                            verticalAlignment = Alignment.CenterVertically
+&nbsp;                        ) {
+&nbsp;                            Text(
+&nbsp;                                text = currentQuestion.statement,
+&nbsp;                                fontSize = 18.sp,
+&nbsp;                                fontWeight = FontWeight.Bold,
+&nbsp;                                color = Color(0xFF1E293B),
+&nbsp;                                modifier = Modifier.weight(1f)
+&nbsp;                            )
+&nbsp;                            AudioPlayerButton(onPlayAudio = {
+&nbsp;                                SoundManager.playClick()
+&nbsp;                                onPlayAudioInstruction(currentQuestion.statement)
+&nbsp;                            })
+&nbsp;                        }
+&nbsp;
+&nbsp;                        Spacer(modifier = Modifier.height(24.dp))
+&nbsp;
+&nbsp;                        // Alternativas A, B y C (en orden mezclado)
+&nbsp;                        optionOrder.forEachIndexed { position, optionIndex -&gt;
+&nbsp;                            val isCorrectOption = optionIndex == currentQuestion.correctIndex
+&nbsp;
+&nbsp;                            Button(
+&nbsp;                                onClick = {
+&nbsp;                                    SoundManager.playClick()
+&nbsp;                                    answerStatus = isCorrectOption
+&nbsp;                                    if (isCorrectOption) {
+&nbsp;                                        correctAnswersCount++
+&nbsp;                                        showConfetti = true
+&nbsp;                                        SoundManager.playWin()
+&nbsp;                                        questionDetailsLog.add(&quot;• P${currentQuestionIndex + 1} [${currentQuestion.objectiveCode}]: Correcta&quot;)
+&nbsp;                                    } else {
+&nbsp;                                        SoundManager.playFail()
+&nbsp;                                        questionDetailsLog.add(&quot;• P${currentQuestionIndex + 1} [${currentQuestion.objectiveCode}]: Incorrecta (${currentQuestion.explanation})&quot;)
+&nbsp;                                    }
+&nbsp;                                },
+&nbsp;                                shape = RoundedCornerShape(18.dp),
+&nbsp;                                colors = ButtonDefaults.buttonColors(
+&nbsp;                                    containerColor = subjectColor,
+&nbsp;                                    // Al responder, la correcta se ve verde y las demás se ven apagadas
+&nbsp;                                    disabledContainerColor = if (isCorrectOption) Color(0xFF06D6A0) else subjectColor.copy(alpha = 0.35f),
+&nbsp;                                    disabledContentColor = Color.White
+&nbsp;                                ),
+&nbsp;                                enabled = answerStatus == null,
+&nbsp;                                modifier = Modifier
+&nbsp;                                    .fillMaxWidth()
+&nbsp;                                    .height(56.dp)
+&nbsp;                            ) {
+&nbsp;                                Text(text = optionTexts[optionIndex], fontSize = 16.sp, fontWeight = FontWeight.Bold)
+&nbsp;                            }
+&nbsp;
+&nbsp;                            if (position &lt; optionOrder.lastIndex) {
+&nbsp;                                Spacer(modifier = Modifier.height(12.dp))
+&nbsp;                            }
+&nbsp;                        }
+&nbsp;                    }
+&nbsp;                }
+&nbsp;
+&nbsp;                Spacer(modifier = Modifier.height(16.dp))
+&nbsp;
+&nbsp;                // Panel Retroalimentación con Soporte de Audio
+&nbsp;                AnimatedVisibility(
+&nbsp;                    visible = answerStatus != null,
+&nbsp;                    enter = scaleIn() + fadeIn(),
+&nbsp;                    exit = scaleOut() + fadeOut()
+&nbsp;                ) {
+&nbsp;                    val isWin = answerStatus == true
+&nbsp;                    val feedbackText = if (isWin) &quot;¡Respuesta correcta! Sigue aprendiendo&quot; else currentQuestion.explanation
+&nbsp;
+&nbsp;                    Card(
+&nbsp;                        modifier = Modifier.fillMaxWidth(),
+&nbsp;                        shape = RoundedCornerShape(20.dp),
+&nbsp;                        colors = CardDefaults.cardColors(
+&nbsp;                            containerColor = if (isWin) Color(0xFFE6F9F3) else Color(0xFFFFF4E5)
+&nbsp;                        ),
+&nbsp;                        border = androidx.compose.foundation.BorderStroke(
+&nbsp;                            2.dp,
+&nbsp;                            if (isWin) Color(0xFF06D6A0) else Color(0xFFFFB703)
+&nbsp;                        )
+&nbsp;                    ) {
+&nbsp;                        Column(modifier = Modifier.padding(16.dp)) {
+&nbsp;                            Row(verticalAlignment = Alignment.CenterVertically) {
+&nbsp;                                Text(
+&nbsp;                                    text = if (isWin) &quot;🎉&quot; else &quot;💡&quot;,
+&nbsp;                                    fontSize = 32.sp,
+&nbsp;                                    modifier = Modifier.padding(end = 12.dp)
+&nbsp;                                )
+&nbsp;                                Column(modifier = Modifier.weight(1f)) {
+&nbsp;                                    Text(
+&nbsp;                                        text = if (isWin) &quot;¡Excelente trabajo!&quot; else &quot;¡Casi lo logras!&quot;,
+&nbsp;                                        fontWeight = FontWeight.Bold,
+&nbsp;                                        fontSize = 16.sp,
+&nbsp;                                        color = if (isWin) Color(0xFF06D6A0) else Color(0xFFFFB703)
+&nbsp;                                    )
+&nbsp;                                    Spacer(modifier = Modifier.height(2.dp))
+&nbsp;                                    Text(
+&nbsp;                                        text = feedbackText,
+&nbsp;                                        fontSize = 13.sp,
+&nbsp;                                        color = Color(0xFF334155)
+&nbsp;                                    )
+&nbsp;                                }
+&nbsp;                                AudioPlayerButton(onPlayAudio = {
+&nbsp;                                    SoundManager.playClick()
+&nbsp;                                    onPlayAudioInstruction(feedbackText)
+&nbsp;                                })
+&nbsp;                            }
+&nbsp;
+&nbsp;                            Spacer(modifier = Modifier.height(12.dp))
+&nbsp;
+&nbsp;                            Button(
+&nbsp;                                onClick = {
+&nbsp;                                    SoundManager.playClick()
+&nbsp;                                    answerStatus = null
+&nbsp;                                    showConfetti = false
+&nbsp;
+&nbsp;                                    if (currentQuestionIndex + 1 &lt; questions.size) {
+&nbsp;                                        currentQuestionIndex++
+&nbsp;                                        // Guarda el avance en Room: si la app se cierra, sigue desde aquí
+&nbsp;                                        onProgress(currentQuestionIndex, correctAnswersCount, questionDetailsLog.joinToString(&quot;\n&quot;))
+&nbsp;                                    } else {
+&nbsp;                                        val detailsLog = questionDetailsLog.joinToString(&quot;\n&quot;)
+&nbsp;                                        onAnswerSubmitted(
+&nbsp;                                            QuizRules.isApproved(correctAnswersCount, questions.size),
+&nbsp;                                            correctAnswersCount,
+&nbsp;                                            questions.size,
+&nbsp;                                            detailsLog
+&nbsp;                                        )
+&nbsp;                                    }
+&nbsp;                                },
+&nbsp;                                shape = RoundedCornerShape(14.dp),
+&nbsp;                                colors = ButtonDefaults.buttonColors(
+&nbsp;                                    containerColor = if (isWin) Color(0xFF06D6A0) else Color(0xFFFFB703)
+&nbsp;                                ),
+&nbsp;                                modifier = Modifier
+&nbsp;                                    .fillMaxWidth()
+&nbsp;                                    .height(46.dp)
+&nbsp;                            ) {
+&nbsp;                                Text(
+&nbsp;                                    text = if (currentQuestionIndex + 1 &lt; questions.size) &quot;Continuar ➡️&quot; else &quot;Ver Resultado Final 🏁&quot;,
+&nbsp;                                    fontWeight = FontWeight.Bold,
+&nbsp;                                    fontSize = 15.sp
+&nbsp;                                )
+&nbsp;                            }
+&nbsp;                        }
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+&nbsp;            if (showConfetti) {
+&nbsp;                ConfettiEffect(onFinish = { showConfetti = false })
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+&nbsp;
+&nbsp;// Tarjeta con el texto de lectura de Lenguaje (con audio), visible mientras se responde
+&nbsp;@Composable
+&nbsp;private fun ReadingCard(title: String, text: String, onPlayAudio: () -&gt; Unit) {
+&nbsp;    Card(
+&nbsp;        modifier = Modifier.fillMaxWidth(),
+&nbsp;        shape = RoundedCornerShape(20.dp),
+&nbsp;        colors = CardDefaults.cardColors(containerColor = Color(0xFFFFF9E6)),
+&nbsp;        border = androidx.compose.foundation.BorderStroke(2.dp, Color(0xFFFFD166))
+&nbsp;    ) {
+&nbsp;        Column(modifier = Modifier.padding(16.dp)) {
+&nbsp;            Row(
+&nbsp;                modifier = Modifier.fillMaxWidth(),
+&nbsp;                horizontalArrangement = Arrangement.SpaceBetween,
+&nbsp;                verticalAlignment = Alignment.CenterVertically
+&nbsp;            ) {
+&nbsp;                Text(
+&nbsp;                    text = &quot;📖 &quot; + title,
+&nbsp;                    fontWeight = FontWeight.Bold,
+&nbsp;                    fontSize = 16.sp,
+&nbsp;                    color = Color(0xFF334155),
+&nbsp;                    modifier = Modifier.weight(1f)
+&nbsp;                )
+&nbsp;                AudioPlayerButton(onPlayAudio = onPlayAudio)
+&nbsp;            }
+&nbsp;            Spacer(modifier = Modifier.height(6.dp))
+&nbsp;            Text(
+&nbsp;                text = text,
+&nbsp;                fontSize = 16.sp,
+&nbsp;                lineHeight = 24.sp,
+&nbsp;                color = Color(0xFF334155)
+&nbsp;            )
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+&nbsp;
+&nbsp;@Composable
+&nbsp;fun ConfettiEffect(onFinish: () -&gt; Unit) {
+&nbsp;    val particles = remember {
+&nbsp;        List(35) {
+&nbsp;            ConfettiParticle(
+&nbsp;                x = Random.nextFloat(),
+&nbsp;                y = Random.nextFloat() * 0.4f,
+&nbsp;                size = Random.nextFloat() * 10f + 8f,
+&nbsp;                color = listOf(
+&nbsp;                    Color(0xFFFFD166), Color(0xFF06D6A0), Color(0xFF00A8E8),
+&nbsp;                    Color(0xFFFF7F3F), Color(0xFFEF476F), Color(0xFF9B5DE5)
+&nbsp;                ).random()
+&nbsp;            )
+&nbsp;        }
+&nbsp;    }
+&nbsp;    var animValue by remember { mutableStateOf(0f) }
+&nbsp;
+&nbsp;    LaunchedEffect(Unit) {
+&nbsp;        val startTime = System.currentTimeMillis()
+&nbsp;        val duration = 1800L
+&nbsp;        while (System.currentTimeMillis() - startTime &lt; duration) {
+&nbsp;            animValue = (System.currentTimeMillis() - startTime) / duration.toFloat()
+&nbsp;            delay(16)
+&nbsp;        }
+&nbsp;        onFinish()
+&nbsp;    }
+&nbsp;
+&nbsp;    Canvas(modifier = Modifier.fillMaxSize()) {
+&nbsp;        particles.forEach { p -&gt;
+&nbsp;            val currentY = (p.y + animValue * 1.2f) % 1f
+&nbsp;            drawCircle(
+&nbsp;                color = p.color,
+&nbsp;                radius = p.size,
+&nbsp;                center = Offset(p.x * size.width, currentY * size.height)
+&nbsp;            )
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+&nbsp;
+<b class="nc">&nbsp;private data class ConfettiParticle(val x: Float, val y: Float, val size: Float, val color: Color)</b>
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-11-25 01:37</div>
+</div>
+</body>
+</html>

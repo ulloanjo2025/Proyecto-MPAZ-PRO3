@@ -1,0 +1,515 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > LoginMode</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">cl.duoc.mpazest3.ui.screen</a>
+</div>
+
+<h1>Coverage Summary for Class: LoginMode (cl.duoc.mpazest3.ui.screen)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LoginMode</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;// Desarrollado por: Jonathan Ulloa (ui/screen)
+&nbsp;package cl.duoc.mpazest3.ui.screen
+&nbsp;
+&nbsp;import androidx.compose.animation.AnimatedVisibility
+&nbsp;import androidx.compose.animation.fadeIn
+&nbsp;import androidx.compose.animation.fadeOut
+&nbsp;import androidx.compose.foundation.background
+&nbsp;import androidx.compose.foundation.border
+&nbsp;import androidx.compose.foundation.layout.Arrangement
+&nbsp;import androidx.compose.foundation.layout.Box
+&nbsp;import androidx.compose.foundation.layout.Column
+&nbsp;import androidx.compose.foundation.layout.PaddingValues
+&nbsp;import androidx.compose.foundation.layout.Row
+&nbsp;import androidx.compose.foundation.layout.Spacer
+&nbsp;import androidx.compose.foundation.layout.fillMaxSize
+&nbsp;import androidx.compose.foundation.layout.fillMaxWidth
+&nbsp;import androidx.compose.foundation.layout.height
+&nbsp;import androidx.compose.foundation.layout.padding
+&nbsp;import androidx.compose.foundation.layout.size
+&nbsp;import androidx.compose.foundation.layout.width
+&nbsp;import androidx.compose.foundation.shape.CircleShape
+&nbsp;import androidx.compose.foundation.shape.RoundedCornerShape
+&nbsp;import androidx.compose.foundation.text.KeyboardOptions
+&nbsp;import androidx.compose.material.icons.Icons
+&nbsp;import androidx.compose.material.icons.filled.Face
+&nbsp;import androidx.compose.material.icons.filled.Lock
+&nbsp;import androidx.compose.material.icons.filled.Person
+&nbsp;import androidx.compose.material.icons.filled.Warning
+&nbsp;import androidx.compose.material3.Button
+&nbsp;import androidx.compose.material3.ButtonDefaults
+&nbsp;import androidx.compose.material3.Card
+&nbsp;import androidx.compose.material3.CardDefaults
+&nbsp;import androidx.compose.material3.Icon
+&nbsp;import androidx.compose.material3.MaterialTheme
+&nbsp;import androidx.compose.material3.OutlinedTextField
+&nbsp;import androidx.compose.material3.OutlinedTextFieldDefaults
+&nbsp;import androidx.compose.material3.Surface
+&nbsp;import androidx.compose.material3.Text
+&nbsp;import androidx.compose.runtime.Composable
+&nbsp;import androidx.compose.runtime.collectAsState
+&nbsp;import androidx.compose.runtime.getValue
+&nbsp;import androidx.compose.runtime.mutableStateOf
+&nbsp;import androidx.compose.runtime.remember
+&nbsp;import androidx.compose.runtime.saveable.rememberSaveable
+&nbsp;import androidx.compose.runtime.setValue
+&nbsp;import androidx.compose.ui.Alignment
+&nbsp;import androidx.compose.ui.Modifier
+&nbsp;import androidx.compose.ui.draw.clip
+&nbsp;import androidx.compose.ui.graphics.Color
+&nbsp;import androidx.compose.ui.text.font.FontWeight
+&nbsp;import androidx.compose.ui.text.input.KeyboardType
+&nbsp;import androidx.compose.ui.text.input.PasswordVisualTransformation
+&nbsp;import androidx.compose.ui.text.style.TextAlign
+&nbsp;import androidx.compose.ui.unit.dp
+&nbsp;import androidx.compose.ui.unit.sp
+&nbsp;import cl.duoc.mpazest3.viewmodel.AuthViewModel
+&nbsp;
+&nbsp;// Colores institucionales del Colegio Marcela Paz
+&nbsp;val SkyBlue = Color(0xFF00A8E8)
+&nbsp;val SunYellow = Color(0xFFFFD166)
+&nbsp;val GrassGreen = Color(0xFF06D6A0)
+&nbsp;val SoftBackground = Color(0xFFF4F9FC)
+&nbsp;
+&nbsp;// Perfiles de ingreso de la pantalla de login
+<b class="nc">&nbsp;private enum class LoginMode { STUDENT, TEACHER, UTP }</b>
+&nbsp;
+&nbsp;@Composable
+&nbsp;fun LoginScreen(
+&nbsp;    authViewModel: AuthViewModel,
+&nbsp;    onLoginStudent: () -&gt; Unit
+&nbsp;) {
+&nbsp;    val username by authViewModel.username.collectAsState()
+&nbsp;    val password by authViewModel.password.collectAsState()
+&nbsp;    val usernameError by authViewModel.usernameError.collectAsState()
+&nbsp;    val passwordError by authViewModel.passwordError.collectAsState()
+&nbsp;
+&nbsp;    // rememberSaveable: los datos sobreviven al giro de la pantalla (con remember se perderían)
+&nbsp;    var mode by rememberSaveable { mutableStateOf(LoginMode.STUDENT) }
+&nbsp;    var teacherEmail by rememberSaveable { mutableStateOf(&quot;&quot;) }
+&nbsp;    var teacherCode by rememberSaveable { mutableStateOf(&quot;&quot;) }
+&nbsp;
+&nbsp;    // Al cambiar de perfil se limpian los campos y los errores
+&nbsp;    val selectMode: (LoginMode) -&gt; Unit = { newMode -&gt;
+&nbsp;        mode = newMode
+&nbsp;        authViewModel.onUsernameChanged(&quot;&quot;)
+&nbsp;        authViewModel.onPasswordChanged(&quot;&quot;)
+&nbsp;    }
+&nbsp;
+&nbsp;    Surface(
+&nbsp;        modifier = Modifier.fillMaxSize(),
+&nbsp;        color = SoftBackground
+&nbsp;    ) {
+&nbsp;        Column(
+&nbsp;            modifier = Modifier
+&nbsp;                .fillMaxSize()
+&nbsp;                .padding(20.dp),
+&nbsp;            horizontalAlignment = Alignment.CenterHorizontally,
+&nbsp;            verticalArrangement = Arrangement.Center
+&nbsp;        ) {
+&nbsp;            // Emblema e Insignia Ilustrada
+&nbsp;            Box(
+&nbsp;                modifier = Modifier
+&nbsp;                    .size(110.dp)
+&nbsp;                    .clip(CircleShape)
+&nbsp;                    .background(Color.White)
+&nbsp;                    .border(4.dp, SkyBlue, CircleShape),
+&nbsp;                contentAlignment = Alignment.Center
+&nbsp;            ) {
+&nbsp;                Column(horizontalAlignment = Alignment.CenterHorizontally) {
+&nbsp;                    Text(text = &quot;🏔️☀️&quot;, fontSize = 28.sp)
+&nbsp;                    Text(
+&nbsp;                        text = &quot;E-764&quot;,
+&nbsp;                        fontSize = 12.sp,
+&nbsp;                        fontWeight = FontWeight.ExtraBold,
+&nbsp;                        color = SkyBlue
+&nbsp;                    )
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+&nbsp;            Spacer(modifier = Modifier.height(10.dp))
+&nbsp;
+&nbsp;            Text(
+&nbsp;                text = &quot;Colegio Escritora Marcela Paz&quot;,
+&nbsp;                fontSize = 14.sp,
+&nbsp;                color = Color.Gray,
+&nbsp;                fontWeight = FontWeight.Medium
+&nbsp;            )
+&nbsp;            Text(
+&nbsp;                text = &quot;MPAZ PRO 3º&quot;,
+&nbsp;                fontSize = 28.sp,
+&nbsp;                fontWeight = FontWeight.Black,
+&nbsp;                color = Color(0xFF1E293B)
+&nbsp;            )
+&nbsp;
+&nbsp;            Spacer(modifier = Modifier.height(20.dp))
+&nbsp;
+&nbsp;            // Selector de perfil (Estudiante / Docente / UTP)
+&nbsp;            Row(
+&nbsp;                modifier = Modifier
+&nbsp;                    .fillMaxWidth(0.95f)
+&nbsp;                    .background(Color.White, RoundedCornerShape(20.dp))
+&nbsp;                    .border(2.dp, SkyBlue.copy(alpha = 0.3f), RoundedCornerShape(20.dp))
+&nbsp;                    .padding(4.dp),
+&nbsp;                horizontalArrangement = Arrangement.spacedBy(4.dp)
+&nbsp;            ) {
+&nbsp;                LoginModeButton(
+&nbsp;                    text = &quot;🎒 Estudiante&quot;,
+&nbsp;                    selected = mode == LoginMode.STUDENT,
+&nbsp;                    modifier = Modifier.weight(1f)
+&nbsp;                ) { selectMode(LoginMode.STUDENT) }
+&nbsp;
+&nbsp;                LoginModeButton(
+&nbsp;                    text = &quot;👩‍🏫 Docente&quot;,
+&nbsp;                    selected = mode == LoginMode.TEACHER,
+&nbsp;                    modifier = Modifier.weight(1f)
+&nbsp;                ) { selectMode(LoginMode.TEACHER) }
+&nbsp;
+&nbsp;                LoginModeButton(
+&nbsp;                    text = &quot;📋 UTP&quot;,
+&nbsp;                    selected = mode == LoginMode.UTP,
+&nbsp;                    modifier = Modifier.weight(1f)
+&nbsp;                ) { selectMode(LoginMode.UTP) }
+&nbsp;            }
+&nbsp;
+&nbsp;            Spacer(modifier = Modifier.height(20.dp))
+&nbsp;
+&nbsp;            // Formulario dentro de una Tarjeta
+&nbsp;            Card(
+&nbsp;                modifier = Modifier.fillMaxWidth(0.92f),
+&nbsp;                shape = RoundedCornerShape(24.dp),
+&nbsp;                colors = CardDefaults.cardColors(containerColor = Color.White),
+&nbsp;                elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
+&nbsp;            ) {
+&nbsp;                Column(
+&nbsp;                    modifier = Modifier.padding(20.dp),
+&nbsp;                    horizontalAlignment = Alignment.CenterHorizontally
+&nbsp;                ) {
+&nbsp;                    if (mode == LoginMode.STUDENT) {
+&nbsp;                        Text(
+&nbsp;                            text = &quot;¡Hola! Ingresa para jugar y aprender 🚀&quot;,
+&nbsp;                            fontSize = 15.sp,
+&nbsp;                            fontWeight = FontWeight.Bold,
+&nbsp;                            color = Color(0xFF334155),
+&nbsp;                            textAlign = TextAlign.Center,
+&nbsp;                            modifier = Modifier.padding(bottom = 16.dp)
+&nbsp;                        )
+&nbsp;
+&nbsp;                        OutlinedTextField(
+&nbsp;                            value = username,
+&nbsp;                            onValueChange = { authViewModel.onUsernameChanged(it) },
+&nbsp;                            label = { Text(&quot;Código de Estudiante (ej: JP01)&quot;) },
+&nbsp;                            isError = usernameError != null,
+&nbsp;                            trailingIcon = { if (usernameError != null) LoginErrorIcon() },
+&nbsp;                            leadingIcon = { Icon(Icons.Default.Person, contentDescription = null, tint = SkyBlue) },
+&nbsp;                            shape = RoundedCornerShape(16.dp),
+&nbsp;                            singleLine = true,
+&nbsp;                            colors = OutlinedTextFieldDefaults.colors(
+&nbsp;                                focusedBorderColor = SkyBlue,
+&nbsp;                                unfocusedBorderColor = Color.LightGray
+&nbsp;                            ),
+&nbsp;                            modifier = Modifier.fillMaxWidth()
+&nbsp;                        )
+&nbsp;
+&nbsp;                        Spacer(modifier = Modifier.height(12.dp))
+&nbsp;
+&nbsp;                        OutlinedTextField(
+&nbsp;                            value = password,
+&nbsp;                            onValueChange = { authViewModel.onPasswordChanged(it) },
+&nbsp;                            label = { Text(&quot;PIN Secreto (4 dígitos)&quot;) },
+&nbsp;                            isError = passwordError != null,
+&nbsp;                            trailingIcon = { if (passwordError != null) LoginErrorIcon() },
+&nbsp;                            leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null, tint = SkyBlue) },
+&nbsp;                            visualTransformation = PasswordVisualTransformation(),
+&nbsp;                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
+&nbsp;                            shape = RoundedCornerShape(16.dp),
+&nbsp;                            singleLine = true,
+&nbsp;                            colors = OutlinedTextFieldDefaults.colors(
+&nbsp;                                focusedBorderColor = SkyBlue,
+&nbsp;                                unfocusedBorderColor = Color.LightGray
+&nbsp;                            ),
+&nbsp;                            modifier = Modifier.fillMaxWidth()
+&nbsp;                        )
+&nbsp;
+&nbsp;                        Spacer(modifier = Modifier.height(20.dp))
+&nbsp;
+&nbsp;                        Button(
+&nbsp;                            onClick = onLoginStudent,
+&nbsp;                            shape = RoundedCornerShape(20.dp),
+&nbsp;                            colors = ButtonDefaults.buttonColors(containerColor = SkyBlue),
+&nbsp;                            modifier = Modifier
+&nbsp;                                .fillMaxWidth()
+&nbsp;                                .height(54.dp)
+&nbsp;                        ) {
+&nbsp;                            Text(&quot;¡Ingresar a Aprender! ✨&quot;, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+&nbsp;                        }
+&nbsp;                    } else if (mode == LoginMode.TEACHER) {
+&nbsp;                        Text(
+&nbsp;                            text = &quot;Acceso Exclusivo para Profesores&quot;,
+&nbsp;                            fontSize = 15.sp,
+&nbsp;                            fontWeight = FontWeight.Bold,
+&nbsp;                            color = Color(0xFF334155),
+&nbsp;                            modifier = Modifier.padding(bottom = 16.dp)
+&nbsp;                        )
+&nbsp;
+&nbsp;                        OutlinedTextField(
+&nbsp;                            value = username,
+&nbsp;                            onValueChange = { authViewModel.onUsernameChanged(it) },
+&nbsp;                            label = { Text(&quot;Nombre Completo&quot;) },
+&nbsp;                            isError = usernameError != null &amp;&amp; username.isBlank(),
+&nbsp;                            trailingIcon = { if (usernameError != null &amp;&amp; username.isBlank()) LoginErrorIcon() },
+&nbsp;                            shape = RoundedCornerShape(16.dp),
+&nbsp;                            modifier = Modifier.fillMaxWidth()
+&nbsp;                        )
+&nbsp;
+&nbsp;                        Spacer(modifier = Modifier.height(10.dp))
+&nbsp;
+&nbsp;                        OutlinedTextField(
+&nbsp;                            value = teacherEmail,
+&nbsp;                            onValueChange = { teacherEmail = it },
+&nbsp;                            label = { Text(&quot;Correo (@mpaz.cl)&quot;) },
+&nbsp;                            isError = usernameError != null &amp;&amp; !authViewModel.isValidTeacherEmail(teacherEmail),
+&nbsp;                            trailingIcon = { if (usernameError != null &amp;&amp; !authViewModel.isValidTeacherEmail(teacherEmail)) LoginErrorIcon() },
+&nbsp;                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+&nbsp;                            shape = RoundedCornerShape(16.dp),
+&nbsp;                            modifier = Modifier.fillMaxWidth()
+&nbsp;                        )
+&nbsp;
+&nbsp;                        Spacer(modifier = Modifier.height(10.dp))
+&nbsp;
+&nbsp;                        OutlinedTextField(
+&nbsp;                            value = teacherCode,
+&nbsp;                            onValueChange = { teacherCode = it },
+&nbsp;                            label = { Text(&quot;Código docente (ej: DOC01)&quot;) },
+&nbsp;                            isError = passwordError != null,
+&nbsp;                            trailingIcon = { if (passwordError != null) LoginErrorIcon() },
+&nbsp;                            shape = RoundedCornerShape(16.dp),
+&nbsp;                            modifier = Modifier.fillMaxWidth()
+&nbsp;                        )
+&nbsp;
+&nbsp;                        Spacer(modifier = Modifier.height(20.dp))
+&nbsp;
+&nbsp;                        Button(
+&nbsp;                            onClick = {
+&nbsp;                                authViewModel.validateAndLoginTeacher(
+&nbsp;                                    fullName = username,
+&nbsp;                                    email = teacherEmail,
+&nbsp;                                    teacherCode = teacherCode
+&nbsp;                                )
+&nbsp;                            },
+&nbsp;                            shape = RoundedCornerShape(20.dp),
+&nbsp;                            colors = ButtonDefaults.buttonColors(containerColor = GrassGreen),
+&nbsp;                            modifier = Modifier
+&nbsp;                                .fillMaxWidth()
+&nbsp;                                .height(54.dp)
+&nbsp;                        ) {
+&nbsp;                            Text(&quot;Validar e Ingresar&quot;, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+&nbsp;                        }
+&nbsp;                    } else {
+&nbsp;                        Text(
+&nbsp;                            text = &quot;Acceso Jefatura UTP&quot;,
+&nbsp;                            fontSize = 15.sp,
+&nbsp;                            fontWeight = FontWeight.Bold,
+&nbsp;                            color = Color(0xFF334155),
+&nbsp;                            modifier = Modifier.padding(bottom = 4.dp)
+&nbsp;                        )
+&nbsp;                        Text(
+&nbsp;                            text = &quot;Revisa y autoriza los contenidos de cada Objetivo de Aprendizaje&quot;,
+&nbsp;                            fontSize = 12.sp,
+&nbsp;                            color = Color.Gray,
+&nbsp;                            textAlign = TextAlign.Center,
+&nbsp;                            modifier = Modifier.padding(bottom = 16.dp)
+&nbsp;                        )
+&nbsp;
+&nbsp;                        OutlinedTextField(
+&nbsp;                            value = username,
+&nbsp;                            onValueChange = { authViewModel.onUsernameChanged(it) },
+&nbsp;                            label = { Text(&quot;Código UTP (ej: UTP01)&quot;) },
+&nbsp;                            leadingIcon = { Icon(Icons.Default.Person, contentDescription = null, tint = SkyBlue) },
+&nbsp;                            isError = usernameError != null,
+&nbsp;                            trailingIcon = { if (usernameError != null) LoginErrorIcon() },
+&nbsp;                            shape = RoundedCornerShape(16.dp),
+&nbsp;                            singleLine = true,
+&nbsp;                            colors = OutlinedTextFieldDefaults.colors(
+&nbsp;                                focusedBorderColor = SkyBlue,
+&nbsp;                                unfocusedBorderColor = Color.LightGray
+&nbsp;                            ),
+&nbsp;                            modifier = Modifier.fillMaxWidth()
+&nbsp;                        )
+&nbsp;
+&nbsp;                        Spacer(modifier = Modifier.height(12.dp))
+&nbsp;
+&nbsp;                        OutlinedTextField(
+&nbsp;                            value = password,
+&nbsp;                            onValueChange = { authViewModel.onPasswordChanged(it) },
+&nbsp;                            label = { Text(&quot;PIN (4 dígitos)&quot;) },
+&nbsp;                            leadingIcon = { Icon(Icons.Default.Lock, contentDescription = null, tint = SkyBlue) },
+&nbsp;                            isError = passwordError != null,
+&nbsp;                            trailingIcon = { if (passwordError != null) LoginErrorIcon() },
+&nbsp;                            visualTransformation = PasswordVisualTransformation(),
+&nbsp;                            keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.NumberPassword),
+&nbsp;                            shape = RoundedCornerShape(16.dp),
+&nbsp;                            singleLine = true,
+&nbsp;                            colors = OutlinedTextFieldDefaults.colors(
+&nbsp;                                focusedBorderColor = SkyBlue,
+&nbsp;                                unfocusedBorderColor = Color.LightGray
+&nbsp;                            ),
+&nbsp;                            modifier = Modifier.fillMaxWidth()
+&nbsp;                        )
+&nbsp;
+&nbsp;                        Spacer(modifier = Modifier.height(20.dp))
+&nbsp;
+&nbsp;                        Button(
+&nbsp;                            onClick = { authViewModel.validateAndLoginUtp(username, password) },
+&nbsp;                            shape = RoundedCornerShape(20.dp),
+&nbsp;                            colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFFF7F3F)),
+&nbsp;                            modifier = Modifier
+&nbsp;                                .fillMaxWidth()
+&nbsp;                                .height(54.dp)
+&nbsp;                        ) {
+&nbsp;                            Text(&quot;Ingresar como UTP&quot;, fontSize = 16.sp, fontWeight = FontWeight.Bold)
+&nbsp;                        }
+&nbsp;                    }
+&nbsp;
+&nbsp;                    // Mensajes de error animados
+&nbsp;                    AnimatedVisibility(visible = usernameError != null || passwordError != null) {
+&nbsp;                        Column(modifier = Modifier.padding(top = 12.dp)) {
+&nbsp;                            usernameError?.let {
+&nbsp;                                Text(text = &quot;⚠️ $it&quot;, color = MaterialTheme.colorScheme.error, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+&nbsp;                            }
+&nbsp;                            passwordError?.let {
+&nbsp;                                Text(text = &quot;🔑 $it&quot;, color = MaterialTheme.colorScheme.error, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+&nbsp;                            }
+&nbsp;                        }
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+&nbsp;
+&nbsp;// Botón de la barra de perfiles (texto corto para que quepan los tres en pantallas pequeñas)
+&nbsp;@Composable
+&nbsp;private fun LoginModeButton(
+&nbsp;    text: String,
+&nbsp;    selected: Boolean,
+&nbsp;    modifier: Modifier = Modifier,
+&nbsp;    onClick: () -&gt; Unit
+&nbsp;) {
+&nbsp;    Button(
+&nbsp;        onClick = onClick,
+&nbsp;        colors = ButtonDefaults.buttonColors(
+&nbsp;            containerColor = if (selected) SkyBlue else Color.Transparent,
+&nbsp;            contentColor = if (selected) Color.White else Color.Gray
+&nbsp;        ),
+&nbsp;        shape = RoundedCornerShape(16.dp),
+&nbsp;        contentPadding = PaddingValues(horizontal = 4.dp, vertical = 8.dp),
+&nbsp;        modifier = modifier
+&nbsp;    ) {
+&nbsp;        Text(text, fontSize = 12.sp, fontWeight = FontWeight.Bold, maxLines = 1)
+&nbsp;    }
+&nbsp;}
+&nbsp;
+&nbsp;// Ícono de error que aparece dentro del campo cuando hay un problema
+&nbsp;@Composable
+&nbsp;private fun LoginErrorIcon() {
+&nbsp;    Icon(
+&nbsp;        imageVector = Icons.Default.Warning,
+&nbsp;        contentDescription = &quot;Error&quot;,
+&nbsp;        tint = MaterialTheme.colorScheme.error
+&nbsp;    )
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-11-25 01:37</div>
+</div>
+</body>
+</html>

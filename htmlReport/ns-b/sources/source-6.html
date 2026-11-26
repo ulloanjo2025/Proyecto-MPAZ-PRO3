@@ -1,0 +1,468 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > StudentReportDialogKt</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">cl.duoc.mpazest3.ui.screen</a>
+</div>
+
+<h1>Coverage Summary for Class: StudentReportDialogKt (cl.duoc.mpazest3.ui.screen)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">StudentReportDialogKt</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/60)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/204)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package cl.duoc.mpazest3.ui.screen
+&nbsp;// Desarrollado por: Sebastián Maquera
+&nbsp;import android.content.Intent
+&nbsp;import androidx.compose.foundation.BorderStroke
+&nbsp;import androidx.compose.foundation.layout.Arrangement
+&nbsp;import androidx.compose.foundation.layout.Column
+&nbsp;import androidx.compose.foundation.layout.Row
+&nbsp;import androidx.compose.foundation.layout.Spacer
+&nbsp;import androidx.compose.foundation.layout.fillMaxWidth
+&nbsp;import androidx.compose.foundation.layout.height
+&nbsp;import androidx.compose.foundation.layout.heightIn
+&nbsp;import androidx.compose.foundation.layout.padding
+&nbsp;import androidx.compose.foundation.layout.size
+&nbsp;import androidx.compose.foundation.layout.width
+&nbsp;import androidx.compose.foundation.rememberScrollState
+&nbsp;import androidx.compose.foundation.shape.RoundedCornerShape
+&nbsp;import androidx.compose.foundation.verticalScroll
+&nbsp;import androidx.compose.material.icons.Icons
+&nbsp;import androidx.compose.material.icons.filled.Lock
+&nbsp;import androidx.compose.material3.AlertDialog
+&nbsp;import androidx.compose.material3.Button
+&nbsp;import androidx.compose.material3.ButtonDefaults
+&nbsp;import androidx.compose.material3.Card
+&nbsp;import androidx.compose.material3.CardDefaults
+&nbsp;import androidx.compose.material3.Icon
+&nbsp;import androidx.compose.material3.LinearProgressIndicator
+&nbsp;import androidx.compose.material3.OutlinedButton
+&nbsp;import androidx.compose.material3.Surface
+&nbsp;import androidx.compose.material3.Text
+&nbsp;import androidx.compose.material3.TextButton
+&nbsp;import androidx.compose.runtime.Composable
+&nbsp;import androidx.compose.runtime.remember
+&nbsp;import androidx.compose.ui.Alignment
+&nbsp;import androidx.compose.ui.Modifier
+&nbsp;import androidx.compose.ui.graphics.Color
+&nbsp;import androidx.compose.ui.platform.LocalContext
+&nbsp;import androidx.compose.ui.text.font.FontWeight
+&nbsp;import androidx.compose.ui.unit.dp
+&nbsp;import androidx.compose.ui.unit.sp
+&nbsp;import cl.duoc.mpazest3.data.local.entity.LearningObjectiveEntity
+&nbsp;import cl.duoc.mpazest3.data.local.entity.ReportValidationEntity
+&nbsp;import cl.duoc.mpazest3.data.local.entity.StudentAttemptEntity
+&nbsp;import cl.duoc.mpazest3.data.local.entity.StudentEntity
+&nbsp;import cl.duoc.mpazest3.model.ObjectivePerformance
+&nbsp;import cl.duoc.mpazest3.model.ReportRules
+&nbsp;import java.text.SimpleDateFormat
+&nbsp;import java.util.Date
+&nbsp;import java.util.Locale
+&nbsp;
+&nbsp;// Informe de desempeño de un estudiante (uso reservado del docente).
+&nbsp;// Muestra el rendimiento por OA, fortalezas, aspectos a reforzar, fecha y estado de validación.
+&nbsp;// No emite diagnósticos ni decisiones académicas automáticas.
+&nbsp;@Composable
+&nbsp;fun StudentReportDialog(
+&nbsp;    student: StudentEntity,
+&nbsp;    attempts: List&lt;StudentAttemptEntity&gt;,
+&nbsp;    objectives: List&lt;LearningObjectiveEntity&gt;,
+&nbsp;    validation: ReportValidationEntity?,
+&nbsp;    onValidate: () -&gt; Unit,
+&nbsp;    onRevoke: () -&gt; Unit,
+&nbsp;    onUnlockSubject: (studentName: String, subjectId: String) -&gt; Unit,
+&nbsp;    onDismiss: () -&gt; Unit
+<b class="nc">&nbsp;) {</b>
+<b class="nc">&nbsp;    val context = LocalContext.current</b>
+<b class="nc">&nbsp;    val performances = remember(attempts) {</b>
+<b class="nc">&nbsp;        ReportRules.performanceByObjective(attempts.map { it.detailsSummary })</b>
+&nbsp;    }
+<b class="nc">&nbsp;    val titles = remember(objectives) { objectives.associate { it.code to it.title } }</b>
+<b class="nc">&nbsp;    val dateFormat = remember { SimpleDateFormat(&quot;dd-MM-yyyy HH:mm&quot;, Locale(&quot;es&quot;, &quot;CL&quot;)) }</b>
+<b class="nc">&nbsp;    val issuedText = remember { dateFormat.format(Date()) }</b>
+&nbsp;
+<b class="nc">&nbsp;    val isValidated = validation != null &amp;&amp; validation.attemptsAtValidation == attempts.size</b>
+<b class="nc">&nbsp;    val validationText = if (validation == null) {</b>
+<b class="nc">&nbsp;        &quot;Pendiente de validación docente&quot;</b>
+<b class="nc">&nbsp;    } else if (validation.attemptsAtValidation != attempts.size) {</b>
+<b class="nc">&nbsp;        &quot;Requiere nueva validación (hay cambios en las evaluaciones)&quot;</b>
+&nbsp;    } else {
+<b class="nc">&nbsp;        &quot;Validado por &quot; + validation.validatedBy + &quot; el &quot; + dateFormat.format(Date(validation.validatedAt))</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    val strengths = performances.filter { it.isStrength }</b>
+<b class="nc">&nbsp;    val toReinforce = performances.filter { !it.isStrength }</b>
+&nbsp;
+<b class="nc">&nbsp;    AlertDialog(</b>
+<b class="nc">&nbsp;        onDismissRequest = onDismiss,</b>
+<b class="nc">&nbsp;        confirmButton = {</b>
+<b class="nc">&nbsp;            TextButton(onClick = onDismiss) {</b>
+&nbsp;                Text(&quot;Cerrar&quot;, fontWeight = FontWeight.Bold)
+&nbsp;            }
+&nbsp;        },
+<b class="nc">&nbsp;        title = {</b>
+<b class="nc">&nbsp;            Column {</b>
+<b class="nc">&nbsp;                Text(</b>
+<b class="nc">&nbsp;                    text = &quot;Informe de desempeño 🎓&quot;,</b>
+<b class="nc">&nbsp;                    fontSize = 18.sp,</b>
+<b class="nc">&nbsp;                    fontWeight = FontWeight.Bold</b>
+&nbsp;                )
+<b class="nc">&nbsp;                Text(</b>
+<b class="nc">&nbsp;                    text = student.fullName,</b>
+<b class="nc">&nbsp;                    fontSize = 14.sp,</b>
+<b class="nc">&nbsp;                    color = Color(0xFF00A8E8),</b>
+<b class="nc">&nbsp;                    fontWeight = FontWeight.Medium</b>
+&nbsp;                )
+<b class="nc">&nbsp;                Text(</b>
+<b class="nc">&nbsp;                    text = &quot;Emitido: &quot; + issuedText,</b>
+<b class="nc">&nbsp;                    fontSize = 12.sp,</b>
+<b class="nc">&nbsp;                    color = Color.Gray</b>
+&nbsp;                )
+<b class="nc">&nbsp;            }</b>
+&nbsp;        },
+<b class="nc">&nbsp;        text = {</b>
+<b class="nc">&nbsp;            Column(</b>
+<b class="nc">&nbsp;                modifier = Modifier</b>
+<b class="nc">&nbsp;                    .heightIn(max = 460.dp)</b>
+<b class="nc">&nbsp;                    .verticalScroll(rememberScrollState())</b>
+&nbsp;            ) {
+&nbsp;                // Aviso: el informe apoya al docente, no decide por él
+<b class="nc">&nbsp;                Surface(</b>
+<b class="nc">&nbsp;                    color = Color(0xFFFFF9E6),</b>
+<b class="nc">&nbsp;                    shape = RoundedCornerShape(10.dp)</b>
+&nbsp;                ) {
+&nbsp;                    Text(
+&nbsp;                        text = &quot;Informe reservado de apoyo docente. No es un diagnóstico ni una decisión académica automática: debe ser revisado y validado por el docente.&quot;,
+&nbsp;                        fontSize = 11.sp,
+&nbsp;                        color = Color(0xFF7C5E10),
+&nbsp;                        modifier = Modifier.padding(8.dp)
+&nbsp;                    )
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;                Spacer(modifier = Modifier.height(12.dp))</b>
+<b class="nc">&nbsp;                ReportSectionTitle(&quot;Rendimiento por Objetivo de Aprendizaje&quot;)</b>
+<b class="nc">&nbsp;                if (performances.isEmpty()) {</b>
+<b class="nc">&nbsp;                    Text(</b>
+<b class="nc">&nbsp;                        text = &quot;Aún no hay respuestas asociadas a un OA.&quot;,</b>
+<b class="nc">&nbsp;                        fontSize = 13.sp,</b>
+<b class="nc">&nbsp;                        color = Color.Gray</b>
+&nbsp;                    )
+<b class="nc">&nbsp;                } else {</b>
+<b class="nc">&nbsp;                    performances.forEach { performance -&gt;</b>
+<b class="nc">&nbsp;                        OaPerformanceRow(performance, titles[performance.objectiveCode].orEmpty())</b>
+<b class="nc">&nbsp;                    }</b>
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;                Spacer(modifier = Modifier.height(12.dp))</b>
+<b class="nc">&nbsp;                ReportSectionTitle(&quot;Fortalezas&quot;)</b>
+<b class="nc">&nbsp;                if (strengths.isEmpty()) {</b>
+<b class="nc">&nbsp;                    Text(text = &quot;Sin fortalezas identificadas todavía.&quot;, fontSize = 13.sp, color = Color.Gray)</b>
+<b class="nc">&nbsp;                } else {</b>
+<b class="nc">&nbsp;                    strengths.forEach {</b>
+<b class="nc">&nbsp;                        Text(</b>
+<b class="nc">&nbsp;                            text = &quot;✅ &quot; + oaLabel(it.objectiveCode, titles[it.objectiveCode].orEmpty()),</b>
+<b class="nc">&nbsp;                            fontSize = 13.sp,</b>
+<b class="nc">&nbsp;                            color = Color(0xFF334155)</b>
+&nbsp;                        )
+<b class="nc">&nbsp;                    }</b>
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;                Spacer(modifier = Modifier.height(12.dp))</b>
+<b class="nc">&nbsp;                ReportSectionTitle(&quot;Aspectos a reforzar&quot;)</b>
+<b class="nc">&nbsp;                if (toReinforce.isEmpty()) {</b>
+<b class="nc">&nbsp;                    Text(text = &quot;Ningún aspecto pendiente de refuerzo.&quot;, fontSize = 13.sp, color = Color.Gray)</b>
+<b class="nc">&nbsp;                } else {</b>
+<b class="nc">&nbsp;                    toReinforce.forEach {</b>
+<b class="nc">&nbsp;                        Text(</b>
+<b class="nc">&nbsp;                            text = &quot;📌 &quot; + oaLabel(it.objectiveCode, titles[it.objectiveCode].orEmpty()),</b>
+<b class="nc">&nbsp;                            fontSize = 13.sp,</b>
+<b class="nc">&nbsp;                            color = Color(0xFF334155)</b>
+&nbsp;                        )
+<b class="nc">&nbsp;                    }</b>
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;                Spacer(modifier = Modifier.height(14.dp))</b>
+&nbsp;
+&nbsp;                // Estado de validación del docente
+<b class="nc">&nbsp;                Surface(</b>
+<b class="nc">&nbsp;                    color = if (isValidated) Color(0xFFE6F9F3) else Color(0xFFFFF4D6),</b>
+<b class="nc">&nbsp;                    shape = RoundedCornerShape(12.dp),</b>
+<b class="nc">&nbsp;                    modifier = Modifier.fillMaxWidth()</b>
+<b class="nc">&nbsp;                ) {</b>
+<b class="nc">&nbsp;                    Column(modifier = Modifier.padding(10.dp)) {</b>
+<b class="nc">&nbsp;                        Text(</b>
+<b class="nc">&nbsp;                            text = &quot;Estado: &quot; + validationText,</b>
+<b class="nc">&nbsp;                            fontSize = 12.sp,</b>
+<b class="nc">&nbsp;                            fontWeight = FontWeight.Bold,</b>
+<b class="nc">&nbsp;                            color = Color(0xFF334155)</b>
+&nbsp;                        )
+<b class="nc">&nbsp;                        Spacer(modifier = Modifier.height(6.dp))</b>
+<b class="nc">&nbsp;                        if (isValidated) {</b>
+<b class="nc">&nbsp;                            OutlinedButton(</b>
+<b class="nc">&nbsp;                                onClick = onRevoke,</b>
+<b class="nc">&nbsp;                                shape = RoundedCornerShape(10.dp)</b>
+&nbsp;                            ) {
+&nbsp;                                Text(&quot;Quitar validación&quot;, fontSize = 12.sp)
+&nbsp;                            }
+<b class="nc">&nbsp;                        } else {</b>
+<b class="nc">&nbsp;                            Button(</b>
+<b class="nc">&nbsp;                                onClick = onValidate,</b>
+<b class="nc">&nbsp;                                enabled = attempts.isNotEmpty(),</b>
+<b class="nc">&nbsp;                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF06D6A0)),</b>
+<b class="nc">&nbsp;                                shape = RoundedCornerShape(10.dp)</b>
+&nbsp;                            ) {
+&nbsp;                                Text(&quot;✅ Validar informe&quot;, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+&nbsp;                            }
+&nbsp;                        }
+<b class="nc">&nbsp;                    }</b>
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;                Spacer(modifier = Modifier.height(8.dp))</b>
+&nbsp;
+&nbsp;                // Compartir el informe como texto simple (no necesita permisos)
+<b class="nc">&nbsp;                OutlinedButton(</b>
+<b class="nc">&nbsp;                    onClick = {</b>
+<b class="nc">&nbsp;                        val reportText = ReportRules.buildReportText(</b>
+<b class="nc">&nbsp;                            studentName = student.fullName,</b>
+<b class="nc">&nbsp;                            issuedAt = issuedText,</b>
+<b class="nc">&nbsp;                            validationStatus = validationText,</b>
+<b class="nc">&nbsp;                            performances = performances,</b>
+<b class="nc">&nbsp;                            titles = titles</b>
+&nbsp;                        )
+<b class="nc">&nbsp;                        val sendIntent = Intent(Intent.ACTION_SEND).apply {</b>
+<b class="nc">&nbsp;                            type = &quot;text/plain&quot;</b>
+<b class="nc">&nbsp;                            putExtra(Intent.EXTRA_SUBJECT, &quot;Informe de desempeño - &quot; + student.fullName)</b>
+<b class="nc">&nbsp;                            putExtra(Intent.EXTRA_TEXT, reportText)</b>
+<b class="nc">&nbsp;                        }</b>
+<b class="nc">&nbsp;                        context.startActivity(Intent.createChooser(sendIntent, &quot;Compartir informe&quot;))</b>
+&nbsp;                    },
+<b class="nc">&nbsp;                    shape = RoundedCornerShape(10.dp),</b>
+<b class="nc">&nbsp;                    modifier = Modifier.fillMaxWidth()</b>
+&nbsp;                ) {
+&nbsp;                    Text(&quot;📤 Compartir informe (texto)&quot;, fontSize = 12.sp, fontWeight = FontWeight.Bold)
+&nbsp;                }
+&nbsp;
+<b class="nc">&nbsp;                Spacer(modifier = Modifier.height(14.dp))</b>
+<b class="nc">&nbsp;                ReportSectionTitle(&quot;Evaluaciones realizadas&quot;)</b>
+<b class="nc">&nbsp;                if (attempts.isEmpty()) {</b>
+<b class="nc">&nbsp;                    Text(</b>
+<b class="nc">&nbsp;                        text = &quot;El estudiante aún no ha realizado ninguna evaluación.&quot;,</b>
+<b class="nc">&nbsp;                        fontSize = 13.sp,</b>
+<b class="nc">&nbsp;                        color = Color.Gray</b>
+&nbsp;                    )
+&nbsp;                }
+<b class="nc">&nbsp;                attempts.forEach { attempt -&gt;</b>
+<b class="nc">&nbsp;                    Card(</b>
+<b class="nc">&nbsp;                        modifier = Modifier</b>
+<b class="nc">&nbsp;                            .fillMaxWidth()</b>
+<b class="nc">&nbsp;                            .padding(vertical = 6.dp),</b>
+<b class="nc">&nbsp;                        shape = RoundedCornerShape(12.dp),</b>
+<b class="nc">&nbsp;                        colors = CardDefaults.cardColors(containerColor = Color(0xFFF8FAFC)),</b>
+<b class="nc">&nbsp;                        border = BorderStroke(1.dp, Color(0xFFE2E8F0))</b>
+<b class="nc">&nbsp;                    ) {</b>
+<b class="nc">&nbsp;                        Column(</b>
+<b class="nc">&nbsp;                            modifier = Modifier</b>
+<b class="nc">&nbsp;                                .fillMaxWidth()</b>
+<b class="nc">&nbsp;                                .padding(12.dp)</b>
+&nbsp;                        ) {
+<b class="nc">&nbsp;                            Text(</b>
+<b class="nc">&nbsp;                                text = attempt.subjectId + &quot; (Intento #&quot; + attempt.attemptNumber + &quot;)&quot;,</b>
+<b class="nc">&nbsp;                                fontWeight = FontWeight.Bold,</b>
+<b class="nc">&nbsp;                                fontSize = 14.sp,</b>
+<b class="nc">&nbsp;                                color = Color(0xFF1E293B)</b>
+&nbsp;                            )
+&nbsp;
+<b class="nc">&nbsp;                            Spacer(modifier = Modifier.height(6.dp))</b>
+&nbsp;
+<b class="nc">&nbsp;                            Surface(</b>
+<b class="nc">&nbsp;                                color = if (attempt.isCorrect) Color(0xFFE6F9F3) else Color(0xFFFFEBEF),</b>
+<b class="nc">&nbsp;                                shape = RoundedCornerShape(8.dp)</b>
+<b class="nc">&nbsp;                            ) {</b>
+<b class="nc">&nbsp;                                Text(</b>
+<b class="nc">&nbsp;                                    text = (if (attempt.isCorrect) &quot;Aprobado&quot; else &quot;Refuerzo&quot;) + &quot; (&quot; + attempt.score + &quot;/&quot; + attempt.totalQuestions + &quot;)&quot;,</b>
+<b class="nc">&nbsp;                                    fontWeight = FontWeight.Bold,</b>
+<b class="nc">&nbsp;                                    fontSize = 12.sp,</b>
+<b class="nc">&nbsp;                                    color = if (attempt.isCorrect) Color(0xFF06D6A0) else Color(0xFFEF476F),</b>
+<b class="nc">&nbsp;                                    modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp)</b>
+&nbsp;                                )
+&nbsp;                            }
+&nbsp;
+<b class="nc">&nbsp;                            if (attempt.detailsSummary.isNotEmpty()) {</b>
+<b class="nc">&nbsp;                                Spacer(modifier = Modifier.height(8.dp))</b>
+<b class="nc">&nbsp;                                Text(</b>
+<b class="nc">&nbsp;                                    text = &quot;Detalle de respuestas:&quot;,</b>
+<b class="nc">&nbsp;                                    fontSize = 11.sp,</b>
+<b class="nc">&nbsp;                                    fontWeight = FontWeight.Bold,</b>
+<b class="nc">&nbsp;                                    color = Color.Gray</b>
+&nbsp;                                )
+<b class="nc">&nbsp;                                Text(</b>
+<b class="nc">&nbsp;                                    text = attempt.detailsSummary,</b>
+<b class="nc">&nbsp;                                    fontSize = 11.sp,</b>
+<b class="nc">&nbsp;                                    color = Color(0xFF334155),</b>
+<b class="nc">&nbsp;                                    modifier = Modifier.padding(top = 2.dp)</b>
+&nbsp;                                )
+&nbsp;                            }
+&nbsp;
+<b class="nc">&nbsp;                            Spacer(modifier = Modifier.height(10.dp))</b>
+&nbsp;
+<b class="nc">&nbsp;                            OutlinedButton(</b>
+<b class="nc">&nbsp;                                onClick = { onUnlockSubject(student.fullName, attempt.subjectId) },</b>
+<b class="nc">&nbsp;                                shape = RoundedCornerShape(8.dp),</b>
+<b class="nc">&nbsp;                                modifier = Modifier.fillMaxWidth()</b>
+&nbsp;                            ) {
+&nbsp;                                Icon(Icons.Default.Lock, contentDescription = null, modifier = Modifier.size(14.dp))
+&nbsp;                                Spacer(modifier = Modifier.width(4.dp))
+&nbsp;                                Text(&quot;🔓 Desbloquear Asignatura (Reiniciar Intentos)&quot;, fontSize = 11.sp, fontWeight = FontWeight.Bold)
+&nbsp;                            }
+<b class="nc">&nbsp;                        }</b>
+&nbsp;                    }
+<b class="nc">&nbsp;                }</b>
+<b class="nc">&nbsp;            }</b>
+&nbsp;        }
+&nbsp;    )
+<b class="nc">&nbsp;}</b>
+&nbsp;
+&nbsp;private fun oaLabel(code: String, title: String): String {
+<b class="nc">&nbsp;    return if (title.isBlank()) code else code + &quot; · &quot; + title</b>
+&nbsp;}
+&nbsp;
+&nbsp;@Composable
+<b class="nc">&nbsp;private fun ReportSectionTitle(text: String) {</b>
+<b class="nc">&nbsp;    Text(</b>
+<b class="nc">&nbsp;        text = text,</b>
+<b class="nc">&nbsp;        fontSize = 14.sp,</b>
+<b class="nc">&nbsp;        fontWeight = FontWeight.Bold,</b>
+<b class="nc">&nbsp;        color = Color(0xFF1E293B),</b>
+<b class="nc">&nbsp;        modifier = Modifier.padding(bottom = 4.dp)</b>
+&nbsp;    )
+<b class="nc">&nbsp;}</b>
+&nbsp;
+&nbsp;@Composable
+<b class="nc">&nbsp;private fun OaPerformanceRow(performance: ObjectivePerformance, title: String) {</b>
+<b class="nc">&nbsp;    Column(modifier = Modifier.padding(vertical = 4.dp)) {</b>
+<b class="nc">&nbsp;        Text(</b>
+<b class="nc">&nbsp;            text = oaLabel(performance.objectiveCode, title),</b>
+<b class="nc">&nbsp;            fontSize = 13.sp,</b>
+<b class="nc">&nbsp;            fontWeight = FontWeight.Bold,</b>
+<b class="nc">&nbsp;            color = Color(0xFF334155)</b>
+&nbsp;        )
+<b class="nc">&nbsp;        Spacer(modifier = Modifier.height(4.dp))</b>
+<b class="nc">&nbsp;        LinearProgressIndicator(</b>
+<b class="nc">&nbsp;            progress = { performance.correct.toFloat() / performance.total.coerceAtLeast(1) },</b>
+<b class="nc">&nbsp;            color = if (performance.isStrength) Color(0xFF06D6A0) else Color(0xFFEF476F),</b>
+<b class="nc">&nbsp;            trackColor = Color(0xFFE2E8F0),</b>
+<b class="nc">&nbsp;            modifier = Modifier</b>
+<b class="nc">&nbsp;                .fillMaxWidth()</b>
+<b class="nc">&nbsp;                .height(8.dp)</b>
+&nbsp;        )
+<b class="nc">&nbsp;        Text(</b>
+<b class="nc">&nbsp;            text = performance.correct.toString() + &quot; de &quot; + performance.total + &quot; respuestas correctas (&quot; + performance.percent + &quot;%)&quot;,</b>
+<b class="nc">&nbsp;            fontSize = 11.sp,</b>
+<b class="nc">&nbsp;            color = Color.Gray</b>
+&nbsp;        )
+<b class="nc">&nbsp;    }</b>
+<b class="nc">&nbsp;}</b>
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-11-25 01:37</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,138 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > SubjectViewModel</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">cl.duoc.mpazest3.viewmodel</a>
+</div>
+
+<h1>Coverage Summary for Class: SubjectViewModel (cl.duoc.mpazest3.viewmodel)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">SubjectViewModel</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/13)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;// Desarrollado por: Sebastián Maquera (viewmodel)
+&nbsp;package cl.duoc.mpazest3.viewmodel
+&nbsp;
+&nbsp;import androidx.lifecycle.ViewModel
+&nbsp;import cl.duoc.mpazest3.model.Subject
+&nbsp;import kotlinx.coroutines.flow.MutableStateFlow
+&nbsp;import kotlinx.coroutines.flow.StateFlow
+&nbsp;import kotlinx.coroutines.flow.asStateFlow
+&nbsp;
+&nbsp;// ViewModel para gestionar la lista de asignaturas y la asignatura seleccionada
+<b class="nc">&nbsp;class SubjectViewModel : ViewModel() {</b>
+&nbsp;
+<b class="nc">&nbsp;    private val _subjects = MutableStateFlow&lt;List&lt;Subject&gt;&gt;(emptyList())</b>
+<b class="nc">&nbsp;    val subjects: StateFlow&lt;List&lt;Subject&gt;&gt; = _subjects.asStateFlow()</b>
+&nbsp;
+<b class="nc">&nbsp;    private val _selectedSubject = MutableStateFlow&lt;Subject?&gt;(null)</b>
+<b class="nc">&nbsp;    val selectedSubject: StateFlow&lt;Subject?&gt; = _selectedSubject.asStateFlow()</b>
+&nbsp;
+<b class="nc">&nbsp;    init {</b>
+<b class="nc">&nbsp;        loadSubjects()</b>
+<b class="nc">&nbsp;    }</b>
+&nbsp;
+&nbsp;    private fun loadSubjects() {
+<b class="nc">&nbsp;        _subjects.value = listOf(</b>
+<b class="nc">&nbsp;            Subject(&quot;math&quot;, &quot;Matemáticas&quot;, &quot;Sumas, restas y geometría lúdica&quot;, 0, 0xFF4CAF50),</b>
+<b class="nc">&nbsp;            Subject(&quot;lang&quot;, &quot;Lenguaje&quot;, &quot;Lectura entretenida y vocabulario&quot;, 0, 0xFF2196F3),</b>
+<b class="nc">&nbsp;            Subject(&quot;sci&quot;, &quot;Ciencias&quot;, &quot;Descubre la naturaleza y experimentos&quot;, 0, 0xFFFF9800)</b>
+&nbsp;        )
+&nbsp;    }
+&nbsp;
+&nbsp;    fun selectSubject(subject: Subject) {
+<b class="nc">&nbsp;        _selectedSubject.value = subject</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-11-25 01:37</div>
+</div>
+</body>
+</html>

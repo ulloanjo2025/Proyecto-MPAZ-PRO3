@@ -1,0 +1,509 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > AppDatabase_Impl</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">cl.duoc.mpazest3.data.local</a>
+</div>
+
+<h1>Coverage Summary for Class: AppDatabase_Impl (cl.duoc.mpazest3.data.local)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AppDatabase_Impl</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/12)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/24)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/68)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">AppDatabase_Impl$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/8)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/24)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/114)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/20)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/48)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/182)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package cl.duoc.mpazest3.data.local;
+&nbsp;
+&nbsp;import androidx.annotation.NonNull;
+&nbsp;import androidx.room.DatabaseConfiguration;
+&nbsp;import androidx.room.InvalidationTracker;
+&nbsp;import androidx.room.RoomDatabase;
+&nbsp;import androidx.room.RoomOpenHelper;
+&nbsp;import androidx.room.migration.AutoMigrationSpec;
+&nbsp;import androidx.room.migration.Migration;
+&nbsp;import androidx.room.util.DBUtil;
+&nbsp;import androidx.room.util.TableInfo;
+&nbsp;import androidx.sqlite.db.SupportSQLiteDatabase;
+&nbsp;import androidx.sqlite.db.SupportSQLiteOpenHelper;
+&nbsp;import cl.duoc.mpazest3.data.local.dao.ContentDao;
+&nbsp;import cl.duoc.mpazest3.data.local.dao.ContentDao_Impl;
+&nbsp;import cl.duoc.mpazest3.data.local.dao.QuizDraftDao;
+&nbsp;import cl.duoc.mpazest3.data.local.dao.QuizDraftDao_Impl;
+&nbsp;import cl.duoc.mpazest3.data.local.dao.ReportValidationDao;
+&nbsp;import cl.duoc.mpazest3.data.local.dao.ReportValidationDao_Impl;
+&nbsp;import cl.duoc.mpazest3.data.local.dao.StudentDao;
+&nbsp;import cl.duoc.mpazest3.data.local.dao.StudentDao_Impl;
+&nbsp;import cl.duoc.mpazest3.data.local.dao.StudentProgressDao;
+&nbsp;import cl.duoc.mpazest3.data.local.dao.StudentProgressDao_Impl;
+&nbsp;import java.lang.Class;
+&nbsp;import java.lang.Override;
+&nbsp;import java.lang.String;
+&nbsp;import java.lang.SuppressWarnings;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.Arrays;
+&nbsp;import java.util.HashMap;
+&nbsp;import java.util.HashSet;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Map;
+&nbsp;import java.util.Set;
+&nbsp;import javax.annotation.processing.Generated;
+&nbsp;
+&nbsp;@Generated(&quot;androidx.room.RoomProcessor&quot;)
+&nbsp;@SuppressWarnings({&quot;unchecked&quot;, &quot;deprecation&quot;})
+<b class="nc">&nbsp;public final class AppDatabase_Impl extends AppDatabase {</b>
+&nbsp;  private volatile StudentProgressDao _studentProgressDao;
+&nbsp;
+&nbsp;  private volatile StudentDao _studentDao;
+&nbsp;
+&nbsp;  private volatile ContentDao _contentDao;
+&nbsp;
+&nbsp;  private volatile QuizDraftDao _quizDraftDao;
+&nbsp;
+&nbsp;  private volatile ReportValidationDao _reportValidationDao;
+&nbsp;
+&nbsp;  @Override
+&nbsp;  @NonNull
+&nbsp;  protected SupportSQLiteOpenHelper createOpenHelper(@NonNull final DatabaseConfiguration config) {
+<b class="nc">&nbsp;    final SupportSQLiteOpenHelper.Callback _openCallback = new RoomOpenHelper(config, new RoomOpenHelper.Delegate(7) {</b>
+&nbsp;      @Override
+&nbsp;      public void createAllTables(@NonNull final SupportSQLiteDatabase db) {
+<b class="nc">&nbsp;        db.execSQL(&quot;CREATE TABLE IF NOT EXISTS `student_attempts` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `studentName` TEXT NOT NULL, `subjectId` TEXT NOT NULL, `attemptNumber` INTEGER NOT NULL, `score` INTEGER NOT NULL, `totalQuestions` INTEGER NOT NULL, `isCorrect` INTEGER NOT NULL, `detailsSummary` TEXT NOT NULL)&quot;);</b>
+<b class="nc">&nbsp;        db.execSQL(&quot;CREATE TABLE IF NOT EXISTS `students` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `username` TEXT NOT NULL, `fullName` TEXT NOT NULL, `pin` TEXT NOT NULL)&quot;);</b>
+<b class="nc">&nbsp;        db.execSQL(&quot;CREATE TABLE IF NOT EXISTS `learning_objectives` (`code` TEXT NOT NULL, `subjectId` TEXT NOT NULL, `unitName` TEXT NOT NULL, `title` TEXT NOT NULL, `summary` TEXT NOT NULL, `readingTitle` TEXT, `readingText` TEXT, `status` TEXT NOT NULL, PRIMARY KEY(`code`))&quot;);</b>
+<b class="nc">&nbsp;        db.execSQL(&quot;CREATE TABLE IF NOT EXISTS `questions` (`id` INTEGER NOT NULL, `objectiveCode` TEXT NOT NULL, `difficulty` INTEGER NOT NULL, `statement` TEXT NOT NULL, `optionA` TEXT NOT NULL, `optionB` TEXT NOT NULL, `optionC` TEXT NOT NULL, `correctIndex` INTEGER NOT NULL, `explanation` TEXT NOT NULL, PRIMARY KEY(`id`))&quot;);</b>
+<b class="nc">&nbsp;        db.execSQL(&quot;CREATE INDEX IF NOT EXISTS `index_questions_objectiveCode` ON `questions` (`objectiveCode`)&quot;);</b>
+<b class="nc">&nbsp;        db.execSQL(&quot;CREATE TABLE IF NOT EXISTS `quiz_drafts` (`studentName` TEXT NOT NULL, `subjectId` TEXT NOT NULL, `questionIndex` INTEGER NOT NULL, `correctAnswers` INTEGER NOT NULL, `detailsLog` TEXT NOT NULL, PRIMARY KEY(`studentName`, `subjectId`))&quot;);</b>
+<b class="nc">&nbsp;        db.execSQL(&quot;CREATE TABLE IF NOT EXISTS `report_validations` (`studentName` TEXT NOT NULL, `validatedBy` TEXT NOT NULL, `validatedAt` INTEGER NOT NULL, `attemptsAtValidation` INTEGER NOT NULL, PRIMARY KEY(`studentName`))&quot;);</b>
+<b class="nc">&nbsp;        db.execSQL(&quot;CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)&quot;);</b>
+<b class="nc">&nbsp;        db.execSQL(&quot;INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, &#39;4f0908d4c3ae32ab1d0279194c704007&#39;)&quot;);</b>
+&nbsp;      }
+&nbsp;
+&nbsp;      @Override
+&nbsp;      public void dropAllTables(@NonNull final SupportSQLiteDatabase db) {
+<b class="nc">&nbsp;        db.execSQL(&quot;DROP TABLE IF EXISTS `student_attempts`&quot;);</b>
+<b class="nc">&nbsp;        db.execSQL(&quot;DROP TABLE IF EXISTS `students`&quot;);</b>
+<b class="nc">&nbsp;        db.execSQL(&quot;DROP TABLE IF EXISTS `learning_objectives`&quot;);</b>
+<b class="nc">&nbsp;        db.execSQL(&quot;DROP TABLE IF EXISTS `questions`&quot;);</b>
+<b class="nc">&nbsp;        db.execSQL(&quot;DROP TABLE IF EXISTS `quiz_drafts`&quot;);</b>
+<b class="nc">&nbsp;        db.execSQL(&quot;DROP TABLE IF EXISTS `report_validations`&quot;);</b>
+<b class="nc">&nbsp;        final List&lt;? extends RoomDatabase.Callback&gt; _callbacks = mCallbacks;</b>
+<b class="nc">&nbsp;        if (_callbacks != null) {</b>
+<b class="nc">&nbsp;          for (RoomDatabase.Callback _callback : _callbacks) {</b>
+<b class="nc">&nbsp;            _callback.onDestructiveMigration(db);</b>
+&nbsp;          }
+&nbsp;        }
+&nbsp;      }
+&nbsp;
+&nbsp;      @Override
+&nbsp;      public void onCreate(@NonNull final SupportSQLiteDatabase db) {
+<b class="nc">&nbsp;        final List&lt;? extends RoomDatabase.Callback&gt; _callbacks = mCallbacks;</b>
+<b class="nc">&nbsp;        if (_callbacks != null) {</b>
+<b class="nc">&nbsp;          for (RoomDatabase.Callback _callback : _callbacks) {</b>
+<b class="nc">&nbsp;            _callback.onCreate(db);</b>
+&nbsp;          }
+&nbsp;        }
+&nbsp;      }
+&nbsp;
+&nbsp;      @Override
+&nbsp;      public void onOpen(@NonNull final SupportSQLiteDatabase db) {
+<b class="nc">&nbsp;        mDatabase = db;</b>
+<b class="nc">&nbsp;        internalInitInvalidationTracker(db);</b>
+<b class="nc">&nbsp;        final List&lt;? extends RoomDatabase.Callback&gt; _callbacks = mCallbacks;</b>
+<b class="nc">&nbsp;        if (_callbacks != null) {</b>
+<b class="nc">&nbsp;          for (RoomDatabase.Callback _callback : _callbacks) {</b>
+<b class="nc">&nbsp;            _callback.onOpen(db);</b>
+&nbsp;          }
+&nbsp;        }
+&nbsp;      }
+&nbsp;
+&nbsp;      @Override
+&nbsp;      public void onPreMigrate(@NonNull final SupportSQLiteDatabase db) {
+<b class="nc">&nbsp;        DBUtil.dropFtsSyncTriggers(db);</b>
+&nbsp;      }
+&nbsp;
+&nbsp;      @Override
+&nbsp;      public void onPostMigrate(@NonNull final SupportSQLiteDatabase db) {
+<b class="nc">&nbsp;      }</b>
+&nbsp;
+&nbsp;      @Override
+&nbsp;      @NonNull
+&nbsp;      public RoomOpenHelper.ValidationResult onValidateSchema(
+&nbsp;          @NonNull final SupportSQLiteDatabase db) {
+<b class="nc">&nbsp;        final HashMap&lt;String, TableInfo.Column&gt; _columnsStudentAttempts = new HashMap&lt;String, TableInfo.Column&gt;(8);</b>
+<b class="nc">&nbsp;        _columnsStudentAttempts.put(&quot;id&quot;, new TableInfo.Column(&quot;id&quot;, &quot;INTEGER&quot;, true, 1, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsStudentAttempts.put(&quot;studentName&quot;, new TableInfo.Column(&quot;studentName&quot;, &quot;TEXT&quot;, true, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsStudentAttempts.put(&quot;subjectId&quot;, new TableInfo.Column(&quot;subjectId&quot;, &quot;TEXT&quot;, true, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsStudentAttempts.put(&quot;attemptNumber&quot;, new TableInfo.Column(&quot;attemptNumber&quot;, &quot;INTEGER&quot;, true, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsStudentAttempts.put(&quot;score&quot;, new TableInfo.Column(&quot;score&quot;, &quot;INTEGER&quot;, true, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsStudentAttempts.put(&quot;totalQuestions&quot;, new TableInfo.Column(&quot;totalQuestions&quot;, &quot;INTEGER&quot;, true, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsStudentAttempts.put(&quot;isCorrect&quot;, new TableInfo.Column(&quot;isCorrect&quot;, &quot;INTEGER&quot;, true, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsStudentAttempts.put(&quot;detailsSummary&quot;, new TableInfo.Column(&quot;detailsSummary&quot;, &quot;TEXT&quot;, true, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        final HashSet&lt;TableInfo.ForeignKey&gt; _foreignKeysStudentAttempts = new HashSet&lt;TableInfo.ForeignKey&gt;(0);</b>
+<b class="nc">&nbsp;        final HashSet&lt;TableInfo.Index&gt; _indicesStudentAttempts = new HashSet&lt;TableInfo.Index&gt;(0);</b>
+<b class="nc">&nbsp;        final TableInfo _infoStudentAttempts = new TableInfo(&quot;student_attempts&quot;, _columnsStudentAttempts, _foreignKeysStudentAttempts, _indicesStudentAttempts);</b>
+<b class="nc">&nbsp;        final TableInfo _existingStudentAttempts = TableInfo.read(db, &quot;student_attempts&quot;);</b>
+<b class="nc">&nbsp;        if (!_infoStudentAttempts.equals(_existingStudentAttempts)) {</b>
+<b class="nc">&nbsp;          return new RoomOpenHelper.ValidationResult(false, &quot;student_attempts(cl.duoc.mpazest3.data.local.entity.StudentAttemptEntity).\n&quot;</b>
+&nbsp;                  + &quot; Expected:\n&quot; + _infoStudentAttempts + &quot;\n&quot;
+&nbsp;                  + &quot; Found:\n&quot; + _existingStudentAttempts);
+&nbsp;        }
+<b class="nc">&nbsp;        final HashMap&lt;String, TableInfo.Column&gt; _columnsStudents = new HashMap&lt;String, TableInfo.Column&gt;(4);</b>
+<b class="nc">&nbsp;        _columnsStudents.put(&quot;id&quot;, new TableInfo.Column(&quot;id&quot;, &quot;INTEGER&quot;, true, 1, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsStudents.put(&quot;username&quot;, new TableInfo.Column(&quot;username&quot;, &quot;TEXT&quot;, true, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsStudents.put(&quot;fullName&quot;, new TableInfo.Column(&quot;fullName&quot;, &quot;TEXT&quot;, true, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsStudents.put(&quot;pin&quot;, new TableInfo.Column(&quot;pin&quot;, &quot;TEXT&quot;, true, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        final HashSet&lt;TableInfo.ForeignKey&gt; _foreignKeysStudents = new HashSet&lt;TableInfo.ForeignKey&gt;(0);</b>
+<b class="nc">&nbsp;        final HashSet&lt;TableInfo.Index&gt; _indicesStudents = new HashSet&lt;TableInfo.Index&gt;(0);</b>
+<b class="nc">&nbsp;        final TableInfo _infoStudents = new TableInfo(&quot;students&quot;, _columnsStudents, _foreignKeysStudents, _indicesStudents);</b>
+<b class="nc">&nbsp;        final TableInfo _existingStudents = TableInfo.read(db, &quot;students&quot;);</b>
+<b class="nc">&nbsp;        if (!_infoStudents.equals(_existingStudents)) {</b>
+<b class="nc">&nbsp;          return new RoomOpenHelper.ValidationResult(false, &quot;students(cl.duoc.mpazest3.data.local.entity.StudentEntity).\n&quot;</b>
+&nbsp;                  + &quot; Expected:\n&quot; + _infoStudents + &quot;\n&quot;
+&nbsp;                  + &quot; Found:\n&quot; + _existingStudents);
+&nbsp;        }
+<b class="nc">&nbsp;        final HashMap&lt;String, TableInfo.Column&gt; _columnsLearningObjectives = new HashMap&lt;String, TableInfo.Column&gt;(8);</b>
+<b class="nc">&nbsp;        _columnsLearningObjectives.put(&quot;code&quot;, new TableInfo.Column(&quot;code&quot;, &quot;TEXT&quot;, true, 1, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsLearningObjectives.put(&quot;subjectId&quot;, new TableInfo.Column(&quot;subjectId&quot;, &quot;TEXT&quot;, true, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsLearningObjectives.put(&quot;unitName&quot;, new TableInfo.Column(&quot;unitName&quot;, &quot;TEXT&quot;, true, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsLearningObjectives.put(&quot;title&quot;, new TableInfo.Column(&quot;title&quot;, &quot;TEXT&quot;, true, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsLearningObjectives.put(&quot;summary&quot;, new TableInfo.Column(&quot;summary&quot;, &quot;TEXT&quot;, true, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsLearningObjectives.put(&quot;readingTitle&quot;, new TableInfo.Column(&quot;readingTitle&quot;, &quot;TEXT&quot;, false, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsLearningObjectives.put(&quot;readingText&quot;, new TableInfo.Column(&quot;readingText&quot;, &quot;TEXT&quot;, false, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsLearningObjectives.put(&quot;status&quot;, new TableInfo.Column(&quot;status&quot;, &quot;TEXT&quot;, true, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        final HashSet&lt;TableInfo.ForeignKey&gt; _foreignKeysLearningObjectives = new HashSet&lt;TableInfo.ForeignKey&gt;(0);</b>
+<b class="nc">&nbsp;        final HashSet&lt;TableInfo.Index&gt; _indicesLearningObjectives = new HashSet&lt;TableInfo.Index&gt;(0);</b>
+<b class="nc">&nbsp;        final TableInfo _infoLearningObjectives = new TableInfo(&quot;learning_objectives&quot;, _columnsLearningObjectives, _foreignKeysLearningObjectives, _indicesLearningObjectives);</b>
+<b class="nc">&nbsp;        final TableInfo _existingLearningObjectives = TableInfo.read(db, &quot;learning_objectives&quot;);</b>
+<b class="nc">&nbsp;        if (!_infoLearningObjectives.equals(_existingLearningObjectives)) {</b>
+<b class="nc">&nbsp;          return new RoomOpenHelper.ValidationResult(false, &quot;learning_objectives(cl.duoc.mpazest3.data.local.entity.LearningObjectiveEntity).\n&quot;</b>
+&nbsp;                  + &quot; Expected:\n&quot; + _infoLearningObjectives + &quot;\n&quot;
+&nbsp;                  + &quot; Found:\n&quot; + _existingLearningObjectives);
+&nbsp;        }
+<b class="nc">&nbsp;        final HashMap&lt;String, TableInfo.Column&gt; _columnsQuestions = new HashMap&lt;String, TableInfo.Column&gt;(9);</b>
+<b class="nc">&nbsp;        _columnsQuestions.put(&quot;id&quot;, new TableInfo.Column(&quot;id&quot;, &quot;INTEGER&quot;, true, 1, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsQuestions.put(&quot;objectiveCode&quot;, new TableInfo.Column(&quot;objectiveCode&quot;, &quot;TEXT&quot;, true, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsQuestions.put(&quot;difficulty&quot;, new TableInfo.Column(&quot;difficulty&quot;, &quot;INTEGER&quot;, true, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsQuestions.put(&quot;statement&quot;, new TableInfo.Column(&quot;statement&quot;, &quot;TEXT&quot;, true, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsQuestions.put(&quot;optionA&quot;, new TableInfo.Column(&quot;optionA&quot;, &quot;TEXT&quot;, true, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsQuestions.put(&quot;optionB&quot;, new TableInfo.Column(&quot;optionB&quot;, &quot;TEXT&quot;, true, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsQuestions.put(&quot;optionC&quot;, new TableInfo.Column(&quot;optionC&quot;, &quot;TEXT&quot;, true, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsQuestions.put(&quot;correctIndex&quot;, new TableInfo.Column(&quot;correctIndex&quot;, &quot;INTEGER&quot;, true, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsQuestions.put(&quot;explanation&quot;, new TableInfo.Column(&quot;explanation&quot;, &quot;TEXT&quot;, true, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        final HashSet&lt;TableInfo.ForeignKey&gt; _foreignKeysQuestions = new HashSet&lt;TableInfo.ForeignKey&gt;(0);</b>
+<b class="nc">&nbsp;        final HashSet&lt;TableInfo.Index&gt; _indicesQuestions = new HashSet&lt;TableInfo.Index&gt;(1);</b>
+<b class="nc">&nbsp;        _indicesQuestions.add(new TableInfo.Index(&quot;index_questions_objectiveCode&quot;, false, Arrays.asList(&quot;objectiveCode&quot;), Arrays.asList(&quot;ASC&quot;)));</b>
+<b class="nc">&nbsp;        final TableInfo _infoQuestions = new TableInfo(&quot;questions&quot;, _columnsQuestions, _foreignKeysQuestions, _indicesQuestions);</b>
+<b class="nc">&nbsp;        final TableInfo _existingQuestions = TableInfo.read(db, &quot;questions&quot;);</b>
+<b class="nc">&nbsp;        if (!_infoQuestions.equals(_existingQuestions)) {</b>
+<b class="nc">&nbsp;          return new RoomOpenHelper.ValidationResult(false, &quot;questions(cl.duoc.mpazest3.data.local.entity.QuestionEntity).\n&quot;</b>
+&nbsp;                  + &quot; Expected:\n&quot; + _infoQuestions + &quot;\n&quot;
+&nbsp;                  + &quot; Found:\n&quot; + _existingQuestions);
+&nbsp;        }
+<b class="nc">&nbsp;        final HashMap&lt;String, TableInfo.Column&gt; _columnsQuizDrafts = new HashMap&lt;String, TableInfo.Column&gt;(5);</b>
+<b class="nc">&nbsp;        _columnsQuizDrafts.put(&quot;studentName&quot;, new TableInfo.Column(&quot;studentName&quot;, &quot;TEXT&quot;, true, 1, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsQuizDrafts.put(&quot;subjectId&quot;, new TableInfo.Column(&quot;subjectId&quot;, &quot;TEXT&quot;, true, 2, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsQuizDrafts.put(&quot;questionIndex&quot;, new TableInfo.Column(&quot;questionIndex&quot;, &quot;INTEGER&quot;, true, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsQuizDrafts.put(&quot;correctAnswers&quot;, new TableInfo.Column(&quot;correctAnswers&quot;, &quot;INTEGER&quot;, true, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsQuizDrafts.put(&quot;detailsLog&quot;, new TableInfo.Column(&quot;detailsLog&quot;, &quot;TEXT&quot;, true, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        final HashSet&lt;TableInfo.ForeignKey&gt; _foreignKeysQuizDrafts = new HashSet&lt;TableInfo.ForeignKey&gt;(0);</b>
+<b class="nc">&nbsp;        final HashSet&lt;TableInfo.Index&gt; _indicesQuizDrafts = new HashSet&lt;TableInfo.Index&gt;(0);</b>
+<b class="nc">&nbsp;        final TableInfo _infoQuizDrafts = new TableInfo(&quot;quiz_drafts&quot;, _columnsQuizDrafts, _foreignKeysQuizDrafts, _indicesQuizDrafts);</b>
+<b class="nc">&nbsp;        final TableInfo _existingQuizDrafts = TableInfo.read(db, &quot;quiz_drafts&quot;);</b>
+<b class="nc">&nbsp;        if (!_infoQuizDrafts.equals(_existingQuizDrafts)) {</b>
+<b class="nc">&nbsp;          return new RoomOpenHelper.ValidationResult(false, &quot;quiz_drafts(cl.duoc.mpazest3.data.local.entity.QuizDraftEntity).\n&quot;</b>
+&nbsp;                  + &quot; Expected:\n&quot; + _infoQuizDrafts + &quot;\n&quot;
+&nbsp;                  + &quot; Found:\n&quot; + _existingQuizDrafts);
+&nbsp;        }
+<b class="nc">&nbsp;        final HashMap&lt;String, TableInfo.Column&gt; _columnsReportValidations = new HashMap&lt;String, TableInfo.Column&gt;(4);</b>
+<b class="nc">&nbsp;        _columnsReportValidations.put(&quot;studentName&quot;, new TableInfo.Column(&quot;studentName&quot;, &quot;TEXT&quot;, true, 1, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsReportValidations.put(&quot;validatedBy&quot;, new TableInfo.Column(&quot;validatedBy&quot;, &quot;TEXT&quot;, true, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsReportValidations.put(&quot;validatedAt&quot;, new TableInfo.Column(&quot;validatedAt&quot;, &quot;INTEGER&quot;, true, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        _columnsReportValidations.put(&quot;attemptsAtValidation&quot;, new TableInfo.Column(&quot;attemptsAtValidation&quot;, &quot;INTEGER&quot;, true, 0, null, TableInfo.CREATED_FROM_ENTITY));</b>
+<b class="nc">&nbsp;        final HashSet&lt;TableInfo.ForeignKey&gt; _foreignKeysReportValidations = new HashSet&lt;TableInfo.ForeignKey&gt;(0);</b>
+<b class="nc">&nbsp;        final HashSet&lt;TableInfo.Index&gt; _indicesReportValidations = new HashSet&lt;TableInfo.Index&gt;(0);</b>
+<b class="nc">&nbsp;        final TableInfo _infoReportValidations = new TableInfo(&quot;report_validations&quot;, _columnsReportValidations, _foreignKeysReportValidations, _indicesReportValidations);</b>
+<b class="nc">&nbsp;        final TableInfo _existingReportValidations = TableInfo.read(db, &quot;report_validations&quot;);</b>
+<b class="nc">&nbsp;        if (!_infoReportValidations.equals(_existingReportValidations)) {</b>
+<b class="nc">&nbsp;          return new RoomOpenHelper.ValidationResult(false, &quot;report_validations(cl.duoc.mpazest3.data.local.entity.ReportValidationEntity).\n&quot;</b>
+&nbsp;                  + &quot; Expected:\n&quot; + _infoReportValidations + &quot;\n&quot;
+&nbsp;                  + &quot; Found:\n&quot; + _existingReportValidations);
+&nbsp;        }
+<b class="nc">&nbsp;        return new RoomOpenHelper.ValidationResult(true, null);</b>
+&nbsp;      }
+&nbsp;    }, &quot;4f0908d4c3ae32ab1d0279194c704007&quot;, &quot;6bda4134f21cef2f35b00b18cd2b22aa&quot;);
+<b class="nc">&nbsp;    final SupportSQLiteOpenHelper.Configuration _sqliteConfig = SupportSQLiteOpenHelper.Configuration.builder(config.context).name(config.name).callback(_openCallback).build();</b>
+<b class="nc">&nbsp;    final SupportSQLiteOpenHelper _helper = config.sqliteOpenHelperFactory.create(_sqliteConfig);</b>
+<b class="nc">&nbsp;    return _helper;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  @Override
+&nbsp;  @NonNull
+&nbsp;  protected InvalidationTracker createInvalidationTracker() {
+<b class="nc">&nbsp;    final HashMap&lt;String, String&gt; _shadowTablesMap = new HashMap&lt;String, String&gt;(0);</b>
+<b class="nc">&nbsp;    final HashMap&lt;String, Set&lt;String&gt;&gt; _viewTables = new HashMap&lt;String, Set&lt;String&gt;&gt;(0);</b>
+<b class="nc">&nbsp;    return new InvalidationTracker(this, _shadowTablesMap, _viewTables, &quot;student_attempts&quot;,&quot;students&quot;,&quot;learning_objectives&quot;,&quot;questions&quot;,&quot;quiz_drafts&quot;,&quot;report_validations&quot;);</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  @Override
+&nbsp;  public void clearAllTables() {
+<b class="nc">&nbsp;    super.assertNotMainThread();</b>
+<b class="nc">&nbsp;    final SupportSQLiteDatabase _db = super.getOpenHelper().getWritableDatabase();</b>
+&nbsp;    try {
+<b class="nc">&nbsp;      super.beginTransaction();</b>
+<b class="nc">&nbsp;      _db.execSQL(&quot;DELETE FROM `student_attempts`&quot;);</b>
+<b class="nc">&nbsp;      _db.execSQL(&quot;DELETE FROM `students`&quot;);</b>
+<b class="nc">&nbsp;      _db.execSQL(&quot;DELETE FROM `learning_objectives`&quot;);</b>
+<b class="nc">&nbsp;      _db.execSQL(&quot;DELETE FROM `questions`&quot;);</b>
+<b class="nc">&nbsp;      _db.execSQL(&quot;DELETE FROM `quiz_drafts`&quot;);</b>
+<b class="nc">&nbsp;      _db.execSQL(&quot;DELETE FROM `report_validations`&quot;);</b>
+<b class="nc">&nbsp;      super.setTransactionSuccessful();</b>
+&nbsp;    } finally {
+<b class="nc">&nbsp;      super.endTransaction();</b>
+<b class="nc">&nbsp;      _db.query(&quot;PRAGMA wal_checkpoint(FULL)&quot;).close();</b>
+<b class="nc">&nbsp;      if (!_db.inTransaction()) {</b>
+<b class="nc">&nbsp;        _db.execSQL(&quot;VACUUM&quot;);</b>
+&nbsp;      }
+&nbsp;    }
+&nbsp;  }
+&nbsp;
+&nbsp;  @Override
+&nbsp;  @NonNull
+&nbsp;  protected Map&lt;Class&lt;?&gt;, List&lt;Class&lt;?&gt;&gt;&gt; getRequiredTypeConverters() {
+<b class="nc">&nbsp;    final HashMap&lt;Class&lt;?&gt;, List&lt;Class&lt;?&gt;&gt;&gt; _typeConvertersMap = new HashMap&lt;Class&lt;?&gt;, List&lt;Class&lt;?&gt;&gt;&gt;();</b>
+<b class="nc">&nbsp;    _typeConvertersMap.put(StudentProgressDao.class, StudentProgressDao_Impl.getRequiredConverters());</b>
+<b class="nc">&nbsp;    _typeConvertersMap.put(StudentDao.class, StudentDao_Impl.getRequiredConverters());</b>
+<b class="nc">&nbsp;    _typeConvertersMap.put(ContentDao.class, ContentDao_Impl.getRequiredConverters());</b>
+<b class="nc">&nbsp;    _typeConvertersMap.put(QuizDraftDao.class, QuizDraftDao_Impl.getRequiredConverters());</b>
+<b class="nc">&nbsp;    _typeConvertersMap.put(ReportValidationDao.class, ReportValidationDao_Impl.getRequiredConverters());</b>
+<b class="nc">&nbsp;    return _typeConvertersMap;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  @Override
+&nbsp;  @NonNull
+&nbsp;  public Set&lt;Class&lt;? extends AutoMigrationSpec&gt;&gt; getRequiredAutoMigrationSpecs() {
+<b class="nc">&nbsp;    final HashSet&lt;Class&lt;? extends AutoMigrationSpec&gt;&gt; _autoMigrationSpecsSet = new HashSet&lt;Class&lt;? extends AutoMigrationSpec&gt;&gt;();</b>
+<b class="nc">&nbsp;    return _autoMigrationSpecsSet;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  @Override
+&nbsp;  @NonNull
+&nbsp;  public List&lt;Migration&gt; getAutoMigrations(
+&nbsp;      @NonNull final Map&lt;Class&lt;? extends AutoMigrationSpec&gt;, AutoMigrationSpec&gt; autoMigrationSpecs) {
+<b class="nc">&nbsp;    final List&lt;Migration&gt; _autoMigrations = new ArrayList&lt;Migration&gt;();</b>
+<b class="nc">&nbsp;    return _autoMigrations;</b>
+&nbsp;  }
+&nbsp;
+&nbsp;  @Override
+&nbsp;  public StudentProgressDao studentProgressDao() {
+<b class="nc">&nbsp;    if (_studentProgressDao != null) {</b>
+<b class="nc">&nbsp;      return _studentProgressDao;</b>
+&nbsp;    } else {
+<b class="nc">&nbsp;      synchronized(this) {</b>
+<b class="nc">&nbsp;        if(_studentProgressDao == null) {</b>
+<b class="nc">&nbsp;          _studentProgressDao = new StudentProgressDao_Impl(this);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return _studentProgressDao;</b>
+<b class="nc">&nbsp;      }</b>
+&nbsp;    }
+&nbsp;  }
+&nbsp;
+&nbsp;  @Override
+&nbsp;  public StudentDao studentDao() {
+<b class="nc">&nbsp;    if (_studentDao != null) {</b>
+<b class="nc">&nbsp;      return _studentDao;</b>
+&nbsp;    } else {
+<b class="nc">&nbsp;      synchronized(this) {</b>
+<b class="nc">&nbsp;        if(_studentDao == null) {</b>
+<b class="nc">&nbsp;          _studentDao = new StudentDao_Impl(this);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return _studentDao;</b>
+<b class="nc">&nbsp;      }</b>
+&nbsp;    }
+&nbsp;  }
+&nbsp;
+&nbsp;  @Override
+&nbsp;  public ContentDao contentDao() {
+<b class="nc">&nbsp;    if (_contentDao != null) {</b>
+<b class="nc">&nbsp;      return _contentDao;</b>
+&nbsp;    } else {
+<b class="nc">&nbsp;      synchronized(this) {</b>
+<b class="nc">&nbsp;        if(_contentDao == null) {</b>
+<b class="nc">&nbsp;          _contentDao = new ContentDao_Impl(this);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return _contentDao;</b>
+<b class="nc">&nbsp;      }</b>
+&nbsp;    }
+&nbsp;  }
+&nbsp;
+&nbsp;  @Override
+&nbsp;  public QuizDraftDao quizDraftDao() {
+<b class="nc">&nbsp;    if (_quizDraftDao != null) {</b>
+<b class="nc">&nbsp;      return _quizDraftDao;</b>
+&nbsp;    } else {
+<b class="nc">&nbsp;      synchronized(this) {</b>
+<b class="nc">&nbsp;        if(_quizDraftDao == null) {</b>
+<b class="nc">&nbsp;          _quizDraftDao = new QuizDraftDao_Impl(this);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return _quizDraftDao;</b>
+<b class="nc">&nbsp;      }</b>
+&nbsp;    }
+&nbsp;  }
+&nbsp;
+&nbsp;  @Override
+&nbsp;  public ReportValidationDao reportValidationDao() {
+<b class="nc">&nbsp;    if (_reportValidationDao != null) {</b>
+<b class="nc">&nbsp;      return _reportValidationDao;</b>
+&nbsp;    } else {
+<b class="nc">&nbsp;      synchronized(this) {</b>
+<b class="nc">&nbsp;        if(_reportValidationDao == null) {</b>
+<b class="nc">&nbsp;          _reportValidationDao = new ReportValidationDao_Impl(this);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return _reportValidationDao;</b>
+<b class="nc">&nbsp;      }</b>
+&nbsp;    }
+&nbsp;  }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-11-25 01:37</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,93 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > QuizDraftDao</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">cl.duoc.mpazest3.data.local.dao</a>
+</div>
+
+<h1>Coverage Summary for Class: QuizDraftDao (cl.duoc.mpazest3.data.local.dao)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">QuizDraftDao</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package cl.duoc.mpazest3.data.local.dao
+&nbsp;
+&nbsp;import androidx.room.Dao
+&nbsp;import androidx.room.Insert
+&nbsp;import androidx.room.OnConflictStrategy
+&nbsp;import androidx.room.Query
+&nbsp;import cl.duoc.mpazest3.data.local.entity.QuizDraftEntity
+&nbsp;import kotlinx.coroutines.flow.Flow
+&nbsp;import kotlin.jvm.JvmSuppressWildcards
+&nbsp;// Desarrollado por: Jonathan Ulloa
+&nbsp;@Dao
+&nbsp;interface QuizDraftDao {
+&nbsp;
+&nbsp;    // Inserta el borrador o lo reemplaza si ya existía (mismo estudiante y asignatura)
+&nbsp;    @Insert(onConflict = OnConflictStrategy.REPLACE)
+&nbsp;    @JvmSuppressWildcards
+&nbsp;    suspend fun upsertDraft(draft: QuizDraftEntity): Long
+&nbsp;
+&nbsp;    @Query(&quot;SELECT * FROM quiz_drafts&quot;)
+&nbsp;    fun observeAll(): Flow&lt;List&lt;QuizDraftEntity&gt;&gt;
+&nbsp;
+&nbsp;    @Query(&quot;DELETE FROM quiz_drafts WHERE studentName = :studentName AND subjectId = :subjectId&quot;)
+&nbsp;    @JvmSuppressWildcards
+&nbsp;    suspend fun deleteDraft(studentName: String, subjectId: String): Int
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-11-25 01:37</div>
+</div>
+</body>
+</html>

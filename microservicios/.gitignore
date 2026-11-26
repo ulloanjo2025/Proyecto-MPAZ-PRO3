@@ -1,0 +1,7 @@
+# Archivos generados: no se suben a GitHub
+**/build/
+**/.gradle/
+**/data/
+**/*.mv.db
+**/*.trace.db
+.idea/

@@ -1,0 +1,127 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > QuestionEntity</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">cl.duoc.mpazest3.data.local.entity</a>
+</div>
+
+<h1>Coverage Summary for Class: QuestionEntity (cl.duoc.mpazest3.data.local.entity)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">QuestionEntity</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (10/10)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package cl.duoc.mpazest3.data.local.entity
+&nbsp;
+&nbsp;import androidx.room.Entity
+&nbsp;import androidx.room.Index
+&nbsp;import androidx.room.PrimaryKey
+&nbsp;// Desarrollado por: Camilo Alarcón
+&nbsp;// Una pregunta con 3 alternativas, vinculada a un OA y a un nivel de dificultad.
+&nbsp;@Entity(
+&nbsp;    tableName = &quot;questions&quot;,
+&nbsp;    indices = [Index(&quot;objectiveCode&quot;)]
+&nbsp;)
+<b class="fc">&nbsp;data class QuestionEntity(</b>
+<b class="fc">&nbsp;    @PrimaryKey</b>
+&nbsp;    val id: Int,                   // 1 a 24 (fijo, así la carga inicial no duplica datos)
+<b class="fc">&nbsp;    val objectiveCode: String,     // OA al que pertenece, ej: &quot;MA03 OA 08&quot;</b>
+<b class="fc">&nbsp;    val difficulty: Int,           // 1 = básico, 2 = intermedio, 3 = avanzado</b>
+<b class="fc">&nbsp;    val statement: String,         // Enunciado</b>
+<b class="fc">&nbsp;    val optionA: String,</b>
+<b class="fc">&nbsp;    val optionB: String,</b>
+<b class="fc">&nbsp;    val optionC: String,</b>
+<b class="fc">&nbsp;    val correctIndex: Int,         // 0 = A, 1 = B, 2 = C</b>
+<b class="fc">&nbsp;    val explanation: String        // Explicación que ve (y escucha) el estudiante</b>
+&nbsp;)
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-11-25 01:37</div>
+</div>
+</body>
+</html>

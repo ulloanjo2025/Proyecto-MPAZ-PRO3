@@ -1,0 +1,351 @@
+{
+  "version": 1,
+  "objectives": [
+    {
+      "code": "MA03 OA 08",
+      "subjectId": "1",
+      "unitName": "Tablas de multiplicar y cálculo",
+      "title": "Tablas de multiplicar",
+      "summary": "Multiplicar es sumar muchas veces el mismo número. Por ejemplo, 3 × 4 significa 3 veces 4, o sea 4 + 4 + 4 = 12. Las tablas de multiplicar nos ayudan a calcular rápido. Si sabes que 2 × 5 = 10, también sabes que 5 × 2 = 10: el orden no cambia el resultado.",
+      "readingTitle": null,
+      "readingText": null,
+      "status": "PENDIENTE"
+    },
+    {
+      "code": "MA03 OA 04",
+      "subjectId": "1",
+      "unitName": "Tablas de multiplicar y cálculo",
+      "title": "Sumas y restas con números grandes",
+      "summary": "Para sumar números grandes, puedes separarlos en centenas, decenas y unidades. Por ejemplo, en 126 + 138 primero sumas 100 + 100 = 200, y luego 26 + 38 = 64. El total es 264. Para restar, piensa cuánto queda. Si había 350 y se entregan 125, al restar quedan 225.",
+      "readingTitle": null,
+      "readingText": null,
+      "status": "PENDIENTE"
+    },
+    {
+      "code": "LE03 OA 04",
+      "subjectId": "2",
+      "unitName": "Comprensión lectora",
+      "title": "Comprensión de narraciones",
+      "summary": "Una narración cuenta una historia con personajes, un lugar y sucesos. Para comprenderla, pregúntate: ¿quién es el personaje?, ¿dónde ocurre?, ¿qué pasó primero y qué pasó después? A veces el texto no dice todo. Entonces debes pensar en lo que hace un personaje para saber cómo es.",
+      "readingTitle": "Tulia y el río",
+      "readingText": "Tulia era una tortuga pequeña que vivía junto a un río. Todas las mañanas caminaba despacio hasta la orilla para saludar a las hormigas. Un día, las hormigas estaban tristes porque el puente de ramas se había roto y no podían cruzar a buscar comida. Tulia pensó un momento. Juntó hojas grandes y las amarró con pasto hasta armar una balsa. Las hormigas subieron y cruzaron el río. Esa tarde, Tulia se sintió muy orgullosa de haber ayudado.",
+      "status": "PENDIENTE"
+    },
+    {
+      "code": "LE03 OA 06",
+      "subjectId": "2",
+      "unitName": "Comprensión lectora",
+      "title": "Comprensión de textos informativos",
+      "summary": "Un texto informativo nos enseña datos reales sobre un tema. Para comprenderlo, busca la información que aparece en el texto, como nombres y datos. La idea principal es lo más importante que dice todo el texto, no solo una parte.",
+      "readingTitle": "Las abejas",
+      "readingText": "Las abejas son insectos muy importantes. Viven en grupos llamados colmenas, donde cada una tiene un trabajo: algunas cuidan a las crías, otras limpian y otras salen a buscar néctar de las flores. Con el néctar fabrican miel. Al pasar de flor en flor, las abejas también llevan polen, y así ayudan a que las plantas den frutos y semillas. Por eso, cuidar a las abejas es cuidar la naturaleza.",
+      "status": "PENDIENTE"
+    },
+    {
+      "code": "CN03 OA 01",
+      "subjectId": "3",
+      "unitName": "Plantas y alimentación saludable",
+      "title": "Las plantas y lo que necesitan",
+      "summary": "Las plantas son seres vivos y necesitan agua, luz del sol y aire para vivir. La raíz toma el agua de la tierra. El tallo la lleva hacia arriba y sostiene la planta. Las hojas reciben la luz del sol. Sin luz o sin agua, la planta se debilita y sus hojas pueden ponerse amarillas.",
+      "readingTitle": null,
+      "readingText": null,
+      "status": "PENDIENTE"
+    },
+    {
+      "code": "CN03 OA 06",
+      "subjectId": "3",
+      "unitName": "Plantas y alimentación saludable",
+      "title": "Alimentos y hábitos saludables",
+      "summary": "Los alimentos se pueden clasificar en grupos: frutas y verduras; lácteos, como leche, yogur y queso; carnes y huevos; legumbres, como las lentejas; cereales, como el arroz y el pan; y grasas. Comer variado, tomar agua y comer frutas y verduras todos los días ayuda a cuidar la salud. También debemos lavarnos las manos antes de comer.",
+      "readingTitle": null,
+      "readingText": null,
+      "status": "PENDIENTE"
+    },
+    {
+      "code": "HI03 OA 07",
+      "subjectId": "4",
+      "unitName": "Ubicarnos en el espacio",
+      "title": "Hemisferios, continentes y océanos",
+      "summary": "La Tierra se puede ver en un mapa o en un globo terráqueo. El Ecuador es una línea imaginaria que divide la Tierra en dos partes: el hemisferio norte y el hemisferio sur. Los polos son los puntos más al norte y más al sur del planeta. En la Tierra hay continentes, que son grandes extensiones de tierra, y océanos, que son grandes extensiones de agua. Chile está en América del Sur, y su costa está junto al océano Pacífico.",
+      "readingTitle": null,
+      "readingText": null,
+      "status": "PENDIENTE"
+    },
+    {
+      "code": "HI03 OA 08",
+      "subjectId": "4",
+      "unitName": "Ubicarnos en el espacio",
+      "title": "Zonas climáticas y paisajes",
+      "summary": "En la Tierra hay zonas con distinto clima. En la zona cálida hace calor casi todo el año y hay, por ejemplo, selvas. En la zona templada hay cuatro estaciones: verano, otoño, invierno y primavera. En la zona polar hace mucho frío y hay hielo. El clima influye en el paisaje, en las plantas y en los animales de cada lugar.",
+      "readingTitle": null,
+      "readingText": null,
+      "status": "PENDIENTE"
+    }
+  ],
+  "questions": [
+    {
+      "id": 1,
+      "objectiveCode": "MA03 OA 08",
+      "difficulty": 1,
+      "statement": "¿Cuánto es 5 × 3?",
+      "optionA": "8",
+      "optionB": "15",
+      "optionC": "12",
+      "correctIndex": 1,
+      "explanation": "5 × 3 es 3 + 3 + 3 + 3 + 3, que da 15."
+    },
+    {
+      "id": 2,
+      "objectiveCode": "MA03 OA 08",
+      "difficulty": 2,
+      "statement": "Hay 4 bolsas con 6 manzanas cada una. ¿Cuántas manzanas hay en total?",
+      "optionA": "10",
+      "optionB": "24",
+      "optionC": "18",
+      "correctIndex": 1,
+      "explanation": "Son 4 veces 6: 4 × 6 = 24."
+    },
+    {
+      "id": 3,
+      "objectiveCode": "MA03 OA 08",
+      "difficulty": 3,
+      "statement": "¿Qué número falta? 7 × ___ = 56",
+      "optionA": "7",
+      "optionB": "9",
+      "optionC": "8",
+      "correctIndex": 2,
+      "explanation": "Porque 7 × 8 = 56."
+    },
+    {
+      "id": 4,
+      "objectiveCode": "MA03 OA 04",
+      "difficulty": 1,
+      "statement": "¿Cuánto es 45 + 30?",
+      "optionA": "65",
+      "optionB": "75",
+      "optionC": "85",
+      "correctIndex": 1,
+      "explanation": "45 más 30 es 75."
+    },
+    {
+      "id": 5,
+      "objectiveCode": "MA03 OA 04",
+      "difficulty": 2,
+      "statement": "¿Cuánto es 126 + 138?",
+      "optionA": "254",
+      "optionB": "264",
+      "optionC": "274",
+      "correctIndex": 1,
+      "explanation": "100 + 100 = 200 y 26 + 38 = 64. Entonces el total es 264."
+    },
+    {
+      "id": 6,
+      "objectiveCode": "MA03 OA 04",
+      "difficulty": 3,
+      "statement": "En una biblioteca había 350 libros. Prestaron 125. ¿Cuántos libros quedan?",
+      "optionA": "225",
+      "optionB": "235",
+      "optionC": "475",
+      "correctIndex": 0,
+      "explanation": "Prestar significa que salen libros, así que se resta: 350 − 125 = 225."
+    },
+    {
+      "id": 7,
+      "objectiveCode": "LE03 OA 04",
+      "difficulty": 1,
+      "statement": "¿Dónde vivía Tulia?",
+      "optionA": "En el mar",
+      "optionB": "Junto a un río",
+      "optionC": "En un bosque oscuro",
+      "correctIndex": 1,
+      "explanation": "El texto lo dice al comienzo: vivía junto a un río."
+    },
+    {
+      "id": 8,
+      "objectiveCode": "LE03 OA 04",
+      "difficulty": 2,
+      "statement": "¿Qué hizo Tulia después de pensar un momento?",
+      "optionA": "Se fue a dormir",
+      "optionB": "Cruzó el río nadando",
+      "optionC": "Juntó hojas grandes para armar una balsa",
+      "correctIndex": 2,
+      "explanation": "Después de pensar, Tulia juntó hojas y armó una balsa."
+    },
+    {
+      "id": 9,
+      "objectiveCode": "LE03 OA 04",
+      "difficulty": 3,
+      "statement": "¿Cómo es Tulia?",
+      "optionA": "Egoísta, porque solo piensa en ella",
+      "optionB": "Solidaria, porque ayuda a las hormigas",
+      "optionC": "Miedosa, porque no quiere cruzar",
+      "correctIndex": 1,
+      "explanation": "El texto no lo dice con esa palabra. Lo sabemos porque Tulia ayudó a las hormigas."
+    },
+    {
+      "id": 10,
+      "objectiveCode": "LE03 OA 06",
+      "difficulty": 1,
+      "statement": "¿Cómo se llaman los grupos donde viven las abejas?",
+      "optionA": "Colmenas",
+      "optionB": "Nidos",
+      "optionC": "Madrigueras",
+      "correctIndex": 0,
+      "explanation": "El texto dice que viven en grupos llamados colmenas."
+    },
+    {
+      "id": 11,
+      "objectiveCode": "LE03 OA 06",
+      "difficulty": 2,
+      "statement": "¿Para qué usan las abejas el néctar?",
+      "optionA": "Para fabricar miel",
+      "optionB": "Para construir su casa",
+      "optionC": "Para limpiar la colmena",
+      "correctIndex": 0,
+      "explanation": "El texto dice que con el néctar fabrican miel."
+    },
+    {
+      "id": 12,
+      "objectiveCode": "LE03 OA 06",
+      "difficulty": 3,
+      "statement": "¿Cuál es la idea principal del texto?",
+      "optionA": "Las abejas son insectos que viven en grupos",
+      "optionB": "Las abejas son importantes porque fabrican miel y ayudan a las plantas",
+      "optionC": "Las flores tienen néctar",
+      "correctIndex": 1,
+      "explanation": "La idea principal reúne lo más importante de todo el texto. Las otras opciones son datos sueltos."
+    },
+    {
+      "id": 13,
+      "objectiveCode": "CN03 OA 01",
+      "difficulty": 1,
+      "statement": "¿Qué necesita una planta para vivir?",
+      "optionA": "Agua, luz del sol y aire",
+      "optionB": "Solo azúcar y sombra",
+      "optionC": "Solo tierra seca y oscuridad",
+      "correctIndex": 0,
+      "explanation": "Las plantas necesitan agua, luz del sol y aire."
+    },
+    {
+      "id": 14,
+      "objectiveCode": "CN03 OA 01",
+      "difficulty": 2,
+      "statement": "¿Qué parte de la planta toma el agua desde la tierra?",
+      "optionA": "La raíz",
+      "optionB": "La hoja",
+      "optionC": "La flor",
+      "correctIndex": 0,
+      "explanation": "La raíz está bajo la tierra y absorbe el agua."
+    },
+    {
+      "id": 15,
+      "objectiveCode": "CN03 OA 01",
+      "difficulty": 3,
+      "statement": "Mateo dejó una planta dentro de un clóset oscuro y no la regó. A los pocos días, sus hojas se pusieron amarillas. ¿Por qué pasó esto?",
+      "optionA": "Porque le faltó luz y agua",
+      "optionB": "Porque tenía demasiada agua",
+      "optionC": "Porque la tierra era muy blanda",
+      "correctIndex": 0,
+      "explanation": "Sin luz y sin agua la planta se debilita y las hojas cambian de color."
+    },
+    {
+      "id": 16,
+      "objectiveCode": "CN03 OA 06",
+      "difficulty": 1,
+      "statement": "¿Cuál de estos alimentos es una fruta?",
+      "optionA": "Zanahoria",
+      "optionB": "Manzana",
+      "optionC": "Pan",
+      "correctIndex": 1,
+      "explanation": "La manzana es una fruta. La zanahoria es una verdura y el pan es un cereal."
+    },
+    {
+      "id": 17,
+      "objectiveCode": "CN03 OA 06",
+      "difficulty": 2,
+      "statement": "¿Qué alimento pertenece al grupo de los lácteos?",
+      "optionA": "Yogur",
+      "optionB": "Lentejas",
+      "optionC": "Arroz",
+      "correctIndex": 0,
+      "explanation": "El yogur se hace con leche. Las lentejas son legumbres y el arroz es un cereal."
+    },
+    {
+      "id": 18,
+      "objectiveCode": "CN03 OA 06",
+      "difficulty": 3,
+      "statement": "¿Qué hábito ayuda a tener una alimentación saludable?",
+      "optionA": "Comer frutas y verduras todos los días",
+      "optionB": "Tomar bebidas azucaradas en cada comida",
+      "optionC": "Saltarse el desayuno",
+      "correctIndex": 0,
+      "explanation": "Las frutas y verduras aportan vitaminas y ayudan a cuidar el cuerpo."
+    },
+    {
+      "id": 19,
+      "objectiveCode": "HI03 OA 07",
+      "difficulty": 1,
+      "statement": "¿Cómo se llama el océano que está junto a la costa de Chile?",
+      "optionA": "Atlántico",
+      "optionB": "Pacífico",
+      "optionC": "Índico",
+      "correctIndex": 1,
+      "explanation": "Chile está junto al océano Pacífico."
+    },
+    {
+      "id": 20,
+      "objectiveCode": "HI03 OA 07",
+      "difficulty": 2,
+      "statement": "¿Cómo se llama la línea imaginaria que divide la Tierra en hemisferio norte y hemisferio sur?",
+      "optionA": "Ecuador",
+      "optionB": "Trópico de Capricornio",
+      "optionC": "Polo Sur",
+      "correctIndex": 0,
+      "explanation": "El Ecuador separa los dos hemisferios. El Polo Sur es un punto, no una línea."
+    },
+    {
+      "id": 21,
+      "objectiveCode": "HI03 OA 07",
+      "difficulty": 3,
+      "statement": "Un barco parte de Chile y viaja siempre hacia el sur. ¿Hacia qué lugar de la Tierra se acerca?",
+      "optionA": "Al Polo Sur",
+      "optionB": "Al Polo Norte",
+      "optionC": "Al Ecuador",
+      "correctIndex": 0,
+      "explanation": "Chile está en el hemisferio sur. Si se viaja siempre hacia el sur, se llega cerca del Polo Sur."
+    },
+    {
+      "id": 22,
+      "objectiveCode": "HI03 OA 08",
+      "difficulty": 1,
+      "statement": "¿En qué zona climática hace mucho frío y hay hielo?",
+      "optionA": "Zona polar",
+      "optionB": "Zona cálida",
+      "optionC": "Zona templada",
+      "correctIndex": 0,
+      "explanation": "En la zona polar hace mucho frío y hay hielo."
+    },
+    {
+      "id": 23,
+      "objectiveCode": "HI03 OA 08",
+      "difficulty": 2,
+      "statement": "¿En qué zona climática hay cuatro estaciones bien marcadas?",
+      "optionA": "Zona polar",
+      "optionB": "Zona templada",
+      "optionC": "Zona cálida",
+      "correctIndex": 1,
+      "explanation": "En la zona templada hay verano, otoño, invierno y primavera."
+    },
+    {
+      "id": 24,
+      "objectiveCode": "HI03 OA 08",
+      "difficulty": 3,
+      "statement": "Un paisaje tiene selva, mucha lluvia y calor casi todo el año. ¿A qué zona climática corresponde?",
+      "optionA": "Zona cálida",
+      "optionB": "Zona polar",
+      "optionC": "Zona templada",
+      "correctIndex": 0,
+      "explanation": "Las selvas se encuentran en la zona cálida, donde hace calor y llueve mucho."
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > LearningObjectiveEntity</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">cl.duoc.mpazest3.data.local.entity</a>
+</div>
+
+<h1>Coverage Summary for Class: LearningObjectiveEntity (cl.duoc.mpazest3.data.local.entity)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">LearningObjectiveEntity</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (8/8)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package cl.duoc.mpazest3.data.local.entity
+&nbsp;
+&nbsp;import androidx.room.Entity
+&nbsp;import androidx.room.PrimaryKey
+&nbsp;import cl.duoc.mpazest3.model.ContentStatus
+&nbsp;// Desarrollado por: Camilo Alarcón
+&nbsp;// Un Objetivo de Aprendizaje (OA) del Currículum Nacional con su material de estudio.
+&nbsp;@Entity(tableName = &quot;learning_objectives&quot;)
+&nbsp;data class LearningObjectiveEntity(
+<b class="fc">&nbsp;    @PrimaryKey</b>
+&nbsp;    val code: String,              // Ej: &quot;MA03 OA 08&quot;
+<b class="fc">&nbsp;    val subjectId: String,         // Igual que Subject.id: &quot;1&quot; Matemática, &quot;2&quot; Lenguaje, &quot;3&quot; Ciencias, &quot;4&quot; Historia</b>
+<b class="fc">&nbsp;    val unitName: String,          // Ej: &quot;Tablas de multiplicar y cálculo&quot;</b>
+<b class="fc">&nbsp;    val title: String,             // Ej: &quot;Tablas de multiplicar&quot;</b>
+<b class="fc">&nbsp;    val summary: String,           // Resumen de estudio (también se lee en voz alta)</b>
+<b class="fc">&nbsp;    val readingTitle: String? = null,  // Solo Lenguaje: título del texto de lectura</b>
+<b class="fc">&nbsp;    val readingText: String? = null,   // Solo Lenguaje: texto de lectura</b>
+<b class="fc">&nbsp;    val status: String = ContentStatus.PENDIENTE  // PENDIENTE, AUTORIZADO o RECHAZADO</b>
+&nbsp;)
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-11-25 01:37</div>
+</div>
+</body>
+</html>

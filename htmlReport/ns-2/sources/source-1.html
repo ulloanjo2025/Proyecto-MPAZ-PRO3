@@ -1,0 +1,277 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > AppDatabase</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">cl.duoc.mpazest3.data.local</a>
+</div>
+
+<h1>Coverage Summary for Class: AppDatabase (cl.duoc.mpazest3.data.local)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">AppDatabase</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">AppDatabase$Companion</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">AppDatabase$Companion$MIGRATION_5_6$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">AppDatabase$Companion$MIGRATION_6_7$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/3)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/19)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;// Desarrollado por: Camilo Alarcón (data/local)
+&nbsp;package cl.duoc.mpazest3.data.local
+&nbsp;
+&nbsp;import android.content.Context
+&nbsp;import androidx.room.Database
+&nbsp;import androidx.room.Room
+&nbsp;import androidx.room.RoomDatabase
+&nbsp;import androidx.room.migration.Migration
+&nbsp;import androidx.sqlite.db.SupportSQLiteDatabase
+&nbsp;import cl.duoc.mpazest3.data.local.dao.ContentDao
+&nbsp;import cl.duoc.mpazest3.data.local.dao.QuizDraftDao
+&nbsp;import cl.duoc.mpazest3.data.local.dao.ReportValidationDao
+&nbsp;import cl.duoc.mpazest3.data.local.dao.StudentDao
+&nbsp;import cl.duoc.mpazest3.data.local.dao.StudentProgressDao
+&nbsp;import cl.duoc.mpazest3.data.local.entity.LearningObjectiveEntity
+&nbsp;import cl.duoc.mpazest3.data.local.entity.QuestionEntity
+&nbsp;import cl.duoc.mpazest3.data.local.entity.QuizDraftEntity
+&nbsp;import cl.duoc.mpazest3.data.local.entity.ReportValidationEntity
+&nbsp;import cl.duoc.mpazest3.data.local.entity.StudentAttemptEntity
+&nbsp;import cl.duoc.mpazest3.data.local.entity.StudentEntity
+&nbsp;
+&nbsp;@Database(
+&nbsp;    entities = [
+&nbsp;        StudentAttemptEntity::class,
+&nbsp;        StudentEntity::class,
+&nbsp;        LearningObjectiveEntity::class,
+&nbsp;        QuestionEntity::class,
+&nbsp;        QuizDraftEntity::class,
+&nbsp;        ReportValidationEntity::class
+&nbsp;    ],
+&nbsp;    version = 7, // Versión 7: se agrega la tabla report_validations (validación del informe)
+&nbsp;    exportSchema = false
+&nbsp;)
+<b class="nc">&nbsp;abstract class AppDatabase : RoomDatabase() {</b>
+&nbsp;    abstract fun studentProgressDao(): StudentProgressDao
+&nbsp;    abstract fun studentDao(): StudentDao
+&nbsp;    abstract fun contentDao(): ContentDao
+&nbsp;    abstract fun quizDraftDao(): QuizDraftDao
+&nbsp;    abstract fun reportValidationDao(): ReportValidationDao
+&nbsp;
+&nbsp;    companion object {
+&nbsp;        @Volatile
+&nbsp;        private var INSTANCE: AppDatabase? = null
+&nbsp;
+&nbsp;        // Migración 5 a 6: solo agrega la tabla nueva y NO borra los datos que ya existen
+<b class="nc">&nbsp;        private val MIGRATION_5_6 = object : Migration(5, 6) {</b>
+&nbsp;            override fun migrate(db: SupportSQLiteDatabase) {
+<b class="nc">&nbsp;                db.execSQL(</b>
+<b class="nc">&nbsp;                    &quot;CREATE TABLE IF NOT EXISTS `quiz_drafts` (&quot; +</b>
+&nbsp;                        &quot;`studentName` TEXT NOT NULL, &quot; +
+&nbsp;                        &quot;`subjectId` TEXT NOT NULL, &quot; +
+&nbsp;                        &quot;`questionIndex` INTEGER NOT NULL, &quot; +
+&nbsp;                        &quot;`correctAnswers` INTEGER NOT NULL, &quot; +
+&nbsp;                        &quot;`detailsLog` TEXT NOT NULL, &quot; +
+&nbsp;                        &quot;PRIMARY KEY(`studentName`, `subjectId`))&quot;
+&nbsp;                )
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+&nbsp;        // Migración 6 a 7: solo agrega la tabla nueva y NO borra los datos que ya existen
+<b class="nc">&nbsp;        private val MIGRATION_6_7 = object : Migration(6, 7) {</b>
+&nbsp;            override fun migrate(db: SupportSQLiteDatabase) {
+<b class="nc">&nbsp;                db.execSQL(</b>
+<b class="nc">&nbsp;                    &quot;CREATE TABLE IF NOT EXISTS `report_validations` (&quot; +</b>
+&nbsp;                        &quot;`studentName` TEXT NOT NULL, &quot; +
+&nbsp;                        &quot;`validatedBy` TEXT NOT NULL, &quot; +
+&nbsp;                        &quot;`validatedAt` INTEGER NOT NULL, &quot; +
+&nbsp;                        &quot;`attemptsAtValidation` INTEGER NOT NULL, &quot; +
+&nbsp;                        &quot;PRIMARY KEY(`studentName`))&quot;
+&nbsp;                )
+&nbsp;            }
+&nbsp;        }
+&nbsp;
+&nbsp;        fun getDatabase(context: Context): AppDatabase {
+<b class="nc">&nbsp;            return INSTANCE ?: synchronized(this) {</b>
+<b class="nc">&nbsp;                val instance = Room.databaseBuilder(</b>
+<b class="nc">&nbsp;                    context.applicationContext,</b>
+<b class="nc">&nbsp;                    AppDatabase::class.java,</b>
+<b class="nc">&nbsp;                    &quot;mpaz_database&quot;</b>
+&nbsp;                )
+<b class="nc">&nbsp;                    .addMigrations(MIGRATION_5_6, MIGRATION_6_7)</b>
+<b class="nc">&nbsp;                    .fallbackToDestructiveMigration()</b>
+<b class="nc">&nbsp;                    .build()</b>
+<b class="nc">&nbsp;                INSTANCE = instance</b>
+<b class="nc">&nbsp;                instance</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-11-25 01:37</div>
+</div>
+</body>
+</html>

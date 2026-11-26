@@ -1,0 +1,144 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ContentDao</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">cl.duoc.mpazest3.data.local.dao</a>
+</div>
+
+<h1>Coverage Summary for Class: ContentDao (cl.duoc.mpazest3.data.local.dao)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+</tr>
+  <tr>
+    <td class="name">ContentDao$Subclass0</td>
+  </tr>
+  <tr>
+    <td class="name">ContentDao$Subclass0$auxiliary$AVYFJ76u</td>
+  </tr>
+  <tr>
+    <td class="name">ContentDao$Subclass0$auxiliary$cy11qitQ</td>
+  </tr>
+  <tr>
+    <td class="name">ContentDao$Subclass0$auxiliary$iLTt1c6o</td>
+  </tr>
+  <tr>
+    <td class="name">ContentDao$Subclass0$auxiliary$Yrn1LL2y</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package cl.duoc.mpazest3.data.local.dao
+&nbsp;
+&nbsp;import androidx.room.Dao
+&nbsp;import androidx.room.Insert
+&nbsp;import androidx.room.OnConflictStrategy
+&nbsp;import androidx.room.Query
+&nbsp;import cl.duoc.mpazest3.data.local.entity.LearningObjectiveEntity
+&nbsp;import cl.duoc.mpazest3.data.local.entity.QuestionEntity
+&nbsp;import kotlinx.coroutines.flow.Flow
+&nbsp;import kotlin.jvm.JvmSuppressWildcards
+&nbsp;// Desarrollado por: Jonathan Ulloa
+&nbsp;@Dao
+&nbsp;interface ContentDao {
+&nbsp;
+&nbsp;    // Cada insert devuelve Long (el mismo patrón de StudentDao) para evitar el error de KSP &quot;unexpected jvm signature V&quot;
+&nbsp;    @Insert(onConflict = OnConflictStrategy.REPLACE)
+&nbsp;    @JvmSuppressWildcards
+&nbsp;    suspend fun insertObjective(objective: LearningObjectiveEntity): Long
+&nbsp;
+&nbsp;    @Insert(onConflict = OnConflictStrategy.REPLACE)
+&nbsp;    @JvmSuppressWildcards
+&nbsp;    suspend fun insertQuestion(question: QuestionEntity): Long
+&nbsp;
+&nbsp;    @Query(&quot;SELECT COUNT(*) FROM learning_objectives&quot;)
+&nbsp;    @JvmSuppressWildcards
+&nbsp;    suspend fun countObjectives(): Int
+&nbsp;
+&nbsp;    // Un OA por su código (null si no existe todavía)
+&nbsp;    @Query(&quot;SELECT * FROM learning_objectives WHERE code = :code LIMIT 1&quot;)
+&nbsp;    @JvmSuppressWildcards
+&nbsp;    suspend fun getObjective(code: String): LearningObjectiveEntity?
+&nbsp;
+&nbsp;    // Todas las preguntas de un OA
+&nbsp;    @Query(&quot;SELECT * FROM questions WHERE objectiveCode = :code ORDER BY id ASC&quot;)
+&nbsp;    @JvmSuppressWildcards
+&nbsp;    suspend fun getQuestionsOf(code: String): List&lt;QuestionEntity&gt;
+&nbsp;
+&nbsp;    // Borra las preguntas de un OA (se usa al sincronizar cuando cambiaron)
+&nbsp;    @Query(&quot;DELETE FROM questions WHERE objectiveCode = :code&quot;)
+&nbsp;    @JvmSuppressWildcards
+&nbsp;    suspend fun deleteQuestionsOf(code: String): Int
+&nbsp;
+&nbsp;    // Todos los OA (la pantalla de UTP los observa para autorizar o rechazar)
+&nbsp;    @Query(&quot;SELECT * FROM learning_objectives ORDER BY code ASC&quot;)
+&nbsp;    fun getAllObjectives(): Flow&lt;List&lt;LearningObjectiveEntity&gt;&gt;
+&nbsp;
+&nbsp;    // Solo los OA autorizados de una asignatura (lo que ve el estudiante)
+&nbsp;    @Query(&quot;SELECT * FROM learning_objectives WHERE subjectId = :subjectId AND status = &#39;AUTORIZADO&#39; ORDER BY code ASC&quot;)
+&nbsp;    @JvmSuppressWildcards
+&nbsp;    suspend fun getAuthorizedObjectives(subjectId: String): List&lt;LearningObjectiveEntity&gt;
+&nbsp;
+&nbsp;    // Preguntas de los OA autorizados de una asignatura: por OA y de menor a mayor dificultad
+&nbsp;    @Query(&quot;SELECT q.* FROM questions q INNER JOIN learning_objectives o ON q.objectiveCode = o.code WHERE o.subjectId = :subjectId AND o.status = &#39;AUTORIZADO&#39; ORDER BY o.code ASC, q.difficulty ASC, q.id ASC&quot;)
+&nbsp;    @JvmSuppressWildcards
+&nbsp;    suspend fun getAuthorizedQuestions(subjectId: String): List&lt;QuestionEntity&gt;
+&nbsp;
+&nbsp;    // Actualizar el estado de autorización de un OA
+&nbsp;    @Query(&quot;UPDATE learning_objectives SET status = :status WHERE code = :code&quot;)
+&nbsp;    @JvmSuppressWildcards
+&nbsp;    suspend fun updateObjectiveStatus(code: String, status: String): Int
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-11-25 01:37</div>
+</div>
+</body>
+</html>

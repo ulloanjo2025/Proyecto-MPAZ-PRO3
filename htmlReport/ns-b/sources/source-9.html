@@ -1,0 +1,479 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > UtpContentScreenKt</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">cl.duoc.mpazest3.ui.screen</a>
+</div>
+
+<h1>Coverage Summary for Class: UtpContentScreenKt (cl.duoc.mpazest3.ui.screen)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">UtpContentScreenKt</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/21)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/54)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/180)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">UtpContentScreenKt$UtpContentScreen$lambda$16$lambda$15$lambda$14$lambda$13$$inlined$items$default$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">UtpContentScreenKt$UtpContentScreen$lambda$16$lambda$15$lambda$14$lambda$13$$inlined$items$default$2</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">UtpContentScreenKt$UtpContentScreen$lambda$16$lambda$15$lambda$14$lambda$13$$inlined$items$default$3</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">UtpContentScreenKt$UtpContentScreen$lambda$16$lambda$15$lambda$14$lambda$13$$inlined$items$default$4</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/25)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/54)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/180)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package cl.duoc.mpazest3.ui.screen
+&nbsp;
+&nbsp;import androidx.compose.animation.animateColorAsState
+&nbsp;import androidx.compose.foundation.layout.Arrangement
+&nbsp;import androidx.compose.foundation.layout.Box
+&nbsp;import androidx.compose.foundation.layout.Column
+&nbsp;import androidx.compose.foundation.layout.Row
+&nbsp;import androidx.compose.foundation.layout.Spacer
+&nbsp;import androidx.compose.foundation.layout.fillMaxSize
+&nbsp;import androidx.compose.foundation.layout.fillMaxWidth
+&nbsp;import androidx.compose.foundation.layout.height
+&nbsp;import androidx.compose.foundation.layout.padding
+&nbsp;import androidx.compose.foundation.lazy.LazyColumn
+&nbsp;import androidx.compose.foundation.lazy.items
+&nbsp;import androidx.compose.foundation.shape.RoundedCornerShape
+&nbsp;import androidx.compose.material3.Button
+&nbsp;import androidx.compose.material3.ButtonDefaults
+&nbsp;import androidx.compose.material3.Card
+&nbsp;import androidx.compose.material3.CardDefaults
+&nbsp;import androidx.compose.material3.CircularProgressIndicator
+&nbsp;import androidx.compose.material3.OutlinedButton
+&nbsp;import androidx.compose.material3.Surface
+&nbsp;import androidx.compose.material3.Text
+&nbsp;import androidx.compose.material3.TextButton
+&nbsp;import androidx.compose.runtime.Composable
+&nbsp;import androidx.compose.runtime.getValue
+&nbsp;import androidx.compose.runtime.mutableStateOf
+&nbsp;import androidx.compose.runtime.remember
+&nbsp;import androidx.compose.runtime.setValue
+&nbsp;import androidx.compose.ui.Alignment
+&nbsp;import androidx.compose.ui.Modifier
+&nbsp;import androidx.compose.ui.graphics.Color
+&nbsp;import androidx.compose.ui.text.font.FontWeight
+&nbsp;import androidx.compose.ui.unit.dp
+&nbsp;import androidx.compose.ui.unit.sp
+&nbsp;import cl.duoc.mpazest3.data.local.entity.LearningObjectiveEntity
+&nbsp;import cl.duoc.mpazest3.model.ContentStatus
+&nbsp;// Desarrollado por: Sebastián Maquera
+<b class="nc">&nbsp;private val UtpRed = Color(0xFFEF476F)</b>
+&nbsp;
+&nbsp;// Nombre de la asignatura según su id (el mismo id que usa Subject en MainActivity)
+<b class="nc">&nbsp;private fun utpSubjectName(subjectId: String): String = when (subjectId) {</b>
+<b class="nc">&nbsp;    &quot;1&quot; -&gt; &quot;Matemática&quot;</b>
+<b class="nc">&nbsp;    &quot;2&quot; -&gt; &quot;Lenguaje y Comunicación&quot;</b>
+<b class="nc">&nbsp;    &quot;3&quot; -&gt; &quot;Ciencias Naturales&quot;</b>
+<b class="nc">&nbsp;    &quot;4&quot; -&gt; &quot;Historia, Geografía y C. S.&quot;</b>
+<b class="nc">&nbsp;    else -&gt; &quot;Asignatura &quot; + subjectId</b>
+&nbsp;}
+&nbsp;
+<b class="nc">&nbsp;private fun utpStatusLabel(status: String): String = when (status) {</b>
+<b class="nc">&nbsp;    ContentStatus.AUTORIZADO -&gt; &quot;Autorizado&quot;</b>
+<b class="nc">&nbsp;    ContentStatus.RECHAZADO -&gt; &quot;Rechazado&quot;</b>
+<b class="nc">&nbsp;    else -&gt; &quot;Pendiente&quot;</b>
+&nbsp;}
+&nbsp;
+&nbsp;// Pantalla del perfil UTP: revisa el contenido de cada OA y lo autoriza o rechaza.
+&nbsp;// Escribe el estado en Room (tabla learning_objectives) a través de onSetStatus.
+&nbsp;@Composable
+&nbsp;fun UtpContentScreen(
+&nbsp;    objectives: List&lt;LearningObjectiveEntity&gt;,
+&nbsp;    isSyncing: Boolean,
+&nbsp;    syncMessage: String?,
+&nbsp;    onSync: () -&gt; Unit,
+&nbsp;    onSetStatus: (String, String) -&gt; Unit,
+&nbsp;    onLogout: () -&gt; Unit
+<b class="nc">&nbsp;) {</b>
+<b class="nc">&nbsp;    val bySubject = remember(objectives) { objectives.groupBy { it.subjectId }.toSortedMap() }</b>
+<b class="nc">&nbsp;    val authorized = objectives.count { it.status == ContentStatus.AUTORIZADO }</b>
+<b class="nc">&nbsp;    val pending = objectives.count { it.status == ContentStatus.PENDIENTE }</b>
+<b class="nc">&nbsp;    val rejected = objectives.count { it.status == ContentStatus.RECHAZADO }</b>
+&nbsp;
+<b class="nc">&nbsp;    Surface(</b>
+<b class="nc">&nbsp;        modifier = Modifier.fillMaxSize(),</b>
+<b class="nc">&nbsp;        color = SoftBackground</b>
+<b class="nc">&nbsp;    ) {</b>
+<b class="nc">&nbsp;        Column(</b>
+<b class="nc">&nbsp;            modifier = Modifier</b>
+<b class="nc">&nbsp;                .fillMaxSize()</b>
+<b class="nc">&nbsp;                .padding(16.dp)</b>
+&nbsp;        ) {
+<b class="nc">&nbsp;            Row(</b>
+<b class="nc">&nbsp;                modifier = Modifier.fillMaxWidth(),</b>
+<b class="nc">&nbsp;                horizontalArrangement = Arrangement.SpaceBetween,</b>
+<b class="nc">&nbsp;                verticalAlignment = Alignment.CenterVertically</b>
+&nbsp;            ) {
+<b class="nc">&nbsp;                Column(modifier = Modifier.weight(1f)) {</b>
+<b class="nc">&nbsp;                    Text(</b>
+<b class="nc">&nbsp;                        text = &quot;Autorización de contenidos&quot;,</b>
+<b class="nc">&nbsp;                        fontSize = 22.sp,</b>
+<b class="nc">&nbsp;                        fontWeight = FontWeight.Black,</b>
+<b class="nc">&nbsp;                        color = Color(0xFF1E293B)</b>
+&nbsp;                    )
+<b class="nc">&nbsp;                    Text(</b>
+<b class="nc">&nbsp;                        text = &quot;Perfil UTP · Datos ficticios de prueba&quot;,</b>
+<b class="nc">&nbsp;                        fontSize = 12.sp,</b>
+<b class="nc">&nbsp;                        color = Color.Gray</b>
+&nbsp;                    )
+<b class="nc">&nbsp;                }</b>
+<b class="nc">&nbsp;                TextButton(onClick = onLogout) {</b>
+&nbsp;                    Text(&quot;Salir&quot;)
+&nbsp;                }
+<b class="nc">&nbsp;            }</b>
+&nbsp;
+<b class="nc">&nbsp;            Spacer(modifier = Modifier.height(8.dp))</b>
+&nbsp;
+&nbsp;            // Actualiza el contenido desde el servicio REST (Retrofit)
+<b class="nc">&nbsp;            Button(</b>
+<b class="nc">&nbsp;                onClick = onSync,</b>
+<b class="nc">&nbsp;                enabled = !isSyncing,</b>
+<b class="nc">&nbsp;                shape = RoundedCornerShape(14.dp)</b>
+<b class="nc">&nbsp;            ) {</b>
+<b class="nc">&nbsp;                Text(</b>
+<b class="nc">&nbsp;                    text = if (isSyncing) &quot;Actualizando...&quot; else &quot;🔄 Actualizar contenido&quot;,</b>
+<b class="nc">&nbsp;                    fontSize = 13.sp,</b>
+<b class="nc">&nbsp;                    fontWeight = FontWeight.Bold</b>
+&nbsp;                )
+&nbsp;            }
+<b class="nc">&nbsp;            if (!syncMessage.isNullOrBlank()) {</b>
+<b class="nc">&nbsp;                Text(</b>
+<b class="nc">&nbsp;                    text = syncMessage,</b>
+<b class="nc">&nbsp;                    fontSize = 12.sp,</b>
+<b class="nc">&nbsp;                    color = Color(0xFF334155),</b>
+<b class="nc">&nbsp;                    modifier = Modifier.padding(top = 4.dp)</b>
+&nbsp;                )
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            Spacer(modifier = Modifier.height(12.dp))</b>
+&nbsp;
+&nbsp;            // Resumen de estados
+<b class="nc">&nbsp;            Row(</b>
+<b class="nc">&nbsp;                modifier = Modifier.fillMaxWidth(),</b>
+<b class="nc">&nbsp;                horizontalArrangement = Arrangement.spacedBy(8.dp)</b>
+&nbsp;            ) {
+<b class="nc">&nbsp;                UtpSummaryChip(&quot;Autorizados&quot;, authorized, GrassGreen, Modifier.weight(1f))</b>
+<b class="nc">&nbsp;                UtpSummaryChip(&quot;Pendientes&quot;, pending, SunYellow, Modifier.weight(1f))</b>
+<b class="nc">&nbsp;                UtpSummaryChip(&quot;Rechazados&quot;, rejected, UtpRed, Modifier.weight(1f))</b>
+<b class="nc">&nbsp;            }</b>
+&nbsp;
+<b class="nc">&nbsp;            Spacer(modifier = Modifier.height(12.dp))</b>
+&nbsp;
+<b class="nc">&nbsp;            if (objectives.isEmpty()) {</b>
+&nbsp;                // El contenido se carga en Room al abrir la app; aquí se espera unos segundos
+<b class="nc">&nbsp;                Box(</b>
+<b class="nc">&nbsp;                    modifier = Modifier.fillMaxSize(),</b>
+<b class="nc">&nbsp;                    contentAlignment = Alignment.Center</b>
+&nbsp;                ) {
+<b class="nc">&nbsp;                    CircularProgressIndicator()</b>
+<b class="nc">&nbsp;                }</b>
+<b class="nc">&nbsp;            } else {</b>
+<b class="nc">&nbsp;                LazyColumn(verticalArrangement = Arrangement.spacedBy(10.dp)) {</b>
+<b class="nc">&nbsp;                    for ((subjectId, list) in bySubject) {</b>
+<b class="nc">&nbsp;                        item(key = &quot;header-&quot; + subjectId) {</b>
+<b class="nc">&nbsp;                            Text(</b>
+<b class="nc">&nbsp;                                text = utpSubjectName(subjectId),</b>
+<b class="nc">&nbsp;                                fontSize = 16.sp,</b>
+<b class="nc">&nbsp;                                fontWeight = FontWeight.Bold,</b>
+<b class="nc">&nbsp;                                color = Color(0xFF334155),</b>
+<b class="nc">&nbsp;                                modifier = Modifier.padding(top = 6.dp)</b>
+&nbsp;                            )
+&nbsp;                        }
+<b class="nc">&nbsp;                        items(list, key = { it.code }) { objective -&gt;</b>
+&nbsp;                            UtpObjectiveCard(objective, onSetStatus)
+&nbsp;                        }
+&nbsp;                    }
+&nbsp;                }
+&nbsp;            }
+<b class="nc">&nbsp;        }</b>
+&nbsp;    }
+<b class="nc">&nbsp;}</b>
+&nbsp;
+&nbsp;@Composable
+<b class="nc">&nbsp;private fun UtpSummaryChip(label: String, count: Int, color: Color, modifier: Modifier = Modifier) {</b>
+<b class="nc">&nbsp;    Surface(</b>
+<b class="nc">&nbsp;        modifier = modifier,</b>
+<b class="nc">&nbsp;        color = color.copy(alpha = 0.18f),</b>
+<b class="nc">&nbsp;        shape = RoundedCornerShape(14.dp)</b>
+<b class="nc">&nbsp;    ) {</b>
+<b class="nc">&nbsp;        Column(</b>
+<b class="nc">&nbsp;            modifier = Modifier.padding(vertical = 8.dp),</b>
+<b class="nc">&nbsp;            horizontalAlignment = Alignment.CenterHorizontally</b>
+&nbsp;        ) {
+<b class="nc">&nbsp;            Text(</b>
+<b class="nc">&nbsp;                text = count.toString(),</b>
+<b class="nc">&nbsp;                fontSize = 20.sp,</b>
+<b class="nc">&nbsp;                fontWeight = FontWeight.Black,</b>
+<b class="nc">&nbsp;                color = Color(0xFF1E293B)</b>
+&nbsp;            )
+<b class="nc">&nbsp;            Text(text = label, fontSize = 12.sp, color = Color(0xFF334155))</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;    }
+<b class="nc">&nbsp;}</b>
+&nbsp;
+&nbsp;@Composable
+&nbsp;private fun UtpObjectiveCard(
+&nbsp;    objective: LearningObjectiveEntity,
+&nbsp;    onSetStatus: (String, String) -&gt; Unit
+<b class="nc">&nbsp;) {</b>
+<b class="nc">&nbsp;    var expanded by remember { mutableStateOf(false) }</b>
+&nbsp;
+&nbsp;    // Animación: el color del estado cambia suavemente al autorizar o rechazar
+<b class="nc">&nbsp;    val statusColor by animateColorAsState(</b>
+<b class="nc">&nbsp;        targetValue = when (objective.status) {</b>
+<b class="nc">&nbsp;            ContentStatus.AUTORIZADO -&gt; GrassGreen</b>
+<b class="nc">&nbsp;            ContentStatus.RECHAZADO -&gt; UtpRed</b>
+<b class="nc">&nbsp;            else -&gt; SunYellow</b>
+&nbsp;        },
+<b class="nc">&nbsp;        label = &quot;colorEstado&quot;</b>
+&nbsp;    )
+&nbsp;
+<b class="nc">&nbsp;    Card(</b>
+<b class="nc">&nbsp;        shape = RoundedCornerShape(20.dp),</b>
+<b class="nc">&nbsp;        colors = CardDefaults.cardColors(containerColor = Color.White),</b>
+<b class="nc">&nbsp;        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),</b>
+<b class="nc">&nbsp;        modifier = Modifier.fillMaxWidth()</b>
+<b class="nc">&nbsp;    ) {</b>
+<b class="nc">&nbsp;        Column(modifier = Modifier.padding(16.dp)) {</b>
+<b class="nc">&nbsp;            Row(</b>
+<b class="nc">&nbsp;                modifier = Modifier.fillMaxWidth(),</b>
+<b class="nc">&nbsp;                horizontalArrangement = Arrangement.SpaceBetween,</b>
+<b class="nc">&nbsp;                verticalAlignment = Alignment.CenterVertically</b>
+&nbsp;            ) {
+<b class="nc">&nbsp;                Text(</b>
+<b class="nc">&nbsp;                    text = objective.code,</b>
+<b class="nc">&nbsp;                    fontWeight = FontWeight.Bold,</b>
+<b class="nc">&nbsp;                    fontSize = 15.sp,</b>
+<b class="nc">&nbsp;                    color = SkyBlue</b>
+&nbsp;                )
+<b class="nc">&nbsp;                Surface(color = statusColor, shape = RoundedCornerShape(12.dp)) {</b>
+<b class="nc">&nbsp;                    Text(</b>
+<b class="nc">&nbsp;                        text = utpStatusLabel(objective.status),</b>
+<b class="nc">&nbsp;                        modifier = Modifier.padding(horizontal = 10.dp, vertical = 4.dp),</b>
+<b class="nc">&nbsp;                        fontSize = 12.sp,</b>
+<b class="nc">&nbsp;                        fontWeight = FontWeight.Bold,</b>
+<b class="nc">&nbsp;                        color = Color(0xFF1E293B)</b>
+&nbsp;                    )
+&nbsp;                }
+<b class="nc">&nbsp;            }</b>
+&nbsp;
+<b class="nc">&nbsp;            Text(</b>
+<b class="nc">&nbsp;                text = objective.title,</b>
+<b class="nc">&nbsp;                fontSize = 17.sp,</b>
+<b class="nc">&nbsp;                fontWeight = FontWeight.Bold,</b>
+<b class="nc">&nbsp;                color = Color(0xFF1E293B),</b>
+<b class="nc">&nbsp;                modifier = Modifier.padding(top = 4.dp)</b>
+&nbsp;            )
+<b class="nc">&nbsp;            Text(</b>
+<b class="nc">&nbsp;                text = &quot;Unidad: &quot; + objective.unitName,</b>
+<b class="nc">&nbsp;                fontSize = 12.sp,</b>
+<b class="nc">&nbsp;                color = Color.Gray</b>
+&nbsp;            )
+&nbsp;
+<b class="nc">&nbsp;            TextButton(onClick = { expanded = !expanded }) {</b>
+<b class="nc">&nbsp;                Text(if (expanded) &quot;Ocultar contenido&quot; else &quot;Ver contenido&quot;)</b>
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            if (expanded) {</b>
+<b class="nc">&nbsp;                Text(</b>
+<b class="nc">&nbsp;                    text = objective.summary,</b>
+<b class="nc">&nbsp;                    fontSize = 14.sp,</b>
+<b class="nc">&nbsp;                    color = Color(0xFF334155)</b>
+&nbsp;                )
+<b class="nc">&nbsp;                if (!objective.readingText.isNullOrBlank()) {</b>
+<b class="nc">&nbsp;                    Text(</b>
+<b class="nc">&nbsp;                        text = &quot;Texto de lectura: &quot; + objective.readingTitle.orEmpty(),</b>
+<b class="nc">&nbsp;                        fontWeight = FontWeight.Bold,</b>
+<b class="nc">&nbsp;                        fontSize = 13.sp,</b>
+<b class="nc">&nbsp;                        color = Color(0xFF334155),</b>
+<b class="nc">&nbsp;                        modifier = Modifier.padding(top = 8.dp)</b>
+&nbsp;                    )
+<b class="nc">&nbsp;                    Text(</b>
+<b class="nc">&nbsp;                        text = objective.readingText.orEmpty(),</b>
+<b class="nc">&nbsp;                        fontSize = 14.sp,</b>
+<b class="nc">&nbsp;                        color = Color(0xFF334155)</b>
+&nbsp;                    )
+&nbsp;                }
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            Spacer(modifier = Modifier.height(8.dp))</b>
+&nbsp;
+<b class="nc">&nbsp;            Row(</b>
+<b class="nc">&nbsp;                modifier = Modifier.fillMaxWidth(),</b>
+<b class="nc">&nbsp;                horizontalArrangement = Arrangement.spacedBy(8.dp)</b>
+&nbsp;            ) {
+<b class="nc">&nbsp;                Button(</b>
+<b class="nc">&nbsp;                    onClick = { onSetStatus(objective.code, ContentStatus.AUTORIZADO) },</b>
+<b class="nc">&nbsp;                    enabled = objective.status != ContentStatus.AUTORIZADO,</b>
+<b class="nc">&nbsp;                    colors = ButtonDefaults.buttonColors(containerColor = GrassGreen),</b>
+<b class="nc">&nbsp;                    shape = RoundedCornerShape(16.dp),</b>
+<b class="nc">&nbsp;                    modifier = Modifier.weight(1f)</b>
+&nbsp;                ) {
+&nbsp;                    Text(&quot;Autorizar&quot;, fontWeight = FontWeight.Bold)
+&nbsp;                }
+<b class="nc">&nbsp;                OutlinedButton(</b>
+<b class="nc">&nbsp;                    onClick = { onSetStatus(objective.code, ContentStatus.RECHAZADO) },</b>
+<b class="nc">&nbsp;                    enabled = objective.status != ContentStatus.RECHAZADO,</b>
+<b class="nc">&nbsp;                    shape = RoundedCornerShape(16.dp),</b>
+<b class="nc">&nbsp;                    modifier = Modifier.weight(1f)</b>
+&nbsp;                ) {
+&nbsp;                    Text(&quot;Rechazar&quot;)
+&nbsp;                }
+<b class="nc">&nbsp;            }</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;    }
+<b class="nc">&nbsp;}</b>
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-11-25 01:37</div>
+</div>
+</body>
+</html>

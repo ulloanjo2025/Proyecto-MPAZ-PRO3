@@ -1,0 +1,178 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ContentMapperKt</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">cl.duoc.mpazest3.data.remote</a>
+</div>
+
+<h1>Coverage Summary for Class: ContentMapperKt (cl.duoc.mpazest3.data.remote)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ContentMapperKt</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    59,2%
+  </span>
+  <span class="absValue">
+    (58/98)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (40/40)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package cl.duoc.mpazest3.data.remote
+&nbsp;
+&nbsp;import cl.duoc.mpazest3.data.local.entity.LearningObjectiveEntity
+&nbsp;import cl.duoc.mpazest3.data.local.entity.QuestionEntity
+&nbsp;import cl.duoc.mpazest3.model.ContentStatus
+&nbsp;// Desarrollado por: Jonathan Ulloa
+&nbsp;// Convierte lo que llega del servicio (DTO) en lo que se guarda en Room (Entity).
+&nbsp;// Si a un elemento le falta un dato o tiene un valor inválido, devuelve null y se descarta.
+&nbsp;
+<b class="fc">&nbsp;private val validSubjectIds = setOf(&quot;1&quot;, &quot;2&quot;, &quot;3&quot;, &quot;4&quot;)</b>
+&nbsp;
+&nbsp;fun ObjectiveDto.toEntityOrNull(): LearningObjectiveEntity? {
+<b class="fc">&nbsp;    val codeValue = code?.trim()</b>
+<b class="pc">&nbsp;    val subject = subjectId?.trim()</b>
+<b class="pc">&nbsp;    val unit = unitName?.trim()</b>
+<b class="fc">&nbsp;    val titleValue = title?.trim()</b>
+<b class="pc">&nbsp;    val summaryValue = summary?.trim()</b>
+&nbsp;
+<b class="pc">&nbsp;    if (codeValue.isNullOrEmpty() || subject == null || subject !in validSubjectIds) return null</b>
+<b class="pc">&nbsp;    if (unit.isNullOrEmpty() || titleValue.isNullOrEmpty() || summaryValue.isNullOrEmpty()) return null</b>
+&nbsp;
+<b class="fc">&nbsp;    return LearningObjectiveEntity(</b>
+<b class="fc">&nbsp;        code = codeValue,</b>
+<b class="fc">&nbsp;        subjectId = subject,</b>
+<b class="fc">&nbsp;        unitName = unit,</b>
+<b class="fc">&nbsp;        title = titleValue,</b>
+<b class="fc">&nbsp;        summary = summaryValue,</b>
+<b class="pc">&nbsp;        readingTitle = readingTitle?.trim()?.ifEmpty { null },</b>
+<b class="pc">&nbsp;        readingText = readingText?.trim()?.ifEmpty { null },</b>
+&nbsp;        // Todo contenido que llega del servicio parte pendiente: UTP decide si lo autoriza
+<b class="fc">&nbsp;        status = ContentStatus.PENDIENTE</b>
+&nbsp;    )
+&nbsp;}
+&nbsp;
+&nbsp;fun QuestionDto.toEntityOrNull(): QuestionEntity? {
+<b class="pc">&nbsp;    val idValue = id ?: return null</b>
+<b class="pc">&nbsp;    val difficultyValue = difficulty ?: return null</b>
+<b class="fc">&nbsp;    val correctValue = correctIndex ?: return null</b>
+<b class="pc">&nbsp;    val objective = objectiveCode?.trim()</b>
+<b class="pc">&nbsp;    val statementValue = statement?.trim()</b>
+<b class="pc">&nbsp;    val a = optionA?.trim()</b>
+<b class="pc">&nbsp;    val b = optionB?.trim()</b>
+<b class="pc">&nbsp;    val c = optionC?.trim()</b>
+<b class="pc">&nbsp;    val explanationValue = explanation?.trim()</b>
+&nbsp;
+<b class="pc">&nbsp;    if (objective.isNullOrEmpty() || statementValue.isNullOrEmpty() || explanationValue.isNullOrEmpty()) return null</b>
+<b class="pc">&nbsp;    if (a.isNullOrEmpty() || b.isNullOrEmpty() || c.isNullOrEmpty()) return null</b>
+<b class="pc">&nbsp;    if (difficultyValue !in 1..3 || correctValue !in 0..2) return null</b>
+<b class="fc">&nbsp;    if (setOf(a, b, c).size != 3) return null</b>
+&nbsp;
+<b class="fc">&nbsp;    return QuestionEntity(</b>
+<b class="fc">&nbsp;        id = idValue,</b>
+<b class="fc">&nbsp;        objectiveCode = objective,</b>
+<b class="fc">&nbsp;        difficulty = difficultyValue,</b>
+<b class="fc">&nbsp;        statement = statementValue,</b>
+<b class="fc">&nbsp;        optionA = a,</b>
+<b class="fc">&nbsp;        optionB = b,</b>
+<b class="fc">&nbsp;        optionC = c,</b>
+<b class="fc">&nbsp;        correctIndex = correctValue,</b>
+<b class="fc">&nbsp;        explanation = explanationValue</b>
+&nbsp;    )
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-11-25 01:37</div>
+</div>
+</body>
+</html>

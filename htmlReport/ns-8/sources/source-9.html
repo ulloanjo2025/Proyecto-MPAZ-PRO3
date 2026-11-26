@@ -1,0 +1,90 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ContentStatus</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">cl.duoc.mpazest3.model</a>
+</div>
+
+<h1>Coverage Summary for Class: ContentStatus (cl.duoc.mpazest3.model)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">ContentStatus</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package cl.duoc.mpazest3.model
+&nbsp;// Desarrollado por: Sebastián Maquera
+&nbsp;// Estado de autorización de un contenido (lo decide el perfil UTP).
+&nbsp;// Si cambias estos textos, cambia también los &#39;AUTORIZADO&#39; escritos en ContentDao.
+&nbsp;object ContentStatus {
+&nbsp;    const val PENDIENTE = &quot;PENDIENTE&quot;
+&nbsp;    const val AUTORIZADO = &quot;AUTORIZADO&quot;
+&nbsp;    const val RECHAZADO = &quot;RECHAZADO&quot;
+&nbsp;}
+&nbsp;
+&nbsp;// Nivel de dificultad de una pregunta.
+&nbsp;object Difficulty {
+&nbsp;    const val BASICO = 1
+&nbsp;    const val INTERMEDIO = 2
+&nbsp;    const val AVANZADO = 3
+&nbsp;
+&nbsp;    fun label(level: Int): String = when (level) {
+&nbsp;        BASICO -&gt; &quot;Básico&quot;
+&nbsp;        INTERMEDIO -&gt; &quot;Intermedio&quot;
+&nbsp;        else -&gt; &quot;Avanzado&quot;
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-11-25 01:37</div>
+</div>
+</body>
+</html>

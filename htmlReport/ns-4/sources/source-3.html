@@ -1,0 +1,121 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > QuizDraftEntity</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">cl.duoc.mpazest3.data.local.entity</a>
+</div>
+
+<h1>Coverage Summary for Class: QuizDraftEntity (cl.duoc.mpazest3.data.local.entity)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">QuizDraftEntity</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package cl.duoc.mpazest3.data.local.entity
+&nbsp;
+&nbsp;import androidx.room.Entity
+&nbsp;// Desarrollado por: Camilo Alarcón
+&nbsp;// Avance de un quiz sin terminar: un borrador por estudiante y por asignatura.
+&nbsp;// Se guarda en Room, así no se pierde si la app se cierra.
+&nbsp;@Entity(
+&nbsp;    tableName = &quot;quiz_drafts&quot;,
+&nbsp;    primaryKeys = [&quot;studentName&quot;, &quot;subjectId&quot;]
+&nbsp;)
+<b class="nc">&nbsp;data class QuizDraftEntity(</b>
+<b class="nc">&nbsp;    val studentName: String,      // Nombre del estudiante en minúsculas (así no se duplica por mayúsculas)</b>
+<b class="nc">&nbsp;    val subjectId: String,        // Asignatura (el mismo texto que usa student_attempts)</b>
+<b class="nc">&nbsp;    val questionIndex: Int,       // Pregunta en la que va (0 = primera)</b>
+<b class="nc">&nbsp;    val correctAnswers: Int,      // Respuestas correctas hasta ahora</b>
+<b class="nc">&nbsp;    val detailsLog: String        // Detalle de las preguntas ya respondidas (una línea por pregunta)</b>
+&nbsp;)
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-11-25 01:37</div>
+</div>
+</body>
+</html>

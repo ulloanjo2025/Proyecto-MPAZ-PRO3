@@ -1,0 +1,438 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ProgressViewModel</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">cl.duoc.mpazest3.viewmodel</a>
+</div>
+
+<h1>Coverage Summary for Class: ProgressViewModel (cl.duoc.mpazest3.viewmodel)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ProgressViewModel</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/37)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ProgressViewModel$registerStudent$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/9)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">ProgressViewModel$revokeReportValidation$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">ProgressViewModel$saveAttempt$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/16)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">ProgressViewModel$saveQuizProgress$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/7)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">ProgressViewModel$unlockSubject$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/2)
+  </span>
+</td>
+  </tr>
+  <tr>
+    <td class="name">ProgressViewModel$validateReport$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/6)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/78)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;// Desarrollado por: Camilo Alarcón (viewmodel)
+&nbsp;package cl.duoc.mpazest3.viewmodel
+&nbsp;
+&nbsp;import android.app.Application
+&nbsp;import androidx.lifecycle.AndroidViewModel
+&nbsp;import androidx.lifecycle.viewModelScope
+&nbsp;import cl.duoc.mpazest3.data.local.AppDatabase
+&nbsp;import cl.duoc.mpazest3.data.local.entity.QuizDraftEntity
+&nbsp;import cl.duoc.mpazest3.data.local.entity.ReportValidationEntity
+&nbsp;import cl.duoc.mpazest3.data.local.entity.StudentAttemptEntity
+&nbsp;import cl.duoc.mpazest3.data.local.entity.StudentEntity
+&nbsp;import kotlinx.coroutines.flow.SharingStarted
+&nbsp;import kotlinx.coroutines.flow.StateFlow
+&nbsp;import kotlinx.coroutines.flow.stateIn
+&nbsp;import kotlinx.coroutines.launch
+&nbsp;
+<b class="nc">&nbsp;class ProgressViewModel(application: Application) : AndroidViewModel(application) {</b>
+&nbsp;
+<b class="nc">&nbsp;    private val db = AppDatabase.getDatabase(application)</b>
+<b class="nc">&nbsp;    private val progressDao = db.studentProgressDao()</b>
+<b class="nc">&nbsp;    private val studentDao = db.studentDao()</b>
+&nbsp;
+<b class="nc">&nbsp;    private val draftDao = db.quizDraftDao()</b>
+<b class="nc">&nbsp;    private val validationDao = db.reportValidationDao()</b>
+&nbsp;
+<b class="nc">&nbsp;    val allAttempts: StateFlow&lt;List&lt;StudentAttemptEntity&gt;&gt; = progressDao.getAllAttempts()</b>
+<b class="nc">&nbsp;        .stateIn(</b>
+<b class="nc">&nbsp;            scope = viewModelScope,</b>
+<b class="nc">&nbsp;            started = SharingStarted.WhileSubscribed(5000),</b>
+<b class="nc">&nbsp;            initialValue = emptyList()</b>
+&nbsp;        )
+&nbsp;
+<b class="nc">&nbsp;    val allStudents: StateFlow&lt;List&lt;StudentEntity&gt;&gt; = studentDao.getAllStudents()</b>
+<b class="nc">&nbsp;        .stateIn(</b>
+<b class="nc">&nbsp;            scope = viewModelScope,</b>
+<b class="nc">&nbsp;            started = SharingStarted.WhileSubscribed(5000),</b>
+<b class="nc">&nbsp;            initialValue = emptyList()</b>
+&nbsp;        )
+&nbsp;
+&nbsp;    // Validaciones de informes hechas por el docente (se guardan en Room)
+<b class="nc">&nbsp;    val allValidations: StateFlow&lt;List&lt;ReportValidationEntity&gt;&gt; = validationDao.observeAll()</b>
+<b class="nc">&nbsp;        .stateIn(</b>
+<b class="nc">&nbsp;            scope = viewModelScope,</b>
+<b class="nc">&nbsp;            started = SharingStarted.WhileSubscribed(5000),</b>
+<b class="nc">&nbsp;            initialValue = emptyList()</b>
+&nbsp;        )
+&nbsp;
+&nbsp;    // Borradores de quiz guardados en Room (null = todavía cargando desde la base de datos)
+<b class="nc">&nbsp;    val allDrafts: StateFlow&lt;List&lt;QuizDraftEntity&gt;?&gt; = draftDao.observeAll()</b>
+<b class="nc">&nbsp;        .stateIn&lt;List&lt;QuizDraftEntity&gt;?&gt;(</b>
+<b class="nc">&nbsp;            scope = viewModelScope,</b>
+<b class="nc">&nbsp;            started = SharingStarted.Eagerly,</b>
+<b class="nc">&nbsp;            initialValue = null</b>
+&nbsp;        )
+&nbsp;
+&nbsp;    // El nombre se guarda en minúsculas para que &quot;Ana&quot; y &quot;ana&quot; sean el mismo estudiante
+<b class="nc">&nbsp;    private fun draftKey(studentName: String): String = studentName.trim().lowercase()</b>
+&nbsp;
+&nbsp;    // Guarda el avance del quiz en Room (se llama al pasar a la siguiente pregunta o al salir)
+&nbsp;    fun saveQuizProgress(
+&nbsp;        studentName: String,
+&nbsp;        subjectId: String,
+&nbsp;        questionIndex: Int,
+&nbsp;        correctAnswers: Int,
+&nbsp;        detailsLog: String
+&nbsp;    ) {
+<b class="nc">&nbsp;        viewModelScope.launch {</b>
+<b class="nc">&nbsp;            draftDao.upsertDraft(</b>
+<b class="nc">&nbsp;                QuizDraftEntity(</b>
+<b class="nc">&nbsp;                    studentName = draftKey(studentName),</b>
+<b class="nc">&nbsp;                    subjectId = subjectId,</b>
+<b class="nc">&nbsp;                    questionIndex = questionIndex,</b>
+<b class="nc">&nbsp;                    correctAnswers = correctAnswers,</b>
+<b class="nc">&nbsp;                    detailsLog = detailsLog</b>
+&nbsp;                )
+&nbsp;            )
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    // El docente valida el informe de un estudiante (queda su nombre, la fecha y cuántas evaluaciones tenía)
+&nbsp;    fun validateReport(studentName: String, teacherName: String, attemptsCount: Int) {
+<b class="nc">&nbsp;        viewModelScope.launch {</b>
+<b class="nc">&nbsp;            validationDao.upsertValidation(</b>
+<b class="nc">&nbsp;                ReportValidationEntity(</b>
+<b class="nc">&nbsp;                    studentName = draftKey(studentName),</b>
+<b class="nc">&nbsp;                    validatedBy = teacherName,</b>
+<b class="nc">&nbsp;                    validatedAt = System.currentTimeMillis(),</b>
+<b class="nc">&nbsp;                    attemptsAtValidation = attemptsCount</b>
+&nbsp;                )
+&nbsp;            )
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    fun revokeReportValidation(studentName: String) {
+<b class="nc">&nbsp;        viewModelScope.launch {</b>
+<b class="nc">&nbsp;            validationDao.deleteValidation(draftKey(studentName))</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    // Guardar intento con desglose completo de preguntas
+&nbsp;    fun saveAttempt(
+&nbsp;        studentName: String,
+&nbsp;        subjectId: String,
+&nbsp;        isCorrect: Boolean,
+&nbsp;        score: Int,
+&nbsp;        totalQuestions: Int,
+&nbsp;        detailsSummary: String,
+&nbsp;        onLimitReached: () -&gt; Unit,
+&nbsp;        onSuccess: () -&gt; Unit
+&nbsp;    ) {
+<b class="nc">&nbsp;        viewModelScope.launch {</b>
+<b class="nc">&nbsp;            val previousAttempts = progressDao.getAttemptCountForSubject(studentName, subjectId)</b>
+&nbsp;
+<b class="nc">&nbsp;            if (previousAttempts &gt;= 2) {</b>
+<b class="nc">&nbsp;                draftDao.deleteDraft(draftKey(studentName), subjectId)</b>
+<b class="nc">&nbsp;                onLimitReached()</b>
+&nbsp;                return@launch
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            val nextAttemptNumber = previousAttempts + 1</b>
+<b class="nc">&nbsp;            val attempt = StudentAttemptEntity(</b>
+<b class="nc">&nbsp;                studentName = studentName,</b>
+<b class="nc">&nbsp;                subjectId = subjectId,</b>
+<b class="nc">&nbsp;                attemptNumber = nextAttemptNumber,</b>
+<b class="nc">&nbsp;                score = score,</b>
+<b class="nc">&nbsp;                totalQuestions = totalQuestions,</b>
+<b class="nc">&nbsp;                isCorrect = isCorrect,</b>
+<b class="nc">&nbsp;                detailsSummary = detailsSummary</b>
+&nbsp;            )
+<b class="nc">&nbsp;            progressDao.insertAttempt(attempt)</b>
+<b class="nc">&nbsp;            draftDao.deleteDraft(draftKey(studentName), subjectId)</b>
+<b class="nc">&nbsp;            onSuccess()</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    // Desbloquear Asignatura para permitir nuevos intentos al estudiante
+&nbsp;    fun unlockSubject(studentName: String, subjectId: String) {
+<b class="nc">&nbsp;        viewModelScope.launch {</b>
+<b class="nc">&nbsp;            progressDao.unlockSubjectForStudent(studentName, subjectId)</b>
+<b class="nc">&nbsp;            draftDao.deleteDraft(draftKey(studentName), subjectId)</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    fun registerStudent(
+&nbsp;        fullName: String,
+&nbsp;        username: String,
+&nbsp;        pin: String,
+&nbsp;        onResult: (Boolean, String) -&gt; Unit
+&nbsp;    ) {
+<b class="nc">&nbsp;        val cleanUser = username.trim().uppercase()</b>
+&nbsp;
+<b class="nc">&nbsp;        if (fullName.isBlank() || cleanUser.isBlank() || pin.length != 4) {</b>
+<b class="nc">&nbsp;            onResult(false, &quot;Completa todos los campos. El PIN debe ser de 4 dígitos.&quot;)</b>
+&nbsp;            return
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        viewModelScope.launch {</b>
+<b class="nc">&nbsp;            val existingStudent = studentDao.getStudentByUsername(cleanUser)</b>
+<b class="nc">&nbsp;            if (existingStudent != null) {</b>
+<b class="nc">&nbsp;                onResult(false, &quot;¡El código de usuario &#39;$cleanUser&#39; ya está registrado!&quot;)</b>
+&nbsp;                return@launch
+&nbsp;            }
+&nbsp;
+<b class="nc">&nbsp;            val newStudent = StudentEntity(</b>
+<b class="nc">&nbsp;                fullName = fullName.trim(),</b>
+<b class="nc">&nbsp;                username = cleanUser,</b>
+<b class="nc">&nbsp;                pin = pin.trim()</b>
+&nbsp;            )
+<b class="nc">&nbsp;            studentDao.insertStudent(newStudent)</b>
+<b class="nc">&nbsp;            onResult(true, &quot;Estudiante registrado con éxito.&quot;)</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    suspend fun validateStudent(username: String, pin: String): StudentEntity? {
+<b class="nc">&nbsp;        return studentDao.loginStudent(username.trim().uppercase(), pin.trim())</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-11-25 01:37</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,456 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > ContentSeed</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">cl.duoc.mpazest3.data.local.seed</a>
+</div>
+
+<h1>Coverage Summary for Class: ContentSeed (cl.duoc.mpazest3.data.local.seed)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ContentSeed</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (302/302)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package cl.duoc.mpazest3.data.local.seed
+&nbsp;// Desarrollado por: Camilo Alarcón
+&nbsp;import cl.duoc.mpazest3.data.local.entity.LearningObjectiveEntity
+&nbsp;import cl.duoc.mpazest3.data.local.entity.QuestionEntity
+&nbsp;import cl.duoc.mpazest3.model.ContentStatus
+&nbsp;
+&nbsp;/**
+&nbsp; * Contenido inicial (semilla) de la app: 8 Objetivos de Aprendizaje (2 por asignatura)
+&nbsp; * y 24 preguntas (3 por OA: básico, intermedio y avanzado).
+&nbsp; * Es contenido propio del grupo, pendiente de autorización de UTP.
+&nbsp; * Se guarda en Room la primera vez que se abre la app (ver ContentRepository.ensureSeeded).
+&nbsp; */
+&nbsp;object ContentSeed {
+&nbsp;
+<b class="fc">&nbsp;    val objectives: List&lt;LearningObjectiveEntity&gt; = listOf(</b>
+<b class="fc">&nbsp;        LearningObjectiveEntity(</b>
+<b class="fc">&nbsp;            code = &quot;MA03 OA 08&quot;,</b>
+<b class="fc">&nbsp;            subjectId = &quot;1&quot;,</b>
+<b class="fc">&nbsp;            unitName = &quot;Tablas de multiplicar y cálculo&quot;,</b>
+<b class="fc">&nbsp;            title = &quot;Tablas de multiplicar&quot;,</b>
+<b class="fc">&nbsp;            summary = &quot;Multiplicar es sumar muchas veces el mismo número. Por ejemplo, 3 × 4 significa 3 veces 4, o sea 4 + 4 + 4 = 12. Las tablas de multiplicar nos ayudan a calcular rápido. Si sabes que 2 × 5 = 10, también sabes que 5 × 2 = 10: el orden no cambia el resultado.&quot;,</b>
+<b class="fc">&nbsp;            status = ContentStatus.PENDIENTE</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        LearningObjectiveEntity(</b>
+<b class="fc">&nbsp;            code = &quot;MA03 OA 04&quot;,</b>
+<b class="fc">&nbsp;            subjectId = &quot;1&quot;,</b>
+<b class="fc">&nbsp;            unitName = &quot;Tablas de multiplicar y cálculo&quot;,</b>
+<b class="fc">&nbsp;            title = &quot;Sumas y restas con números grandes&quot;,</b>
+<b class="fc">&nbsp;            summary = &quot;Para sumar números grandes, puedes separarlos en centenas, decenas y unidades. Por ejemplo, en 126 + 138 primero sumas 100 + 100 = 200, y luego 26 + 38 = 64. El total es 264. Para restar, piensa cuánto queda. Si había 350 y se entregan 125, al restar quedan 225.&quot;,</b>
+<b class="fc">&nbsp;            status = ContentStatus.PENDIENTE</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        LearningObjectiveEntity(</b>
+<b class="fc">&nbsp;            code = &quot;LE03 OA 04&quot;,</b>
+<b class="fc">&nbsp;            subjectId = &quot;2&quot;,</b>
+<b class="fc">&nbsp;            unitName = &quot;Comprensión lectora&quot;,</b>
+<b class="fc">&nbsp;            title = &quot;Comprensión de narraciones&quot;,</b>
+<b class="fc">&nbsp;            summary = &quot;Una narración cuenta una historia con personajes, un lugar y sucesos. Para comprenderla, pregúntate: ¿quién es el personaje?, ¿dónde ocurre?, ¿qué pasó primero y qué pasó después? A veces el texto no dice todo. Entonces debes pensar en lo que hace un personaje para saber cómo es.&quot;,</b>
+<b class="fc">&nbsp;            readingTitle = &quot;Tulia y el río&quot;,</b>
+<b class="fc">&nbsp;            readingText = &quot;Tulia era una tortuga pequeña que vivía junto a un río. Todas las mañanas caminaba despacio hasta la orilla para saludar a las hormigas. Un día, las hormigas estaban tristes porque el puente de ramas se había roto y no podían cruzar a buscar comida. Tulia pensó un momento. Juntó hojas grandes y las amarró con pasto hasta armar una balsa. Las hormigas subieron y cruzaron el río. Esa tarde, Tulia se sintió muy orgullosa de haber ayudado.&quot;,</b>
+<b class="fc">&nbsp;            status = ContentStatus.PENDIENTE</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        LearningObjectiveEntity(</b>
+<b class="fc">&nbsp;            code = &quot;LE03 OA 06&quot;,</b>
+<b class="fc">&nbsp;            subjectId = &quot;2&quot;,</b>
+<b class="fc">&nbsp;            unitName = &quot;Comprensión lectora&quot;,</b>
+<b class="fc">&nbsp;            title = &quot;Comprensión de textos informativos&quot;,</b>
+<b class="fc">&nbsp;            summary = &quot;Un texto informativo nos enseña datos reales sobre un tema. Para comprenderlo, busca la información que aparece en el texto, como nombres y datos. La idea principal es lo más importante que dice todo el texto, no solo una parte.&quot;,</b>
+<b class="fc">&nbsp;            readingTitle = &quot;Las abejas&quot;,</b>
+<b class="fc">&nbsp;            readingText = &quot;Las abejas son insectos muy importantes. Viven en grupos llamados colmenas, donde cada una tiene un trabajo: algunas cuidan a las crías, otras limpian y otras salen a buscar néctar de las flores. Con el néctar fabrican miel. Al pasar de flor en flor, las abejas también llevan polen, y así ayudan a que las plantas den frutos y semillas. Por eso, cuidar a las abejas es cuidar la naturaleza.&quot;,</b>
+<b class="fc">&nbsp;            status = ContentStatus.PENDIENTE</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        LearningObjectiveEntity(</b>
+<b class="fc">&nbsp;            code = &quot;CN03 OA 01&quot;,</b>
+<b class="fc">&nbsp;            subjectId = &quot;3&quot;,</b>
+<b class="fc">&nbsp;            unitName = &quot;Plantas y alimentación saludable&quot;,</b>
+<b class="fc">&nbsp;            title = &quot;Las plantas y lo que necesitan&quot;,</b>
+<b class="fc">&nbsp;            summary = &quot;Las plantas son seres vivos y necesitan agua, luz del sol y aire para vivir. La raíz toma el agua de la tierra. El tallo la lleva hacia arriba y sostiene la planta. Las hojas reciben la luz del sol. Sin luz o sin agua, la planta se debilita y sus hojas pueden ponerse amarillas.&quot;,</b>
+<b class="fc">&nbsp;            status = ContentStatus.PENDIENTE</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        LearningObjectiveEntity(</b>
+<b class="fc">&nbsp;            code = &quot;CN03 OA 06&quot;,</b>
+<b class="fc">&nbsp;            subjectId = &quot;3&quot;,</b>
+<b class="fc">&nbsp;            unitName = &quot;Plantas y alimentación saludable&quot;,</b>
+<b class="fc">&nbsp;            title = &quot;Alimentos y hábitos saludables&quot;,</b>
+<b class="fc">&nbsp;            summary = &quot;Los alimentos se pueden clasificar en grupos: frutas y verduras; lácteos, como leche, yogur y queso; carnes y huevos; legumbres, como las lentejas; cereales, como el arroz y el pan; y grasas. Comer variado, tomar agua y comer frutas y verduras todos los días ayuda a cuidar la salud. También debemos lavarnos las manos antes de comer.&quot;,</b>
+<b class="fc">&nbsp;            status = ContentStatus.PENDIENTE</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        LearningObjectiveEntity(</b>
+<b class="fc">&nbsp;            code = &quot;HI03 OA 07&quot;,</b>
+<b class="fc">&nbsp;            subjectId = &quot;4&quot;,</b>
+<b class="fc">&nbsp;            unitName = &quot;Ubicarnos en el espacio&quot;,</b>
+<b class="fc">&nbsp;            title = &quot;Hemisferios, continentes y océanos&quot;,</b>
+<b class="fc">&nbsp;            summary = &quot;La Tierra se puede ver en un mapa o en un globo terráqueo. El Ecuador es una línea imaginaria que divide la Tierra en dos partes: el hemisferio norte y el hemisferio sur. Los polos son los puntos más al norte y más al sur del planeta. En la Tierra hay continentes, que son grandes extensiones de tierra, y océanos, que son grandes extensiones de agua. Chile está en América del Sur, y su costa está junto al océano Pacífico.&quot;,</b>
+<b class="fc">&nbsp;            status = ContentStatus.PENDIENTE</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        LearningObjectiveEntity(</b>
+<b class="fc">&nbsp;            code = &quot;HI03 OA 08&quot;,</b>
+<b class="fc">&nbsp;            subjectId = &quot;4&quot;,</b>
+<b class="fc">&nbsp;            unitName = &quot;Ubicarnos en el espacio&quot;,</b>
+<b class="fc">&nbsp;            title = &quot;Zonas climáticas y paisajes&quot;,</b>
+<b class="fc">&nbsp;            summary = &quot;En la Tierra hay zonas con distinto clima. En la zona cálida hace calor casi todo el año y hay, por ejemplo, selvas. En la zona templada hay cuatro estaciones: verano, otoño, invierno y primavera. En la zona polar hace mucho frío y hay hielo. El clima influye en el paisaje, en las plantas y en los animales de cada lugar.&quot;,</b>
+<b class="fc">&nbsp;            status = ContentStatus.PENDIENTE</b>
+&nbsp;        ),
+&nbsp;    )
+&nbsp;
+<b class="fc">&nbsp;    val questions: List&lt;QuestionEntity&gt; = listOf(</b>
+<b class="fc">&nbsp;        QuestionEntity(</b>
+<b class="fc">&nbsp;            id = 1,</b>
+<b class="fc">&nbsp;            objectiveCode = &quot;MA03 OA 08&quot;,</b>
+<b class="fc">&nbsp;            difficulty = 1,</b>
+<b class="fc">&nbsp;            statement = &quot;¿Cuánto es 5 × 3?&quot;,</b>
+<b class="fc">&nbsp;            optionA = &quot;8&quot;,</b>
+<b class="fc">&nbsp;            optionB = &quot;15&quot;,</b>
+<b class="fc">&nbsp;            optionC = &quot;12&quot;,</b>
+<b class="fc">&nbsp;            correctIndex = 1,</b>
+<b class="fc">&nbsp;            explanation = &quot;5 × 3 es 3 + 3 + 3 + 3 + 3, que da 15.&quot;</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        QuestionEntity(</b>
+<b class="fc">&nbsp;            id = 2,</b>
+<b class="fc">&nbsp;            objectiveCode = &quot;MA03 OA 08&quot;,</b>
+<b class="fc">&nbsp;            difficulty = 2,</b>
+<b class="fc">&nbsp;            statement = &quot;Hay 4 bolsas con 6 manzanas cada una. ¿Cuántas manzanas hay en total?&quot;,</b>
+<b class="fc">&nbsp;            optionA = &quot;10&quot;,</b>
+<b class="fc">&nbsp;            optionB = &quot;24&quot;,</b>
+<b class="fc">&nbsp;            optionC = &quot;18&quot;,</b>
+<b class="fc">&nbsp;            correctIndex = 1,</b>
+<b class="fc">&nbsp;            explanation = &quot;Son 4 veces 6: 4 × 6 = 24.&quot;</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        QuestionEntity(</b>
+<b class="fc">&nbsp;            id = 3,</b>
+<b class="fc">&nbsp;            objectiveCode = &quot;MA03 OA 08&quot;,</b>
+<b class="fc">&nbsp;            difficulty = 3,</b>
+<b class="fc">&nbsp;            statement = &quot;¿Qué número falta? 7 × ___ = 56&quot;,</b>
+<b class="fc">&nbsp;            optionA = &quot;7&quot;,</b>
+<b class="fc">&nbsp;            optionB = &quot;9&quot;,</b>
+<b class="fc">&nbsp;            optionC = &quot;8&quot;,</b>
+<b class="fc">&nbsp;            correctIndex = 2,</b>
+<b class="fc">&nbsp;            explanation = &quot;Porque 7 × 8 = 56.&quot;</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        QuestionEntity(</b>
+<b class="fc">&nbsp;            id = 4,</b>
+<b class="fc">&nbsp;            objectiveCode = &quot;MA03 OA 04&quot;,</b>
+<b class="fc">&nbsp;            difficulty = 1,</b>
+<b class="fc">&nbsp;            statement = &quot;¿Cuánto es 45 + 30?&quot;,</b>
+<b class="fc">&nbsp;            optionA = &quot;65&quot;,</b>
+<b class="fc">&nbsp;            optionB = &quot;75&quot;,</b>
+<b class="fc">&nbsp;            optionC = &quot;85&quot;,</b>
+<b class="fc">&nbsp;            correctIndex = 1,</b>
+<b class="fc">&nbsp;            explanation = &quot;45 más 30 es 75.&quot;</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        QuestionEntity(</b>
+<b class="fc">&nbsp;            id = 5,</b>
+<b class="fc">&nbsp;            objectiveCode = &quot;MA03 OA 04&quot;,</b>
+<b class="fc">&nbsp;            difficulty = 2,</b>
+<b class="fc">&nbsp;            statement = &quot;¿Cuánto es 126 + 138?&quot;,</b>
+<b class="fc">&nbsp;            optionA = &quot;254&quot;,</b>
+<b class="fc">&nbsp;            optionB = &quot;264&quot;,</b>
+<b class="fc">&nbsp;            optionC = &quot;274&quot;,</b>
+<b class="fc">&nbsp;            correctIndex = 1,</b>
+<b class="fc">&nbsp;            explanation = &quot;100 + 100 = 200 y 26 + 38 = 64. Entonces el total es 264.&quot;</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        QuestionEntity(</b>
+<b class="fc">&nbsp;            id = 6,</b>
+<b class="fc">&nbsp;            objectiveCode = &quot;MA03 OA 04&quot;,</b>
+<b class="fc">&nbsp;            difficulty = 3,</b>
+<b class="fc">&nbsp;            statement = &quot;En una biblioteca había 350 libros. Prestaron 125. ¿Cuántos libros quedan?&quot;,</b>
+<b class="fc">&nbsp;            optionA = &quot;225&quot;,</b>
+<b class="fc">&nbsp;            optionB = &quot;235&quot;,</b>
+<b class="fc">&nbsp;            optionC = &quot;475&quot;,</b>
+<b class="fc">&nbsp;            correctIndex = 0,</b>
+<b class="fc">&nbsp;            explanation = &quot;Prestar significa que salen libros, así que se resta: 350 − 125 = 225.&quot;</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        QuestionEntity(</b>
+<b class="fc">&nbsp;            id = 7,</b>
+<b class="fc">&nbsp;            objectiveCode = &quot;LE03 OA 04&quot;,</b>
+<b class="fc">&nbsp;            difficulty = 1,</b>
+<b class="fc">&nbsp;            statement = &quot;¿Dónde vivía Tulia?&quot;,</b>
+<b class="fc">&nbsp;            optionA = &quot;En el mar&quot;,</b>
+<b class="fc">&nbsp;            optionB = &quot;Junto a un río&quot;,</b>
+<b class="fc">&nbsp;            optionC = &quot;En un bosque oscuro&quot;,</b>
+<b class="fc">&nbsp;            correctIndex = 1,</b>
+<b class="fc">&nbsp;            explanation = &quot;El texto lo dice al comienzo: vivía junto a un río.&quot;</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        QuestionEntity(</b>
+<b class="fc">&nbsp;            id = 8,</b>
+<b class="fc">&nbsp;            objectiveCode = &quot;LE03 OA 04&quot;,</b>
+<b class="fc">&nbsp;            difficulty = 2,</b>
+<b class="fc">&nbsp;            statement = &quot;¿Qué hizo Tulia después de pensar un momento?&quot;,</b>
+<b class="fc">&nbsp;            optionA = &quot;Se fue a dormir&quot;,</b>
+<b class="fc">&nbsp;            optionB = &quot;Cruzó el río nadando&quot;,</b>
+<b class="fc">&nbsp;            optionC = &quot;Juntó hojas grandes para armar una balsa&quot;,</b>
+<b class="fc">&nbsp;            correctIndex = 2,</b>
+<b class="fc">&nbsp;            explanation = &quot;Después de pensar, Tulia juntó hojas y armó una balsa.&quot;</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        QuestionEntity(</b>
+<b class="fc">&nbsp;            id = 9,</b>
+<b class="fc">&nbsp;            objectiveCode = &quot;LE03 OA 04&quot;,</b>
+<b class="fc">&nbsp;            difficulty = 3,</b>
+<b class="fc">&nbsp;            statement = &quot;¿Cómo es Tulia?&quot;,</b>
+<b class="fc">&nbsp;            optionA = &quot;Egoísta, porque solo piensa en ella&quot;,</b>
+<b class="fc">&nbsp;            optionB = &quot;Solidaria, porque ayuda a las hormigas&quot;,</b>
+<b class="fc">&nbsp;            optionC = &quot;Miedosa, porque no quiere cruzar&quot;,</b>
+<b class="fc">&nbsp;            correctIndex = 1,</b>
+<b class="fc">&nbsp;            explanation = &quot;El texto no lo dice con esa palabra. Lo sabemos porque Tulia ayudó a las hormigas.&quot;</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        QuestionEntity(</b>
+<b class="fc">&nbsp;            id = 10,</b>
+<b class="fc">&nbsp;            objectiveCode = &quot;LE03 OA 06&quot;,</b>
+<b class="fc">&nbsp;            difficulty = 1,</b>
+<b class="fc">&nbsp;            statement = &quot;¿Cómo se llaman los grupos donde viven las abejas?&quot;,</b>
+<b class="fc">&nbsp;            optionA = &quot;Colmenas&quot;,</b>
+<b class="fc">&nbsp;            optionB = &quot;Nidos&quot;,</b>
+<b class="fc">&nbsp;            optionC = &quot;Madrigueras&quot;,</b>
+<b class="fc">&nbsp;            correctIndex = 0,</b>
+<b class="fc">&nbsp;            explanation = &quot;El texto dice que viven en grupos llamados colmenas.&quot;</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        QuestionEntity(</b>
+<b class="fc">&nbsp;            id = 11,</b>
+<b class="fc">&nbsp;            objectiveCode = &quot;LE03 OA 06&quot;,</b>
+<b class="fc">&nbsp;            difficulty = 2,</b>
+<b class="fc">&nbsp;            statement = &quot;¿Para qué usan las abejas el néctar?&quot;,</b>
+<b class="fc">&nbsp;            optionA = &quot;Para fabricar miel&quot;,</b>
+<b class="fc">&nbsp;            optionB = &quot;Para construir su casa&quot;,</b>
+<b class="fc">&nbsp;            optionC = &quot;Para limpiar la colmena&quot;,</b>
+<b class="fc">&nbsp;            correctIndex = 0,</b>
+<b class="fc">&nbsp;            explanation = &quot;El texto dice que con el néctar fabrican miel.&quot;</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        QuestionEntity(</b>
+<b class="fc">&nbsp;            id = 12,</b>
+<b class="fc">&nbsp;            objectiveCode = &quot;LE03 OA 06&quot;,</b>
+<b class="fc">&nbsp;            difficulty = 3,</b>
+<b class="fc">&nbsp;            statement = &quot;¿Cuál es la idea principal del texto?&quot;,</b>
+<b class="fc">&nbsp;            optionA = &quot;Las abejas son insectos que viven en grupos&quot;,</b>
+<b class="fc">&nbsp;            optionB = &quot;Las abejas son importantes porque fabrican miel y ayudan a las plantas&quot;,</b>
+<b class="fc">&nbsp;            optionC = &quot;Las flores tienen néctar&quot;,</b>
+<b class="fc">&nbsp;            correctIndex = 1,</b>
+<b class="fc">&nbsp;            explanation = &quot;La idea principal reúne lo más importante de todo el texto. Las otras opciones son datos sueltos.&quot;</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        QuestionEntity(</b>
+<b class="fc">&nbsp;            id = 13,</b>
+<b class="fc">&nbsp;            objectiveCode = &quot;CN03 OA 01&quot;,</b>
+<b class="fc">&nbsp;            difficulty = 1,</b>
+<b class="fc">&nbsp;            statement = &quot;¿Qué necesita una planta para vivir?&quot;,</b>
+<b class="fc">&nbsp;            optionA = &quot;Agua, luz del sol y aire&quot;,</b>
+<b class="fc">&nbsp;            optionB = &quot;Solo azúcar y sombra&quot;,</b>
+<b class="fc">&nbsp;            optionC = &quot;Solo tierra seca y oscuridad&quot;,</b>
+<b class="fc">&nbsp;            correctIndex = 0,</b>
+<b class="fc">&nbsp;            explanation = &quot;Las plantas necesitan agua, luz del sol y aire.&quot;</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        QuestionEntity(</b>
+<b class="fc">&nbsp;            id = 14,</b>
+<b class="fc">&nbsp;            objectiveCode = &quot;CN03 OA 01&quot;,</b>
+<b class="fc">&nbsp;            difficulty = 2,</b>
+<b class="fc">&nbsp;            statement = &quot;¿Qué parte de la planta toma el agua desde la tierra?&quot;,</b>
+<b class="fc">&nbsp;            optionA = &quot;La raíz&quot;,</b>
+<b class="fc">&nbsp;            optionB = &quot;La hoja&quot;,</b>
+<b class="fc">&nbsp;            optionC = &quot;La flor&quot;,</b>
+<b class="fc">&nbsp;            correctIndex = 0,</b>
+<b class="fc">&nbsp;            explanation = &quot;La raíz está bajo la tierra y absorbe el agua.&quot;</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        QuestionEntity(</b>
+<b class="fc">&nbsp;            id = 15,</b>
+<b class="fc">&nbsp;            objectiveCode = &quot;CN03 OA 01&quot;,</b>
+<b class="fc">&nbsp;            difficulty = 3,</b>
+<b class="fc">&nbsp;            statement = &quot;Mateo dejó una planta dentro de un clóset oscuro y no la regó. A los pocos días, sus hojas se pusieron amarillas. ¿Por qué pasó esto?&quot;,</b>
+<b class="fc">&nbsp;            optionA = &quot;Porque le faltó luz y agua&quot;,</b>
+<b class="fc">&nbsp;            optionB = &quot;Porque tenía demasiada agua&quot;,</b>
+<b class="fc">&nbsp;            optionC = &quot;Porque la tierra era muy blanda&quot;,</b>
+<b class="fc">&nbsp;            correctIndex = 0,</b>
+<b class="fc">&nbsp;            explanation = &quot;Sin luz y sin agua la planta se debilita y las hojas cambian de color.&quot;</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        QuestionEntity(</b>
+<b class="fc">&nbsp;            id = 16,</b>
+<b class="fc">&nbsp;            objectiveCode = &quot;CN03 OA 06&quot;,</b>
+<b class="fc">&nbsp;            difficulty = 1,</b>
+<b class="fc">&nbsp;            statement = &quot;¿Cuál de estos alimentos es una fruta?&quot;,</b>
+<b class="fc">&nbsp;            optionA = &quot;Zanahoria&quot;,</b>
+<b class="fc">&nbsp;            optionB = &quot;Manzana&quot;,</b>
+<b class="fc">&nbsp;            optionC = &quot;Pan&quot;,</b>
+<b class="fc">&nbsp;            correctIndex = 1,</b>
+<b class="fc">&nbsp;            explanation = &quot;La manzana es una fruta. La zanahoria es una verdura y el pan es un cereal.&quot;</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        QuestionEntity(</b>
+<b class="fc">&nbsp;            id = 17,</b>
+<b class="fc">&nbsp;            objectiveCode = &quot;CN03 OA 06&quot;,</b>
+<b class="fc">&nbsp;            difficulty = 2,</b>
+<b class="fc">&nbsp;            statement = &quot;¿Qué alimento pertenece al grupo de los lácteos?&quot;,</b>
+<b class="fc">&nbsp;            optionA = &quot;Yogur&quot;,</b>
+<b class="fc">&nbsp;            optionB = &quot;Lentejas&quot;,</b>
+<b class="fc">&nbsp;            optionC = &quot;Arroz&quot;,</b>
+<b class="fc">&nbsp;            correctIndex = 0,</b>
+<b class="fc">&nbsp;            explanation = &quot;El yogur se hace con leche. Las lentejas son legumbres y el arroz es un cereal.&quot;</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        QuestionEntity(</b>
+<b class="fc">&nbsp;            id = 18,</b>
+<b class="fc">&nbsp;            objectiveCode = &quot;CN03 OA 06&quot;,</b>
+<b class="fc">&nbsp;            difficulty = 3,</b>
+<b class="fc">&nbsp;            statement = &quot;¿Qué hábito ayuda a tener una alimentación saludable?&quot;,</b>
+<b class="fc">&nbsp;            optionA = &quot;Comer frutas y verduras todos los días&quot;,</b>
+<b class="fc">&nbsp;            optionB = &quot;Tomar bebidas azucaradas en cada comida&quot;,</b>
+<b class="fc">&nbsp;            optionC = &quot;Saltarse el desayuno&quot;,</b>
+<b class="fc">&nbsp;            correctIndex = 0,</b>
+<b class="fc">&nbsp;            explanation = &quot;Las frutas y verduras aportan vitaminas y ayudan a cuidar el cuerpo.&quot;</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        QuestionEntity(</b>
+<b class="fc">&nbsp;            id = 19,</b>
+<b class="fc">&nbsp;            objectiveCode = &quot;HI03 OA 07&quot;,</b>
+<b class="fc">&nbsp;            difficulty = 1,</b>
+<b class="fc">&nbsp;            statement = &quot;¿Cómo se llama el océano que está junto a la costa de Chile?&quot;,</b>
+<b class="fc">&nbsp;            optionA = &quot;Atlántico&quot;,</b>
+<b class="fc">&nbsp;            optionB = &quot;Pacífico&quot;,</b>
+<b class="fc">&nbsp;            optionC = &quot;Índico&quot;,</b>
+<b class="fc">&nbsp;            correctIndex = 1,</b>
+<b class="fc">&nbsp;            explanation = &quot;Chile está junto al océano Pacífico.&quot;</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        QuestionEntity(</b>
+<b class="fc">&nbsp;            id = 20,</b>
+<b class="fc">&nbsp;            objectiveCode = &quot;HI03 OA 07&quot;,</b>
+<b class="fc">&nbsp;            difficulty = 2,</b>
+<b class="fc">&nbsp;            statement = &quot;¿Cómo se llama la línea imaginaria que divide la Tierra en hemisferio norte y hemisferio sur?&quot;,</b>
+<b class="fc">&nbsp;            optionA = &quot;Ecuador&quot;,</b>
+<b class="fc">&nbsp;            optionB = &quot;Trópico de Capricornio&quot;,</b>
+<b class="fc">&nbsp;            optionC = &quot;Polo Sur&quot;,</b>
+<b class="fc">&nbsp;            correctIndex = 0,</b>
+<b class="fc">&nbsp;            explanation = &quot;El Ecuador separa los dos hemisferios. El Polo Sur es un punto, no una línea.&quot;</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        QuestionEntity(</b>
+<b class="fc">&nbsp;            id = 21,</b>
+<b class="fc">&nbsp;            objectiveCode = &quot;HI03 OA 07&quot;,</b>
+<b class="fc">&nbsp;            difficulty = 3,</b>
+<b class="fc">&nbsp;            statement = &quot;Un barco parte de Chile y viaja siempre hacia el sur. ¿Hacia qué lugar de la Tierra se acerca?&quot;,</b>
+<b class="fc">&nbsp;            optionA = &quot;Al Polo Sur&quot;,</b>
+<b class="fc">&nbsp;            optionB = &quot;Al Polo Norte&quot;,</b>
+<b class="fc">&nbsp;            optionC = &quot;Al Ecuador&quot;,</b>
+<b class="fc">&nbsp;            correctIndex = 0,</b>
+<b class="fc">&nbsp;            explanation = &quot;Chile está en el hemisferio sur. Si se viaja siempre hacia el sur, se llega cerca del Polo Sur.&quot;</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        QuestionEntity(</b>
+<b class="fc">&nbsp;            id = 22,</b>
+<b class="fc">&nbsp;            objectiveCode = &quot;HI03 OA 08&quot;,</b>
+<b class="fc">&nbsp;            difficulty = 1,</b>
+<b class="fc">&nbsp;            statement = &quot;¿En qué zona climática hace mucho frío y hay hielo?&quot;,</b>
+<b class="fc">&nbsp;            optionA = &quot;Zona polar&quot;,</b>
+<b class="fc">&nbsp;            optionB = &quot;Zona cálida&quot;,</b>
+<b class="fc">&nbsp;            optionC = &quot;Zona templada&quot;,</b>
+<b class="fc">&nbsp;            correctIndex = 0,</b>
+<b class="fc">&nbsp;            explanation = &quot;En la zona polar hace mucho frío y hay hielo.&quot;</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        QuestionEntity(</b>
+<b class="fc">&nbsp;            id = 23,</b>
+<b class="fc">&nbsp;            objectiveCode = &quot;HI03 OA 08&quot;,</b>
+<b class="fc">&nbsp;            difficulty = 2,</b>
+<b class="fc">&nbsp;            statement = &quot;¿En qué zona climática hay cuatro estaciones bien marcadas?&quot;,</b>
+<b class="fc">&nbsp;            optionA = &quot;Zona polar&quot;,</b>
+<b class="fc">&nbsp;            optionB = &quot;Zona templada&quot;,</b>
+<b class="fc">&nbsp;            optionC = &quot;Zona cálida&quot;,</b>
+<b class="fc">&nbsp;            correctIndex = 1,</b>
+<b class="fc">&nbsp;            explanation = &quot;En la zona templada hay verano, otoño, invierno y primavera.&quot;</b>
+&nbsp;        ),
+<b class="fc">&nbsp;        QuestionEntity(</b>
+<b class="fc">&nbsp;            id = 24,</b>
+<b class="fc">&nbsp;            objectiveCode = &quot;HI03 OA 08&quot;,</b>
+<b class="fc">&nbsp;            difficulty = 3,</b>
+<b class="fc">&nbsp;            statement = &quot;Un paisaje tiene selva, mucha lluvia y calor casi todo el año. ¿A qué zona climática corresponde?&quot;,</b>
+<b class="fc">&nbsp;            optionA = &quot;Zona cálida&quot;,</b>
+<b class="fc">&nbsp;            optionB = &quot;Zona polar&quot;,</b>
+<b class="fc">&nbsp;            optionC = &quot;Zona templada&quot;,</b>
+<b class="fc">&nbsp;            correctIndex = 0,</b>
+<b class="fc">&nbsp;            explanation = &quot;Las selvas se encuentran en la zona cálida, donde hace calor y llueve mucho.&quot;</b>
+&nbsp;        ),
+&nbsp;    )
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2026-11-25 01:37</div>
+</div>
+</body>
+</html>
