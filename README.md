@@ -17,7 +17,7 @@ Aplicación móvil nativa Android diseñada para la Escuela Escritora Marcela Pa
 La solución digital reemplaza la gestión manual basada en guías impresas, permitiendo organizar contenidos por Objetivos de Aprendizaje (OA), ofrecer retroalimentación inmediata (respuestas correctas e incorrectas), brindar apoyos auditivos y visuales adaptados al ritmo de aprendizaje infantil, y generar un informe pedagógico reservado para el docente sin emitir diagnósticos académicos automáticos. La aplicación funciona tanto en modo offline (con datos semilla y persistencia local) como sincronizada con microservicios Spring Boot y APIs externas.
 
 ## Estructura del proyecto
-'''texto
+```text
     app/src/main/java/cl/duoc/mpazest3/
     ├── data/
     │   ├── local/
@@ -78,7 +78,7 @@ La solución digital reemplaza la gestión manual basada en guías impresas, per
     │   ├── SubjectViewModel.kt
     │   └── WeatherViewModel.kt
     └── MainActivity.kt
-'''
+```
 ## Tecnologías
 * **Lenguaje:** Kotlin
 * **Interfaz de Usuario:** Android Jetpack Compose & Material Design 3
